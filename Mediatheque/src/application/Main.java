@@ -21,7 +21,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("it works");
+		System.out.println("ca marche");
 		launch(args);
 	}
 }
