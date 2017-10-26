@@ -11,10 +11,10 @@ public class Pret {
 	private Date dateEffectiveRetour;
 	private Amende amende=null;
 	
-	public Pret(int intNoPret) {
-		super();
-		this.intNoPret = intNoPret;
-		this.datePret = new Date() ; 
+	public Pret() {
+		this.intNoPret = intCompteurNoPret;
+		intCompteurNoPret++;
+		this.datePret = new Date() ;
 	}
 
 }
