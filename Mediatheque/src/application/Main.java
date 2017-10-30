@@ -1,5 +1,8 @@
 package application;
 	
+import application.vue.InterfaceLoginAdherent;
+import application.vue.InterfaceLoginPrepose;
+import application.vue.InterfaceNouvelUtilisateur;
 import application.vue.InterfaceTypeConnection;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,10 +14,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			InterfaceTypeConnection IfLogin = new InterfaceTypeConnection();
+			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection();
+			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
+			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
+			InterfaceNouvelUtilisateur ifLogin = new InterfaceNouvelUtilisateur();
 			
-			primaryStage.setScene(IfLogin.getScene());
+			primaryStage.setScene(ifLogin.getScene());
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -25,4 +30,5 @@ public class Main extends Application {
 		System.out.println("ca marche");
 		launch(args);
 	}
+	
 }
