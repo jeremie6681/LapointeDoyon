@@ -17,7 +17,7 @@ public class InterfaceTypeConnection {
 	private Scene scene;
 	private Button btnAdherent;
 	private Button btnPrepose;
-	private Button btnNouvelUtilisateur;
+	//private Button btnNouvelUtilisateur;
 	
 	public InterfaceTypeConnection() {
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
@@ -48,11 +48,11 @@ public class InterfaceTypeConnection {
 		btnPrepose.setFont(fntBoutons);
 		
 		//modifications bouton ajouter nouvel utilisateur
-		btnNouvelUtilisateur = new Button("Créer un nouvel Utilisateur");
-		btnNouvelUtilisateur.setFont(fntBoutons);  
+		//btnNouvelUtilisateur = new Button("Créer un nouvel Utilisateur");
+		//btnNouvelUtilisateur.setFont(fntBoutons);  
 		
 		
-		hbBoutons.getChildren().addAll(btnAdherent,btnPrepose,btnNouvelUtilisateur);
+		hbBoutons.getChildren().addAll(btnAdherent,btnPrepose);
 		vb.getChildren().addAll(tflInstruction,hbBoutons);
 		scene = new Scene(vb);
 	}

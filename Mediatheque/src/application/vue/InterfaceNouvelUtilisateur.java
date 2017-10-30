@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -42,70 +43,62 @@ public class InterfaceNouvelUtilisateur {
 		Text txtInstruction= new Text("Création d'utilisateur");
 		btnRetour = new Button("retour");
 		//pour la box de création de préposés
-		VBox vbPrepose =new VBox(10) ;
-		HBox hbUtilisateur= new HBox(20);
-		HBox hbPwd= new HBox(20);
-		HBox hbConfirmerPwd= new HBox(20);
-		Label lblUtilisateurPrepose=new Label("Nom d'utilisateur :");
-		TextField tfUtilisateurPrepose = new TextField();
+		GridPane gpPrep= new GridPane();
 		Label lblPwd= new Label("Mot de passe :");
 		PasswordField pfPwd= new PasswordField();
 		Label lblConfirmerPwd= new Label("Confirmer Mot de passe :");
 		PasswordField pfConfirmerPwd= new PasswordField();
 		Text txtInstructionPrepose = new Text("Préposé");
-		//pour la box de creation adherent
-		VBox vbAdherent =new VBox(10) ;
-		HBox hbUtilisateurAdherent= new HBox(20);
-		Label lblUtilisateurAdherent=new Label("Nom d'utilisateur :");
-		TextField tfUtilisateurAdherent = new TextField();
-		Text txtInstructionAdherent = new Text("Adhérent");
+		//pour la box infos générals
+		GridPane gpInfos= new GridPane();
+		Label lblNom=new Label("Nom :");
+		TextField tfNom = new TextField();
+		Label lblPrenom=new Label("Prénom :");
+		TextField tfPrenom = new TextField();
+		Label lblAdresse=new Label("Adresse :");
+		TextField tfAdresse = new TextField();
+		Label lblNoTel=new Label("Numéros de Téléphone :");
+		TextField tfNoTel = new TextField();
+		Text txtInfos = new Text("Infos Générales");
 		
-		//Modifications FlowPane	
-		vb.setAlignment(Pos.CENTER);
-		vb.setPadding(new Insets(20));
+		txtInfos.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
+		
+		 gpInfos.add(txtInfos,1,0 );
+		gpInfos.add(lblNom,1, 2);
+		gpInfos.add(lblPrenom,1, 3);
+		gpInfos.add(lblAdresse,1, 4);
+		gpInfos.add(lblNoTel,1, 5);
+		gpInfos.add(tfNom,2, 2);
+		gpInfos.add(tfPrenom,2, 3);
+		gpInfos.add(tfAdresse,2, 4);
+		gpInfos.add(tfNoTel,2, 5);
+		gpInfos.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		gpInfos.setHgap(10);
+		gpInfos.setVgap(10);
+		gpInfos.setPadding(new Insets(20));
 		
 		
-		//modifications vbPrepose
-		vbPrepose.setPadding(new Insets(20));
-		vbPrepose.setAlignment(Pos.CENTER);
-		vbPrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
 		
 		//modifications txtInstructionPrepose
-		txtInstructionPrepose.setFont(Font.font("Arial",FontWeight.NORMAL,FontPosture.REGULAR, 16));
-
+		txtInstructionPrepose.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
 		
-		//modifications hbUtilisateur
-		hbUtilisateur.setAlignment(Pos.CENTER_LEFT);
-		
-		//modification hbPwd
-		hbPwd.setAlignment(Pos.CENTER_LEFT);
-		
-		//modification hbConfirmerPwd
-		hbConfirmerPwd.setAlignment(Pos.CENTER_LEFT); 
-		
-		hbUtilisateur.getChildren().addAll(lblUtilisateurPrepose,tfUtilisateurPrepose);
-		hbPwd.getChildren().addAll(lblPwd,pfPwd);
-		hbConfirmerPwd.getChildren().addAll(lblConfirmerPwd,pfConfirmerPwd);
-		vbPrepose.getChildren().addAll(txtInstructionPrepose,hbUtilisateur,hbPwd,hbConfirmerPwd);
+		gpPrep.add(txtInstructionPrepose,1,0);
+		gpPrep.add(lblPwd,1,2);
+		gpPrep.add(lblConfirmerPwd,1,3);
+		gpPrep.add(pfPwd,2,2);
+		gpPrep.add(pfConfirmerPwd,2,3);
+		gpPrep.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		gpPrep.setHgap(10);
+		gpPrep.setVgap(10);
+		gpPrep.setPadding(new Insets(20));
 		
 		
 		
-		//modifications vbAdherent
-		vbAdherent.setPadding(new Insets(20));
-		vbAdherent.setAlignment(Pos.CENTER);
-		vbAdherent.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
-		//modifications txtInstructionAdherent
-		txtInstructionAdherent.setFont(Font.font("Arial",FontWeight.NORMAL,FontPosture.REGULAR, 16));
-
-		//modifications hbUtilisateurAdherent
-		hbUtilisateurAdherent.setAlignment(Pos.CENTER_LEFT);
-
-
-		hbUtilisateurAdherent.getChildren().addAll(lblUtilisateurAdherent,tfUtilisateurAdherent);
-		vbAdherent.getChildren().addAll(txtInstructionAdherent,hbUtilisateurAdherent);
-		
-		
+		//Modifications vb	
+		vb.setAlignment(Pos.CENTER);
+		vb.setPadding(new Insets(20));
 		
 		//vbRadioButton
 		vbRadioButtons.setPadding(new Insets(20));
@@ -124,7 +117,7 @@ public class InterfaceNouvelUtilisateur {
 		rbPrepose.setToggleGroup(tgType);
 		
 		vbRadioButtons.getChildren().addAll(txtInstructionRadio,rbAdherent,rbPrepose);
-		vb.getChildren().addAll(txtInstruction,vbRadioButtons,vbPrepose,vbAdherent,btnConfirmer,btnRetour);
+		vb.getChildren().addAll(txtInstruction,vbRadioButtons,gpInfos,gpPrep,btnConfirmer,btnRetour);
 		scene = new Scene(vb);
 		
 	}
