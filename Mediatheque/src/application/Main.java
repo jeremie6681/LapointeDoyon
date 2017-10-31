@@ -18,6 +18,7 @@ public class Main extends Application {
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			InterfaceNouvelUtilisateur ifLogin = new InterfaceNouvelUtilisateur();
+			//Philippe
 			
 			primaryStage.setScene(ifLogin.getScene());
 			primaryStage.show();
