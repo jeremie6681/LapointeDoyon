@@ -15,9 +15,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection();
-			InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
+			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
-
+			InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			
 			primaryStage.setScene(ifLogin.getScene());
 			primaryStage.show();

@@ -63,7 +63,7 @@ public class InterfaceNouvelUtilisateur {
 		
 		txtInfos.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
 		
-		 gpInfos.add(txtInfos,1,0 );
+		gpInfos.add(txtInfos,1,0 );
 		gpInfos.add(lblNom,1, 2);
 		gpInfos.add(lblPrenom,1, 3);
 		gpInfos.add(lblAdresse,1, 4);
@@ -116,8 +116,13 @@ public class InterfaceNouvelUtilisateur {
 		rbAdherent.setToggleGroup(tgType);
 		rbPrepose.setToggleGroup(tgType);
 		
+		//radio buttons 
+		rbAdherent.setSelected(true);
+		
 		vbRadioButtons.getChildren().addAll(txtInstructionRadio,rbAdherent,rbPrepose);
 		vb.getChildren().addAll(txtInstruction,vbRadioButtons,gpInfos,gpPrep,btnConfirmer,btnRetour);
+		vb.getChildren().remove(3);
+		
 		scene = new Scene(vb);
 		
 	}
