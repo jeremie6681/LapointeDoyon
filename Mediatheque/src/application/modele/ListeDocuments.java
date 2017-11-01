@@ -83,7 +83,8 @@ public final class ListeDocuments {
 		}
 		
 		
-		lstDocument.forEach(System.out :: println);
+		//lstDocument.forEach(System.out :: println);
+		//if(lstDocument.get(0).
 	}
 	
 	private void Serialisation() {
