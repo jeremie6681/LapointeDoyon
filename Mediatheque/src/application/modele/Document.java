@@ -19,4 +19,10 @@ public class Document {
 		this.dateParution = dateParution;
 		this.etatDoc = etatDoc;
 	}
+
+
+	public void setLstMots(String strMotCle) {
+		lstMots.add(strMotCle);
+	}
+
 }
