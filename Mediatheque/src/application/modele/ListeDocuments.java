@@ -1,79 +1,89 @@
 package application.modele;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Matcher;
 
-public class ListeDocuments {
+public final class ListeDocuments {
 	private final String strNomFichierDVD = "Donnee/DVD.txt";
 	private final String strNomFichierLivre = "Donnee/Livres.txt";
 	private final String strNomFichierPeriodique = "Donnee/Periodiques.txt";
-	
-	//private final String strNomFichierDVDSerialiser = "DVD.ser";
+	private final String strNomFichierSerialiser = "Donnee/Serialiser.ser";
 	
 	public ArrayList<Document> lstDocument = new ArrayList<>();
+	
+	private static ListeDocuments instanceDoc = new ListeDocuments();
 	
 	public ListeDocuments() {
 		//si pas de fichier sérialiser touver
 		
-		LectureFichierOriginal();
+		File fichierSerialiser = new File(strNomFichierSerialiser);
+		
+		//S'il y a eu déjà une sérialisation
+		if(fichierSerialiser.exists()) {
+			Deserialisation();
+		}
+		else {
+			LectureFichierOriginal();
+		}	
 	}
 	
 	private void LectureFichierOriginal() {
-		//Lecture fichier DVD
-		BufferedReader brFichier = null;
-		try {
-			//brFichier = new BufferedReader(new FileReader(strNomFichierDVD));
-			brFichier = new BufferedReader(new FileReader(strNomFichierLivre));
-		} catch (FileNotFoundException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-		String strLigne;
-		
-		try {
-			while ((strLigne = brFichier.readLine()) != null) {
-				//S'il y a des mots clé pour le document
-				if(strLigne.matches(";")) {
-					
+		//Lecture fichier (0 = dvd, 1 = livre, 2 = periodique)
+		for(int intTypeDocument = 0; intTypeDocument < 3;intTypeDocument++) {
+			BufferedReader brFichier = null;
+			try {
+				if(intTypeDocument == 0) {
+					brFichier = new BufferedReader(new FileReader(strNomFichierDVD));
 				}
-				//Pas de mot clé
+				else if (intTypeDocument == 1) {
+					brFichier = new BufferedReader(new FileReader(strNomFichierLivre));
+				}
 				else {
-					
+					brFichier = new BufferedReader(new FileReader(strNomFichierPeriodique));
 				}
 				
-				
-				
-				
-				
-				
-				
-				System.out.println(strLigne);
-				String[] tabLigne = strLigne.split(";");
-				String[] tabInfoDoc = tabLigne[0].split(",");
-				String[] tabMotCle = tabLigne[1].split(",");
-				
-				DateFormat dfDocument = new SimpleDateFormat("dd-MM-yyyy");
-				Date dateDocument = dfDocument.parse(tabInfoDoc[2]);
-				
-				//DVD objDVD = new DVD(tabInfoDoc[0], tabInfoDoc[1], dateDocument , Etat.DISPONIBLE, Short.parseShort(tabInfoDoc[3]), tabInfoDoc[4]);
-				//lstDocument.add(objDVD);
-				
-				Livre objLivre = new Livre(tabInfoDoc[0], tabInfoDoc[1], dateDocument, Etat.DISPONIBLE, tabInfoDoc[3]);
-				lstDocument.add(objLivre);
-				
+			} catch (FileNotFoundException e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+			
+			String strLigne;
+			
+			try {
+				while ((strLigne = brFichier.readLine()) != null) {
+					String[] tabLigne = strLigne.split(",");
+					
+					DateFormat dfDocument = new SimpleDateFormat("dd-MM-yyyy");
+					Date dateDocument = dfDocument.parse(tabLigne[2]);
+					
+					//Crée le document et l'ajoute dans la liste selon son type
+					if(intTypeDocument == 0) {
+						DVD objDVD = new DVD(tabLigne[0], tabLigne[1], dateDocument , Etat.DISPONIBLE, Short.parseShort(tabLigne[3].trim()), tabLigne[4]);
+						lstDocument.add(objDVD);
+					}
+					else if (intTypeDocument == 1) {
+						Livre objLivre = new Livre(tabLigne[0], tabLigne[1], dateDocument, Etat.DISPONIBLE, tabLigne[3]);
+						lstDocument.add(objLivre);
+					}
+					else {
+						Periodique objPeriodique = new Periodique(tabLigne[0], tabLigne[1], dateDocument, Etat.DISPONIBLE, Integer.parseInt(tabLigne[3].trim()), Integer.parseInt(tabLigne[4].trim()));
+						lstDocument.add(objPeriodique);
+					}	
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
 		
-		//lstDocument.forEach(System.out :: println);
+		
+		lstDocument.forEach(System.out :: println);
 	}
 	
 	private void Serialisation() {
@@ -82,5 +92,9 @@ public class ListeDocuments {
 	
 	private void Deserialisation() {
 		
+	}
+	
+	public static ListeDocuments getInstance() {
+		return instanceDoc;
 	}
 }
