@@ -1,0 +1,10 @@
+DVD01,Le Confessionnal,12-12-2008,2,Lepage Robert;confessionnal,lepage,robert
+DVD02,La Loi de l'eau,21-09-2002,1, Monderie Robert;loi,eau,monderie,robert
+DVD03,L'illusion tranquille,21-01-2005,2,Julien Denis;illusion,tranquille,julien,denis
+DVD04,Les Enfants du paradis, 21-12-2006,2,Marcel Carne;enfants,enfant,paradis,marcel,carne
+DVD05,Jeux de pouvoir, 12-12-2006,2, Macdonald Kevin;jeux,jeu,pouvoir,macdonald,kevin
+DVD06,Les Exercices sur mesure pour vos problèmes physiques, 21-12-2005,2,Plante Sébastien;exercices,exercice,mesure,problèmes.problème,probleme,problemes,physiques,physique
+DVD07,Drogues et cerveau,12-12-2008,2, Lallemand Alain;drogues,drogue,cerveau,lallemand,alain
+DVD08,Octobre,29-09-1994,1,Pierre Falardeau;octobre,pierre,falardeau
+DVD09,Duplessis,12-12-1977,1,Blandford Marc;duplessis,blandford,marc
+DVD10,Une Saison dans la vie de Marie-Claire Blais,21-12-2000,1,Cayer Marc;saison,vie,marclaire,marie,claire,blais,cayer,marc
