@@ -1,5 +1,6 @@
 package application;
 	
+import application.vue.InterfaceAjouterDocument;
 import application.vue.InterfaceLoginAdherent;
 import application.vue.InterfaceLoginPrepose;
 import application.vue.InterfaceNouvelUtilisateur;
@@ -17,10 +18,11 @@ public class Main extends Application {
 			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection();
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
-			InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
-			
+			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
+			InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			primaryStage.setScene(ifLogin.getScene());
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

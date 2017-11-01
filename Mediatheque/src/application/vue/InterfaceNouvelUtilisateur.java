@@ -1,5 +1,8 @@
 package application.vue;
 
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,7 +18,6 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -31,9 +33,11 @@ public class InterfaceNouvelUtilisateur {
 	private RadioButton rbPrepose;
 	private Button btnConfirmer;
 	private Button btnRetour;
+	private VBox vb;
+	private GridPane gpPrep;
 	
 	public  InterfaceNouvelUtilisateur(){
-		VBox vb= new VBox(10) ;
+		vb= new VBox(10) ;
 		rbAdherent= new RadioButton("Adhérent");
 		rbPrepose= new RadioButton("Préposé");
 		ToggleGroup tgType =new ToggleGroup();
@@ -43,7 +47,7 @@ public class InterfaceNouvelUtilisateur {
 		Text txtInstruction= new Text("Création d'utilisateur");
 		btnRetour = new Button("retour");
 		//pour la box de création de préposés
-		GridPane gpPrep= new GridPane();
+		gpPrep= new GridPane();
 		Label lblPwd= new Label("Mot de passe :");
 		PasswordField pfPwd= new PasswordField();
 		Label lblConfirmerPwd= new Label("Confirmer Mot de passe :");
@@ -118,15 +122,30 @@ public class InterfaceNouvelUtilisateur {
 		
 		//radio buttons 
 		rbAdherent.setSelected(true);
-		
+		rbAdherent.setOnAction(gestionBoxCreationUtilisateur);
+		rbPrepose.setOnAction(gestionBoxCreationUtilisateur);
 		vbRadioButtons.getChildren().addAll(txtInstructionRadio,rbAdherent,rbPrepose);
-		vb.getChildren().addAll(txtInstruction,vbRadioButtons,gpInfos,gpPrep,btnConfirmer,btnRetour);
-		vb.getChildren().remove(3);
+		vb.getChildren().addAll(txtInstruction,vbRadioButtons,gpInfos,btnConfirmer,btnRetour);
 		
-		scene = new Scene(vb);
+		
+		scene = new Scene(vb,400,600);
 		
 	}
+	
 	public Scene getScene() {
 		return scene;
 	}
+	
+	//eventHandlers
+	EventHandler<ActionEvent>  gestionBoxCreationUtilisateur=  new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent event) {
+			if(rbAdherent.isSelected()) {
+				vb.getChildren().remove(3);
+			}
+			else {
+				vb.getChildren().add(3, gpPrep);
+				
+			}
+		}
+	};
 }
