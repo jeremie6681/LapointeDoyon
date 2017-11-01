@@ -127,7 +127,6 @@ public class InterfaceNouvelUtilisateur {
 		vbRadioButtons.getChildren().addAll(txtInstructionRadio,rbAdherent,rbPrepose);
 		vb.getChildren().addAll(txtInstruction,vbRadioButtons,gpInfos,btnConfirmer,btnRetour);
 		
-		
 		scene = new Scene(vb,400,600);
 		
 	}

@@ -81,6 +81,7 @@ public class InterfaceAjouterDocument {
 		txtInfosLivre.setFont(fntTitre);
 		txtInfosPeriodique.setFont(fntTitre);
 		
+		
 		gpInfos.add(txtInfos, 1, 0);
 		gpInfos.add(lblTitre,1, 2);
 		gpInfos.add(lblDate,1, 3);
