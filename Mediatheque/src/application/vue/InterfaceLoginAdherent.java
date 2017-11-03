@@ -13,6 +13,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 public class InterfaceLoginAdherent {
 	
@@ -21,7 +22,7 @@ public class InterfaceLoginAdherent {
 	private Button btnConfirmer;
 	private Button btnRetour;
 	
-	public InterfaceLoginAdherent() {
+	public InterfaceLoginAdherent(Stage primaryStage,Scene scenePrecedente) {
 		btnConfirmer= new Button("Se connecter");
 		VBox vb =new VBox(10) ;
 		HBox hbUtilisateur= new HBox(20);
@@ -30,8 +31,9 @@ public class InterfaceLoginAdherent {
 		Text txtInstruction = new Text("veuillez entrer vous informations de conection");
 		TextFlow tflInstruction;
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
-		btnRetour = new Button("Retour");
 		
+		btnRetour = new Button("Retour");
+		btnRetour.setOnAction(e->primaryStage.setScene(scenePrecedente));
 		//modifications vb
 		vb.setPadding(new Insets(20));
 		vb.setAlignment(Pos.CENTER);
@@ -46,12 +48,13 @@ public class InterfaceLoginAdherent {
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
-		
+		//btnConfirmer.setOnAction(e->primaryStage.setScene(.getScene()));
 		
 		hbUtilisateur.getChildren().addAll(lblUtilisateur,tfUtilisateur);
 
 		vb.getChildren().addAll(tflInstruction,hbUtilisateur,btnConfirmer,btnRetour);
 		scene = new Scene(vb);
+		
 	}
 
 	public Scene getScene() {

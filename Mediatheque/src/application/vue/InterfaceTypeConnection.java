@@ -1,5 +1,7 @@
 package application.vue;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,22 +13,25 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 public class InterfaceTypeConnection {
 	
 	private Scene scene;
 	private Button btnAdherent;
 	private Button btnPrepose;
+	
 	//private Button btnNouvelUtilisateur;
 	
-	public InterfaceTypeConnection() {
+	public InterfaceTypeConnection(Stage primaryStage) {
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
 		Text txtInstruction = new Text("veuillez choisir Votre type de connection");
 		TextFlow tflInstruction;
 		VBox vb = new VBox();
 		HBox hbBoutons= new HBox(20);
 		
-		
+
+		primaryStage.setTitle("Choix de connection");
 		//modifications text
 		txtInstruction.setFont(Font.font("Arial",FontWeight.NORMAL,FontPosture.REGULAR, 16));
 		tflInstruction = new TextFlow(txtInstruction);
@@ -46,6 +51,7 @@ public class InterfaceTypeConnection {
 		//modifications Bouton préposé
 		btnPrepose= new Button("Connection Préposé");
 		btnPrepose.setFont(fntBoutons);
+		//btnPrepose.setOnAction(e->primaryStage.setScene(inLogPrep.getScene()));
 		
 		//modifications bouton ajouter nouvel utilisateur
 		//btnNouvelUtilisateur = new Button("Créer un nouvel Utilisateur");
@@ -55,9 +61,17 @@ public class InterfaceTypeConnection {
 		hbBoutons.getChildren().addAll(btnAdherent,btnPrepose);
 		vb.getChildren().addAll(tflInstruction,hbBoutons);
 		scene = new Scene(vb);
+		primaryStage.setScene(scene);
+		InterfaceLoginAdherent inLogAd = new InterfaceLoginAdherent(primaryStage,scene);
+		//InterfaceLoginPrepose inLogPrep = new InterfaceLoginPrepose(primaryStage,scene);
+		btnAdherent.setOnAction(e->primaryStage.setScene(inLogAd.getScene()));
+		//btnPrepose.setOnAction(e->primaryStage.setScene(inLogPrep.getScene()));
+		
 	}
 
 	public Scene getScene() {
 		return scene;
 	}
+	
+	
 }

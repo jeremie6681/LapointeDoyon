@@ -15,12 +15,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection();
+			InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
-			InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
-			primaryStage.setScene(ifLogin.getScene());
+			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
+			//primaryStage.setScene(ifLogin.getScene());
 			primaryStage.show();
 			
 		} catch(Exception e) {
