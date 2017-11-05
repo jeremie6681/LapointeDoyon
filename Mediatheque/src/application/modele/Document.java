@@ -25,4 +25,44 @@ public class Document {
 		lstMots.add(strMotCle);
 	}
 
+
+	public String getStrTitre() {
+		return strTitre;
+	}
+
+
+	public void setStrTitre(String strTitre) {
+		this.strTitre = strTitre;
+	}
+
+
+	public String getStrCodeDocument() {
+		return strCodeDocument;
+	}
+
+
+	public void setStrCodeDocument(String strCodeDocument) {
+		this.strCodeDocument = strCodeDocument;
+	}
+
+
+	public Date getDateParution() {
+		return dateParution;
+	}
+
+
+	public void setDateParution(Date dateParution) {
+		this.dateParution = dateParution;
+	}
+
+
+	public Etat getEtatDoc() {
+		return etatDoc;
+	}
+
+
+	public void setEtatDoc(Etat etatDoc) {
+		this.etatDoc = etatDoc;
+	}
+
 }

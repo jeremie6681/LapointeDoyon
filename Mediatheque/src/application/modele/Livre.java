@@ -11,4 +11,12 @@ public class Livre extends Document{
 		this.strAuteur=strAuteur;
 	}
 
+	public String getStrAuteur() {
+		return strAuteur;
+	}
+
+	public void setStrAuteur(String strAuteur) {
+		this.strAuteur = strAuteur;
+	}
+
 }

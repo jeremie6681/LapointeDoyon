@@ -12,4 +12,20 @@ public class Periodique extends Document {
 		this.intNoVolume=intNoVolume;
 		this.intNoPeriodique=intNoPeriodique;
 	}
+
+	public int getIntNoVolume() {
+		return intNoVolume;
+	}
+
+	public void setIntNoVolume(int intNoVolume) {
+		this.intNoVolume = intNoVolume;
+	}
+
+	public int getIntNoPeriodique() {
+		return intNoPeriodique;
+	}
+
+	public void setIntNoPeriodique(int intNoPeriodique) {
+		this.intNoPeriodique = intNoPeriodique;
+	}
 }

@@ -12,4 +12,20 @@ public class DVD extends Document {
 		this.shNbDisques=shNbDisque;
 		this.strResalisateur= strResalisateur;
 	}
+
+	public short getShNbDisques() {
+		return shNbDisques;
+	}
+
+	public void setShNbDisques(short shNbDisques) {
+		this.shNbDisques = shNbDisques;
+	}
+
+	public String getStrResalisateur() {
+		return strResalisateur;
+	}
+
+	public void setStrResalisateur(String strResalisateur) {
+		this.strResalisateur = strResalisateur;
+	}
 }
