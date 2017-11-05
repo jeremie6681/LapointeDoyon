@@ -8,6 +8,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class ListeDocuments {
 	private final String strNomFichierDVD = "Donnee/DVD.txt";
@@ -15,11 +18,22 @@ public final class ListeDocuments {
 	private final String strNomFichierPeriodique = "Donnee/Periodiques.txt";
 	private final String strNomFichierSerialiser = "Donnee/Serialiser.ser";
 	
-	public ArrayList<Document> lstDocument = new ArrayList<>();
+	//public ArrayList<Document> lstDocument = new ArrayList<>();
+	
+	private ArrayList<Document> lstLivre = new ArrayList<>();
+	private ArrayList<Document> lstDvd = new ArrayList<>();
+	private ArrayList<Document> lstPeriodique = new ArrayList<>();
+	
+	public Map<TypeDocument, List<Document>> mapDocument = new HashMap<>();
+	
 	
 	private static ListeDocuments instanceDoc = new ListeDocuments();
 	
 	public ListeDocuments() {
+		mapDocument.put(TypeDocument.Livre, lstLivre);
+		mapDocument.put(TypeDocument.Periodique, lstPeriodique);
+		mapDocument.put(TypeDocument.Dvd, lstDvd);
+		
 		//si pas de fichier sérialiser touver
 		
 		File fichierSerialiser = new File(strNomFichierSerialiser);
@@ -65,15 +79,15 @@ public final class ListeDocuments {
 					//Crée le document et l'ajoute dans la liste selon son type
 					if(intTypeDocument == 0) {
 						DVD objDVD = new DVD(tabLigne[0], tabLigne[1], dateDocument , Etat.DISPONIBLE, Short.parseShort(tabLigne[3].trim()), tabLigne[4]);
-						lstDocument.add(objDVD);
+						lstDvd.add(objDVD);
 					}
 					else if (intTypeDocument == 1) {
 						Livre objLivre = new Livre(tabLigne[0], tabLigne[1], dateDocument, Etat.DISPONIBLE, tabLigne[3]);
-						lstDocument.add(objLivre);
+						lstLivre.add(objLivre);
 					}
 					else {
 						Periodique objPeriodique = new Periodique(tabLigne[0], tabLigne[1], dateDocument, Etat.DISPONIBLE, Integer.parseInt(tabLigne[3].trim()), Integer.parseInt(tabLigne[4].trim()));
-						lstDocument.add(objPeriodique);
+						lstPeriodique.add(objPeriodique);
 					}	
 				}
 			} catch (Exception e) {
