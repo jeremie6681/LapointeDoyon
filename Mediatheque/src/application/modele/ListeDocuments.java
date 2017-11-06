@@ -37,7 +37,7 @@ public final class ListeDocuments implements Serializable {
 	public Map<TypeDocument, List<Document>> mapDocument = new HashMap<>();
 	
 	
-	private static ListeDocuments instanceDoc = new ListeDocuments();
+	private static ListeDocuments instanceDoc = new ListeDocuments();       //cette ligne fait en sorte que le constructeur est appele 2 fois
 	
 	public ListeDocuments() {
 		mapDocument.put(TypeDocument.Livre, lstLivre);
@@ -50,10 +50,10 @@ public final class ListeDocuments implements Serializable {
 		
 		//S'il y a eu déjà une sérialisation
 		if(fichierSerialiser.exists()) {
-			Deserialisation();
+			deserialisation();
 		}
 		else {
-			LectureFichierOriginal();
+			lectureFichierOriginal();
 		}
 
 		
@@ -62,7 +62,7 @@ public final class ListeDocuments implements Serializable {
 
 	}
 	
-	private void LectureFichierOriginal() {
+	private void lectureFichierOriginal() {
 		//Lecture fichier (0 = dvd, 1 = livre, 2 = periodique)
 		for(int intTypeDocument = 0; intTypeDocument < 3;intTypeDocument++) {
 			BufferedReader brFichier = null;
@@ -118,7 +118,7 @@ public final class ListeDocuments implements Serializable {
 		//if(lstDocument.get(0).
 	}
 	
-	public void Serialisation() {
+	public void serialisation() {
 		try { 
 		    
 			FileOutputStream fichier = new FileOutputStream(strNomFichierSerialiser); 
@@ -132,7 +132,7 @@ public final class ListeDocuments implements Serializable {
 			} 
 	}
 	
-	private void Deserialisation() {
+	private void deserialisation() {
 		 
 		try {
 		 FileInputStream fichier = new FileInputStream(strNomFichierSerialiser); 

@@ -48,7 +48,7 @@ public class InterfaceLoginAdherent {
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
-		//btnConfirmer.setOnAction(e->primaryStage.setScene(.getScene()));
+		
 		
 		hbUtilisateur.getChildren().addAll(lblUtilisateur,tfUtilisateur);
 

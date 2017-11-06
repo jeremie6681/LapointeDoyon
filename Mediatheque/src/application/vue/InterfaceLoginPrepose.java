@@ -14,6 +14,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 public class InterfaceLoginPrepose  {
 	
@@ -21,7 +22,7 @@ public class InterfaceLoginPrepose  {
 	private Button btnConfirmer;
 	private Button btnRetour;
 
-	public InterfaceLoginPrepose() {
+	public InterfaceLoginPrepose(Stage primaryStage,Scene scenePrecedente) {
 		btnConfirmer= new Button("Se connecter");
 		VBox vb =new VBox(10) ;
 		HBox hbUtilisateur= new HBox(20);
@@ -33,7 +34,9 @@ public class InterfaceLoginPrepose  {
 		Text txtInstruction = new Text("veuillez entrer vous informations de conection");
 		TextFlow tflInstruction;
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
-		Button btnRetour = new Button("Retour");				
+		
+		btnRetour = new Button("Retour");
+		btnRetour.setOnAction(e->primaryStage.setScene(scenePrecedente));				
 		
 		//modifications vb
 		vb.setPadding(new Insets(20));
@@ -51,7 +54,6 @@ public class InterfaceLoginPrepose  {
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
-		
 		
 		
 		hbUtilisateur.getChildren().addAll(lblUtilisateur,tfUtilisateur);

@@ -17,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
+			InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
@@ -33,7 +33,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 	
 		ListeDocuments lstDocs = new ListeDocuments();
-		lstDocs.Serialisation();
+		lstDocs.serialisation();
 		
 		launch(args);
 	}
