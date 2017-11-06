@@ -1,10 +1,12 @@
 package application.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Document {
+public class Document implements Serializable {
 	
+	private static final long serialVersionUID = -1342101432549855316L;
 	private String strCodeDocument;
 	private String strTitre;
 	private Date dateParution;
@@ -65,4 +67,11 @@ public class Document {
 		this.etatDoc = etatDoc;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Document [strCodeDocument=" + strCodeDocument + ", strTitre=" + strTitre + ", dateParution="
+				+ dateParution + ", etatDoc=" + etatDoc + ", lstMots=" + lstMots + "]";
+	}
+	
 }

@@ -1,9 +1,12 @@
 package application.modele;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Periodique extends Document {
+public class Periodique extends Document implements Serializable {
 	
+
+	private static final long serialVersionUID = 3408058369694863163L;
 	private int intNoVolume;
 	private int intNoPeriodique;
 	

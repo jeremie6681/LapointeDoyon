@@ -1,5 +1,7 @@
 package application;
 	
+import application.modele.ListeDocuments;
+import application.modele.TypeDocument;
 import application.vue.InterfaceAjouterDocument;
 import application.vue.InterfaceLoginAdherent;
 import application.vue.InterfaceLoginPrepose;
@@ -15,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
+			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
@@ -29,7 +31,10 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("ca marche");
+	
+		ListeDocuments lstDocs = new ListeDocuments();
+		lstDocs.Serialisation();
+		
 		launch(args);
 	}
 	

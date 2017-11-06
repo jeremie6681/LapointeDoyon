@@ -1,9 +1,11 @@
 package application.modele;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Livre extends Document{
+public class Livre extends Document implements Serializable{
 	
+	private static final long serialVersionUID = -4268118706365795753L;
 	private String strAuteur;
 	
 	public Livre(String strCodeDocument, String strTitre, Date dateParution, Etat etatDoc, String strAuteur) {

@@ -2,8 +2,14 @@ package application.modele;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,12 +18,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class ListeDocuments {
+public final class ListeDocuments implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final String strNomFichierDVD = "Donnee/DVD.txt";
 	private final String strNomFichierLivre = "Donnee/Livres.txt";
 	private final String strNomFichierPeriodique = "Donnee/Periodiques.txt";
-	private final String strNomFichierSerialiser = "Donnee/Serialiser.ser";
-	
+	private final String strNomFichierSerialiser = "Donnee/lstDocuments.ser";
+
 	//public ArrayList<Document> lstDocument = new ArrayList<>();
 	
 	private ArrayList<Document> lstLivre = new ArrayList<>();
@@ -46,7 +56,8 @@ public final class ListeDocuments {
 			LectureFichierOriginal();
 		}
 		
-		System.out.println(mapDocument.get(TypeDocument.Livre).get(0).getClass().getSimpleName());
+		//System.out.println(mapDocument.get(TypeDocument.Livre).get(0).getClass().getSimpleName());
+		mapDocument.get(TypeDocument.Livre).forEach(System.out :: println);
 	}
 	
 	private void LectureFichierOriginal() {
@@ -101,16 +112,43 @@ public final class ListeDocuments {
 		}
 		
 		
-		//lstDocument.forEach(System.out :: println);
+		//mapDocument.get(TypeDocument.Livre).forEach(System.out :: println);
 		//if(lstDocument.get(0).
 	}
 	
-	private void Serialisation() {
-		
+	public void Serialisation() {
+		try { 
+		    
+			FileOutputStream fichier = new FileOutputStream(strNomFichierSerialiser); 
+			ObjectOutputStream oos = new ObjectOutputStream(fichier);    
+			oos.writeObject(this.mapDocument);
+			oos.close();
+			fichier.close();
+			System.out.println("sérialisation des documents terminée avec succès");
+			}catch (IOException e) {      
+			e.printStackTrace();    
+			} 
 	}
 	
 	private void Deserialisation() {
-		
+		 
+		try {
+		 FileInputStream fichier = new FileInputStream(strNomFichierSerialiser); 
+		 ObjectInputStream ois = new ObjectInputStream(fichier);
+		 this.mapDocument = (HashMap<TypeDocument, List<Document>>) ois.readObject();
+		 this.lstLivre= (ArrayList<Document>) mapDocument.get(TypeDocument.Livre);
+		 this.lstDvd=(ArrayList<Document>) mapDocument.get(TypeDocument.Dvd);
+		 this.lstPeriodique=(ArrayList<Document>) mapDocument.get(TypeDocument.Periodique);
+		 ois.close();
+		 fichier.close();
+		 System.out.println("désérialisation des documents terminée avec succès");
+		 
+		}catch(IOException e) {
+			System.err.println("erreur avec la lecture des ficher de sérialisation des documents");
+			e.printStackTrace();
+		}catch(ClassNotFoundException e2) {
+			System.err.println("erreur avec la désérialisation des documents");
+		}
 	}
 	
 	public static ListeDocuments getInstance() {

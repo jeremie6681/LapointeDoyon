@@ -1,9 +1,12 @@
 package application.modele;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DVD extends Document {
+public class DVD extends Document implements Serializable{
 	
+
+	private static final long serialVersionUID = -1678710002762416560L;
 	private short shNbDisques;
 	private String strResalisateur;
 	
