@@ -44,7 +44,9 @@ public final class ListeDocuments {
 		}
 		else {
 			LectureFichierOriginal();
-		}	
+		}
+		
+		System.out.println(mapDocument.get(TypeDocument.Livre).get(0).getClass().getSimpleName());
 	}
 	
 	private void LectureFichierOriginal() {
@@ -94,6 +96,8 @@ public final class ListeDocuments {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+			
+			
 		}
 		
 		
