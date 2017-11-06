@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ListePersonnes {
+	
 	private final String strNomFichierPersonne = "Donnee/Personnes.txt";
 	private final String strNomFichierSerialiser = "Donnee/lstPersonnes.ser";
 	
@@ -20,13 +21,13 @@ public class ListePersonnes {
 	private ArrayList<Personne> lstAdherent = new ArrayList<>();
 	private ArrayList<Personne> lstAdmin = new ArrayList<>();
 	
-	public Map<TypePersonne, List<Personne>> mapPersonne = new HashMap<>();
+	public static Map<TypePersonne, List<Personne>> mapPersonne = new HashMap<>();
 	
 	
 	public ListePersonnes() {
 		mapPersonne.put(TypePersonne.Adherent, lstAdherent);
 		mapPersonne.put(TypePersonne.Prepose, lstPrepose);
-		mapPersonne.put(TypePersonne.Admin, Arrays.asList( new Prepose("bob", "graton", "123 rue", "5141234567", "adm", "secret")));
+		mapPersonne.put(TypePersonne.Admin, Arrays.asList( new Prepose("bob", "graton", "123 rue", "5141234567", "secret","admin")));
 		
 		//si pas de fichier sérialiser touver
 		

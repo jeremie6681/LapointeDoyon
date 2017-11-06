@@ -21,13 +21,14 @@ public class InterfaceLoginAdherent {
 	private Scene scene;
 	private Button btnConfirmer;
 	private Button btnRetour;
+	TextField tfUtilisateur;
 	
 	public InterfaceLoginAdherent(Stage primaryStage,Scene scenePrecedente) {
 		btnConfirmer= new Button("Se connecter");
 		VBox vb =new VBox(10) ;
 		HBox hbUtilisateur= new HBox(20);
 		Label lblUtilisateur=new Label("Nom d'utilisateur :");
-		TextField tfUtilisateur = new TextField();
+		tfUtilisateur = new TextField();
 		Text txtInstruction = new Text("veuillez entrer vous informations de conection");
 		TextFlow tflInstruction;
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
@@ -48,7 +49,7 @@ public class InterfaceLoginAdherent {
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
-		
+		btnConfirmer.setOnAction(e->application.controleur.GestionPersonnes.connection(tfUtilisateur.getText(),primaryStage));
 		
 		hbUtilisateur.getChildren().addAll(lblUtilisateur,tfUtilisateur);
 

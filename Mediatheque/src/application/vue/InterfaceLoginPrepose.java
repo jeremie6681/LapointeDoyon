@@ -16,21 +16,26 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
+import com.sun.corba.se.pept.transport.Connection;
+
+import application.controleur.GestionPersonnes.*;
 public class InterfaceLoginPrepose  {
 	
 	private Scene scene;
 	private Button btnConfirmer;
 	private Button btnRetour;
-
+	private PasswordField pfPwd;
+	private TextField tfUtilisateur;
+	
 	public InterfaceLoginPrepose(Stage primaryStage,Scene scenePrecedente) {
 		btnConfirmer= new Button("Se connecter");
 		VBox vb =new VBox(10) ;
 		HBox hbUtilisateur= new HBox(20);
 		HBox hbPwd= new HBox(20);
 		Label lblUtilisateur=new Label("Nom d'utilisateur :");
-		TextField tfUtilisateur = new TextField();
+		tfUtilisateur = new TextField();
 		Label lblPwd= new Label("Mot de passe :");
-		PasswordField pfPwd= new PasswordField();
+		pfPwd= new PasswordField();
 		Text txtInstruction = new Text("veuillez entrer vous informations de conection");
 		TextFlow tflInstruction;
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
@@ -54,7 +59,7 @@ public class InterfaceLoginPrepose  {
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
-		
+		btnConfirmer.setOnAction(e->application.controleur.GestionPersonnes.connection(tfUtilisateur.getText(),pfPwd.getText(),primaryStage));
 		
 		hbUtilisateur.getChildren().addAll(lblUtilisateur,tfUtilisateur);
 		hbPwd.getChildren().addAll(lblPwd,pfPwd);

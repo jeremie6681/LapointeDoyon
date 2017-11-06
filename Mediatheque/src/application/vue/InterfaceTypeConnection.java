@@ -47,7 +47,7 @@ public class InterfaceTypeConnection {
 		btnAdherent.setFont(fntBoutons);
 		
 		//modifications Bouton préposé
-		btnPrepose= new Button("Connection Préposé");
+		btnPrepose= new Button("Connection Préposé/Administrateur");
 		btnPrepose.setFont(fntBoutons);
 		
 		
