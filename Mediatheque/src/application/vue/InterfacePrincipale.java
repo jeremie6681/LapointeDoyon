@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
@@ -30,6 +31,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -82,16 +84,26 @@ public class InterfacePrincipale {
 		panneau.setPadding(new Insets(20,50,30,50));
 		
 		//Recherche
-		AnchorPane groupeRecherche = new AnchorPane();
+		HBox groupeRecherche = new HBox();
+		//AnchorPane groupeRecherche = new AnchorPane();
+		//titled
 		groupeRecherche.setPadding(new Insets(20));
 		Label lblRecherche = new Label("Recherche");
 		//groupeRecherche.setb
 		
-		groupeRecherche.getChildren().add(lblRecherche);
-		
+		//groupeRecherche.getChildren().add(lblRecherche);
+		ToggleGroup tg = new ToggleGroup();
 		TextField tbRecherche = new TextField();
 		RadioButton rbAuteur = new RadioButton("Auteur");
 		RadioButton rbMotCle = new RadioButton("Mot clé");
+		
+		groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur,rbMotCle);
+		
+		rbAuteur.setToggleGroup(tg);
+		rbMotCle.setToggleGroup(tg);
+		
+		tbRecherche.setPromptText("Recherche");
+		tbRecherche.setMaxWidth(100);
 		
 		
 		
