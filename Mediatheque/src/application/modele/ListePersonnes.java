@@ -6,11 +6,15 @@ public class ListePersonnes {
 		
 	}
 	
-	private void Serialisation() {
+	private void serialisation() {
 		
 	}
 	
-	private void Deserialisation() {
+	private void deserialisation() {
+		
+	}
+	
+	private void lecture() {
 		
 	}
 }
