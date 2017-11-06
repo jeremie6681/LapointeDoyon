@@ -10,33 +10,51 @@ import application.modele.TypeDocument;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class InterfacePrincipale {
 	private Scene scene;
 	
+	@SuppressWarnings("static-access")
 	public InterfacePrincipale() {
 		Group root =new Group();
 		
 		BorderPane panneau = new BorderPane();
 		
 		scene = new Scene(root);
-		scene.setFill(Color.AZURE);
+		//scene.setFill(Color.rgb(24, 25, 28));
+		
+		Label lblTitre = new Label("Médiathèque");
+		lblTitre.setFont(Font.font("arial", FontWeight.BOLD	, 35));
+		lblTitre.setPadding(new Insets(20));
+		
+		//lblTitre.setTextFill(Color.WHITE);
 		
 		
 		TabPane tabPane = new TabPane();
@@ -63,12 +81,40 @@ public class InterfacePrincipale {
 			tabPane.getTabs().add(ongletType);
 		}
 		
-		panneau.setPadding(new Insets(50));
+		panneau.setPadding(new Insets(20,50,30,50));
+		
+		//Recherche
+		HBox groupeRecherche = new HBox();
+		//AnchorPane groupeRecherche = new AnchorPane();
+		//titled
+		groupeRecherche.setPadding(new Insets(20));
+		Label lblRecherche = new Label("Recherche");
+		//groupeRecherche.setb
+		
+		//groupeRecherche.getChildren().add(lblRecherche);
+		ToggleGroup tg = new ToggleGroup();
+		TextField tbRecherche = new TextField();
+		RadioButton rbAuteur = new RadioButton("Auteur");
+		RadioButton rbMotCle = new RadioButton("Mot clé");
+		
+		groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur,rbMotCle);
+		
+		rbAuteur.setToggleGroup(tg);
+		rbMotCle.setToggleGroup(tg);
+		
+		tbRecherche.setPromptText("Recherche");
+		tbRecherche.setMaxWidth(100);
+		
 		
 		
 		//panneau.prefWidthProperty().bind(sc);
 		
+		panneau.setTop(lblTitre);
 		panneau.setCenter(tabPane);
+		
+		panneau.setBottom(groupeRecherche);
+		
+		panneau.setAlignment(lblTitre, Pos.CENTER);
 		root.getChildren().add(panneau);
 		
 	}

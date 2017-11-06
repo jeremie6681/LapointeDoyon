@@ -55,9 +55,11 @@ public final class ListeDocuments implements Serializable {
 		else {
 			LectureFichierOriginal();
 		}
+
 		
 		//System.out.println(mapDocument.get(TypeDocument.Livre).get(0).getClass().getSimpleName());
 		mapDocument.get(TypeDocument.Livre).forEach(System.out :: println);
+
 	}
 	
 	private void LectureFichierOriginal() {

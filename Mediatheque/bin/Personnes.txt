@@ -1,0 +1,1 @@
+Administrateur,String strNom, String strPrenom, String strAdresse, String strNoTelephone, int intNoEmploye, secret1
