@@ -23,6 +23,7 @@ public class ListePersonnes {
 	
 	public static Map<TypePersonne, List<Personne>> mapPersonne = new HashMap<>();
 	
+	private static ListePersonnes instanceLst;
 	
 	public ListePersonnes() {
 		mapPersonne.put(TypePersonne.Adherent, lstAdherent);
@@ -76,10 +77,15 @@ public class ListePersonnes {
 				System.err.println("erreur avec la désérialisation des Personnes");
 			}
 		}
-		
-	
 	
 	private void lecture() {
 		
+	}
+	
+	
+	public static ListePersonnes getInstance() {
+		  if (instanceLst == null) 
+			  instanceLst = new ListePersonnes();
+		  return instanceLst;
 	}
 }

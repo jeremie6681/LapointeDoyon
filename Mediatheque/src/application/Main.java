@@ -1,5 +1,7 @@
 package application;
 	
+import com.sun.media.sound.AlawCodec;
+
 import application.modele.ListeDocuments;
 import application.modele.TypeDocument;
 import application.vue.InterfaceAjouterDocument;
@@ -11,6 +13,9 @@ import application.vue.InterfaceTypeConnection;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 
 
@@ -30,6 +35,8 @@ public class Main extends Application {
 			primaryStage.sizeToScene();
 			primaryStage.show();
 			
+		
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -37,9 +44,9 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 	
-		ListeDocuments lstDocs = new ListeDocuments();
+		ListeDocuments lstDocs = ListeDocuments.getInstance();
 		lstDocs.serialisation();
-		
+
 		launch(args);
 	}
 	
