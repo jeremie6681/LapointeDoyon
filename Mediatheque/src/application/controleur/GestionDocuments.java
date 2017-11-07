@@ -18,13 +18,16 @@ public class GestionDocuments {
 		
 	}
 	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable){
-		if (booRechercheMotClée) {
-			
-		}
-		else {
-			lstTable[1].getItems().removeIf(docu-> ((Livre)docu).getStrAuteur().contains(strMotRecherche));
-		}
-		
+		//Si la recherche n'est pas vide
+		if(!strMotRecherche.isEmpty()) {
+			if (booRechercheMotClée) {
+				
+			}
+			//Recherche par auteur
+			else {
+				lstTable[1].getItems().removeIf(docu-> !((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
+			}
+		}	
 	}
 	
 	//Parcours la liste de documents pour ajouter des mots clé
