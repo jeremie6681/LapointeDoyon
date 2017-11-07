@@ -9,12 +9,14 @@ import java.util.stream.Stream;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import application.controleur.GestionDocuments;
+import application.controleur.GestionInterface;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.Livre;
 import application.modele.TypeDocument;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -48,6 +50,10 @@ import javafx.scene.text.FontWeight;
 
 public class InterfacePrincipale {
 	private Scene scene;
+	private TabPane tabPane = new TabPane();
+	
+	//Liste Observable pour les tables dans les onglets
+	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
 	public InterfacePrincipale() {
@@ -64,8 +70,6 @@ public class InterfacePrincipale {
 		
 		//lblTitre.setTextFill(Color.WHITE);
 		
-		
-		TabPane tabPane = new TabPane();
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		tabPane.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
@@ -89,6 +93,8 @@ public class InterfacePrincipale {
 			tabPane.getTabs().add(ongletType);
 		}
 		
+		
+		
 		panneau.setPadding(new Insets(20,50,30,50));
 		
 		//Recherche
@@ -109,6 +115,9 @@ public class InterfacePrincipale {
 		Button btnReinitialiseListe = new Button("Réinitialiser liste document");
 		
 		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
+		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd));
+		
+		
 		
 		groupeRecherche.setSpacing(10);
 		
@@ -154,7 +163,7 @@ public class InterfacePrincipale {
 		TableColumn<Document, Short> colonneNbDisque = new TableColumn<Document, Short>("Nb disque");
 		TableColumn<Document, String> colonneRealisateur = new TableColumn<Document, String>("Réalisateur");
 		
-		colonneAuteur.setPrefWidth(100);
+		colonneAuteur.setPrefWidth(150);
 		colonneVolume.setPrefWidth(100);
 		colonnePerio.setPrefWidth(120);
 		colonneNbDisque.setPrefWidth(100);
@@ -178,12 +187,14 @@ public class InterfacePrincipale {
 		tableDvd.getColumns().addAll(colonneNbDisque, colonneRealisateur);
 		
 		
-		ObservableList<Document> donneeDoc = FXCollections.observableArrayList(
+		donneeDoc = FXCollections.observableArrayList(
 				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList()));
-		ObservableList<Document> donneeLiv = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
-		ObservableList<Document> donneePer = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
-		ObservableList<Document> donneeDvd = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
+		donneeLiv = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
+		donneePer = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
+		donneeDvd = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
 		
+		//Si une recherche est faite, l'onglet conserner va être afficher
+		GestionInterface.ecouteurDonneeOnglet(donneeDoc, donneeLiv, tabPane);
 		
 		tableDoc.setItems(donneeDoc);
 		tableLiv.setItems(donneeLiv);
@@ -218,7 +229,6 @@ public class InterfacePrincipale {
 		
 		table.getColumns().addAll(colonneIdentifiant,colonneTitre,colonneDate,colonneEtat);
 	}
-	
 
 	public Scene getScene() {
 		return scene;
