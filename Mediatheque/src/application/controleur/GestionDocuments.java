@@ -43,6 +43,7 @@ public class GestionDocuments {
 				//parcours la liste des documents du même type
 				for(int y=0; y < typeDoc.size();y++) {
 					// a completer ... Dépends si liste mot clé banie fournie
+					
 				}
 			}
 		}
