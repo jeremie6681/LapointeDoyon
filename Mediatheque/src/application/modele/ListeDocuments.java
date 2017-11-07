@@ -37,7 +37,7 @@ public final class ListeDocuments implements Serializable {
 	public Map<TypeDocument, List<Document>> mapDocument = new HashMap<>();
 	
 	
-	private static ListeDocuments instanceDoc = new ListeDocuments();       //cette ligne fait en sorte que le constructeur est appele 2 fois
+	private static ListeDocuments instanceDoc ;      
 	
 	private ListeDocuments() {
 		mapDocument.put(TypeDocument.Livre, lstLivre);
