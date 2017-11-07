@@ -10,4 +10,8 @@ public class Prepose extends Personne {
 		this.strMotPasse=strMotPasse;
 	}
 
+	public String getStrMotPasse() {
+		return strMotPasse;
+	}
+
 }
