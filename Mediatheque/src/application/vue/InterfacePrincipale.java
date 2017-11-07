@@ -70,7 +70,6 @@ public class InterfacePrincipale {
 		
 		//lblTitre.setTextFill(Color.WHITE);
 		
-		
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		tabPane.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
