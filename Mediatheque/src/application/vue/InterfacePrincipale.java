@@ -2,10 +2,17 @@ package application.vue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
+import application.controleur.GestionDocuments;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
+import application.modele.Livre;
 import application.modele.TypeDocument;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -84,10 +92,11 @@ public class InterfacePrincipale {
 		panneau.setPadding(new Insets(20,50,30,50));
 		
 		//Recherche
-		HBox groupeRecherche = new HBox();
+		HBox groupeRecherche = new HBox(10);
+		groupeRecherche.setAlignment(Pos.CENTER);
 		//AnchorPane groupeRecherche = new AnchorPane();
 		//titled
-		groupeRecherche.setPadding(new Insets(20));
+		groupeRecherche.setPadding(new Insets(40,0,0,0));
 		Label lblRecherche = new Label("Recherche");
 		//groupeRecherche.setb
 		
@@ -96,11 +105,19 @@ public class InterfacePrincipale {
 		TextField tbRecherche = new TextField();
 		RadioButton rbAuteur = new RadioButton("Auteur");
 		RadioButton rbMotCle = new RadioButton("Mot clé");
+		Button btnRecherche = new Button("Recherche");
+		Button btnReinitialiseListe = new Button("Réinitialiser liste document");
 		
-		groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur,rbMotCle);
+		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
+		
+		groupeRecherche.setSpacing(10);
+		
+		groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur,rbMotCle, btnRecherche, btnReinitialiseListe);
 		
 		rbAuteur.setToggleGroup(tg);
 		rbMotCle.setToggleGroup(tg);
+		
+		rbAuteur.setSelected(true);
 		
 		tbRecherche.setPromptText("Recherche");
 		tbRecherche.setMaxWidth(100);
@@ -116,6 +133,8 @@ public class InterfacePrincipale {
 		
 		panneau.setAlignment(lblTitre, Pos.CENTER);
 		root.getChildren().add(panneau);
+		
+		
 		
 	}
 	
