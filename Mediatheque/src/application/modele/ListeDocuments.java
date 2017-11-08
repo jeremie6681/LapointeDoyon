@@ -145,6 +145,11 @@ public final class ListeDocuments implements Serializable {
 		 fichier.close();
 		 System.out.println("désérialisation des documents terminée avec succès");
 		 
+		 
+		 ///
+		 ///reche
+		 ///
+		 
 		}catch(IOException e) {
 			System.err.println("erreur avec la lecture des ficher de sérialisation des documents");
 			e.printStackTrace();

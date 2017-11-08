@@ -33,12 +33,14 @@ public class GestionPersonnes {
 	public static void connection(String strNomConnection,String strMotPasse,Stage primaryStage ) {
 		boolean booConnecter= false;
 		Alert alerteConnection = new Alert(AlertType.WARNING,"votre identifiant ou votre Mot de passe n'est pas valide",ButtonType.OK);
+		InterfacePrincipale interfacePrincipale ;
 		Prepose temp ;
 		
 		if (strNomConnection!=null && strNomConnection.trim()!="") {
 			if (strNomConnection.trim().equals(ListePersonnes.mapPersonne.get(TypePersonne.Admin).get(0).getStrNoPersonne())) {
 				temp=(Prepose)ListePersonnes.mapPersonne.get(TypePersonne.Admin).get(0);
 				if(strMotPasse.trim().equals(temp.getStrMotPasse())) {
+					interfacePrincipale = new InterfacePrincipale(primaryStage,TypePersonne.Admin,temp ); 
 					booConnecter=true;
 					//connecter
 				} 
@@ -48,7 +50,8 @@ public class GestionPersonnes {
 				if(personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
 					temp=(Prepose)personne;
 					if (temp.getStrMotPasse().equals(strMotPasse)){
-						//connecter
+						interfacePrincipale = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,temp ); 
+						booConnecter=true;
 					}
 				}
 			}

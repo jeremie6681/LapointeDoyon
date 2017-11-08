@@ -1,6 +1,7 @@
 package application.modele;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DVD extends Document implements Serializable{
@@ -10,7 +11,7 @@ public class DVD extends Document implements Serializable{
 	private short shNbDisques;
 	private String strResalisateur;
 	
-	public DVD(String strCodeDocument, String strTitre, Date dateParution, Etat etatDoc,short shNbDisque,String strResalisateur) {
+	public DVD(String strCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc,short shNbDisque,String strResalisateur) {
 		super(strCodeDocument, strTitre, dateParution, etatDoc);
 		this.shNbDisques=shNbDisque;
 		this.strResalisateur= strResalisateur;
