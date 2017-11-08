@@ -14,6 +14,7 @@ import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.Livre;
+import application.modele.Personne;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
@@ -59,7 +60,7 @@ public class InterfacePrincipale {
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
-	public InterfacePrincipale(Stage primaryStage, TypePersonne typePersonne ) {
+	public InterfacePrincipale(Stage primaryStage, TypePersonne typePersonne,Personne personne ) {
 		
 		Group root =new Group();
 		
