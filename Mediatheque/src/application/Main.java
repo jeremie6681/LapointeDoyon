@@ -28,7 +28,8 @@ public class Main extends Application {
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
-			InterfacePrincipale ifLogin = new InterfacePrincipale();
+			//InterfacePrincipale ifLogin = new InterfacePrincipale();
+			InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			primaryStage.setScene(ifLogin.getScene());
 			
 			primaryStage.setResizable(false);
