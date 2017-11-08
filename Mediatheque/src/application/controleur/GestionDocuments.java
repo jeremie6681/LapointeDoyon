@@ -14,9 +14,21 @@ public class GestionDocuments {
 		//Doit être appeler en moment donner
 		motCleAjout();
 	}
-	public void supprimerDocuments(){
+	
+	public void supprimerDocuments(String strCodeDocument){
+		TypeDocument typeSupprimer = null;
 		
+		//Détermine le type du document
+		for(TypeDocument type : TypeDocument.values()) {
+			if(type.getStrIndicateurType().equals(strCodeDocument.substring(0, 3)))
+				typeSupprimer = type;
+		}
+		
+		ListeDocuments.getInstance().mapDocument.get(typeSupprimer).removeIf(docu -> docu.getStrCodeDocument().equals(strCodeDocument));
+		
+		/////////////////////////////////////////////////////////////////////////////////Peut etre remettre a jour les onglets
 	}
+	
 	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable){
 		//Si la recherche n'est pas vide
 		if(!strMotRecherche.isEmpty()) {
