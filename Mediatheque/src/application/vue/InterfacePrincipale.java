@@ -44,7 +44,7 @@ import javafx.stage.Stage;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-	private Stage primaryStage;
+	//private Stage primaryStage;
 	
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
@@ -139,7 +139,7 @@ public class InterfacePrincipale {
 		root.getChildren().add(panneau);
 		
 		
-		
+		primaryStage.setTitle("Médiathèque");
 	}
 	
 	@SuppressWarnings("unchecked")
