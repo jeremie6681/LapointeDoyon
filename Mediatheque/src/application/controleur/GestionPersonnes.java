@@ -20,7 +20,7 @@ public class GestionPersonnes {
 		if (strNomConnection!=null && strNomConnection.trim()!="") {
 			for (Personne personne : ListePersonnes.mapPersonne.get(TypePersonne.Adherent)) {
 				if(personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
-					primaryStage.setScene(new InterfacePrincipale().getScene());//a changer 
+					//primaryStage.setScene(new InterfacePrincipale().getScene());//a changer 
 					booConnecter=true;
 				}
 			}

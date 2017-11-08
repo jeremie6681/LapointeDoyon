@@ -15,6 +15,7 @@ import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.Livre;
 import application.modele.TypeDocument;
+import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -47,16 +48,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
+	private Stage primaryStage;
 	
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
-	public InterfacePrincipale() {
+	public InterfacePrincipale(Stage primaryStage, TypePersonne typePersonne ) {
+		
 		Group root =new Group();
 		
 		BorderPane panneau = new BorderPane();
