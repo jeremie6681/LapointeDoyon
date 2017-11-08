@@ -16,11 +16,12 @@ public class GestionPersonnes {
 	public static void connection(String strNomConnection,Stage primaryStage) {
 		boolean booConnecter= false;
 		Alert alerteConnection = new Alert(AlertType.WARNING,"votre identifiant n'est pas valide",ButtonType.OK);
-		InterfacePrincipale interfacePrincipale = new pro
+		InterfacePrincipale interfacePrincipale ;
 		if (strNomConnection!=null && strNomConnection.trim()!="") {
 			for (Personne personne : ListePersonnes.mapPersonne.get(TypePersonne.Adherent)) {
 				if(personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
-		 			//primaryStage.setScene(new InterfacePrincipale().getScene());//a changer 
+					interfacePrincipale = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,personne ); 
+					primaryStage.setScene(interfacePrincipale.getScene());
 					booConnecter=true;
 				}
 			}
