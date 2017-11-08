@@ -10,15 +10,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javafx.scene.control.Dialog;
 
 public final class ListeDocuments implements Serializable {
 	/**
@@ -90,8 +87,7 @@ public final class ListeDocuments implements Serializable {
 				while ((strLigne = brFichier.readLine()) != null) {
 					String[] tabLigne = strLigne.split(",");
 					
-					DateFormat dfDocument = new SimpleDateFormat("dd-MM-yyyy");
-					Date dateDocument = dfDocument.parse(tabLigne[2]);
+					LocalDate dateDocument = LocalDate.parse(tabLigne[2].trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu"));
 					
 					//Crée le document et l'ajoute dans la liste selon son type
 					if(intTypeDocument == 0) {
@@ -110,6 +106,7 @@ public final class ListeDocuments implements Serializable {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
+				System.out.println(e);
 			}
 			
 			
@@ -146,6 +143,11 @@ public final class ListeDocuments implements Serializable {
 		 ois.close();
 		 fichier.close();
 		 System.out.println("désérialisation des documents terminée avec succès");
+		 
+		 
+		 ///
+		 ///reche
+		 ///
 		 
 		}catch(IOException e) {
 			System.err.println("erreur avec la lecture des ficher de sérialisation des documents");

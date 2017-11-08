@@ -38,6 +38,8 @@ public class GestionDocuments {
 			//Recherche par auteur
 			else {
 				lstTable[1].getItems().removeIf(docu-> !((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
+				
+				//ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).stream().filter(d -> d instanceof Livre).count();
 			}
 		}	
 	}

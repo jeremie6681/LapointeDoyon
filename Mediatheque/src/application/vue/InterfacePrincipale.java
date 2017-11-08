@@ -1,6 +1,6 @@
 package application.vue;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
@@ -209,7 +209,7 @@ public class InterfacePrincipale {
 	private void colonneTableauCommune(TableView<Document> table) {
 		TableColumn<Document, String> colonneIdentifiant = new TableColumn<Document, String>("Identifiant");
 		TableColumn<Document, String> colonneTitre = new TableColumn<Document, String>("Titre");
-		TableColumn<Document, Date> colonneDate = new TableColumn<Document, Date>("Date parution");
+		TableColumn<Document, LocalDate> colonneDate = new TableColumn<Document, LocalDate>("Date parution");
 		TableColumn<Document, Etat> colonneEtat = new TableColumn<Document, Etat>("Disponibilité");
 		
 		colonneIdentifiant.setPrefWidth(80);

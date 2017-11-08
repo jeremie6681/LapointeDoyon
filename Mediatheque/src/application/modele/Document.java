@@ -1,6 +1,7 @@
 package application.modele;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,12 +10,12 @@ public class Document implements Serializable {
 	private static final long serialVersionUID = -1342101432549855316L;
 	private String strCodeDocument;
 	private String strTitre;
-	private Date dateParution;
+	private LocalDate dateParution;
 	private Etat etatDoc;
 	private ArrayList<String> lstMots = new ArrayList<String>();
 	
 	
-	public Document(String strCodeDocument, String strTitre, Date dateParution, Etat etatDoc) {
+	public Document(String strCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc) {
 		super();
 		this.strCodeDocument = strCodeDocument;
 		this.strTitre = strTitre;
@@ -48,12 +49,12 @@ public class Document implements Serializable {
 	}
 
 
-	public Date getDateParution() {
+	public LocalDate getDateParution() {
 		return dateParution;
 	}
 
 
-	public void setDateParution(Date dateParution) {
+	public void setDateParution(LocalDate dateParution) {
 		this.dateParution = dateParution;
 	}
 
