@@ -2,23 +2,16 @@ package application.vue;
 
 import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
-import application.modele.Livre;
 import application.modele.Personne;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,10 +26,8 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -47,7 +38,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
