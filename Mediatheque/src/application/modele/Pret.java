@@ -11,11 +11,22 @@ public class Pret {
 	private LocalDate dateRetourPrevue;
 	private LocalDate dateEffectiveRetour;
 	private Amende amende=null;
+	private Document doc;
 	
-	public Pret() {
+	public Pret(Document doc) {
 		this.intNoPret = intCompteurNoPret;
 		intCompteurNoPret++;
 		this.datePret =LocalDate.now() ;
+		this.doc=doc;
+		doc.setEtatDoc(Etat.EMPRUNTE);
+	}
+
+	public Document getDoc() {
+		return doc;
+	}
+
+	public Amende getAmende() {
+		return amende;
 	}
 
 }

@@ -81,6 +81,9 @@ public class ListePersonnes {
 	private void lecture() {
 		
 	}
+	public void miseAjourPrets() {
+		
+	}
 	
 	
 	public static ListePersonnes getInstance() {
