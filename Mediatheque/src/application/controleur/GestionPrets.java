@@ -68,6 +68,7 @@ public class GestionPrets {
 			           //ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).removeIf(personne -> personne.getLstPrets().stream().filter(f->f.equals(doc)).findFirst().equals(personne));     retirer une personne selon un doc 
 			           //ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(f->f.getLstPrets().removeIf(j->j.equals(doc))); RETirer un pret selon un doc 
 			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(f->f.getLstPrets().stream().filter(j->j.getDoc().equals(doc)).findFirst().get().retourDoc());
+			
 		}
 		else{
 			Alert alerteDocumentNonEmprumte=new Alert(AlertType.WARNING,"Le document "+doc .getStrTitre()+" est déja emprunté",ButtonType.OK);

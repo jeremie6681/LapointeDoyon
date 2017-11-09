@@ -59,7 +59,7 @@ public class InterfaceAjouterDocument {
 		Text txtInfos = new Text("Informations sur le document  ");
 		//pour la box DVD
 		gpDVD= new GridPane();
-		Label lblNumDisque=new Label("No de periodique:");
+		Label lblNumDisque=new Label("Nombre");
 		//TextField tfNumDisque = new TextField();
 		Label lblRealisateur=new Label("Réalisateur:");
 		TextField tfRealisateur = new TextField();
