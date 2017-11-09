@@ -58,4 +58,12 @@ public class Personne {
 		this.strNoTelephone = strNoTelephone;
 	}
 
+	public String getStrAdresse() {
+		return strAdresse;
+	}
+
+	public String getStrNoTelephone() {
+		return strNoTelephone;
+	}
+
 }

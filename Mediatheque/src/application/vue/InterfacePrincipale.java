@@ -9,6 +9,7 @@ import application.modele.Adherent;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
+import application.modele.ListePersonnes;
 import application.modele.Personne;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
@@ -41,6 +42,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -68,7 +70,7 @@ public class InterfacePrincipale {
 		
 		Label lblTitre = new Label("Médiathèque");
 		lblTitre.setFont(Font.font("arial", FontWeight.BOLD	, 35));
-		lblTitre.setPadding(new Insets(20));
+		lblTitre.setPadding(new Insets(10,0,15,0));
 		
 		//lblTitre.setTextFill(Color.WHITE);
 		
@@ -100,11 +102,6 @@ public class InterfacePrincipale {
 		panneau.setPadding(new Insets(20,50,30,50));
 		
 		//Recherche
-		//HBox groupeRecherche = new HBox(10);
-		//groupeRecherche.setAlignment(Pos.CENTER);
-		//AnchorPane groupeRecherche = new AnchorPane();
-		//titled
-		
 		GridPane groupeRecherche = new GridPane();
 		//groupeRecherche.setPadding(new Insets(40,0,0,0));
 		groupeRecherche.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
@@ -114,7 +111,7 @@ public class InterfacePrincipale {
 		groupeRecherche.setPrefSize(210, 100);
 		
 		
-		Label lblRecherche = new Label("Recherche");
+		Label lblRecherche = new Label("Recherche document");
 		lblRecherche.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		//groupeRecherche.setb
 		
@@ -175,7 +172,9 @@ public class InterfacePrincipale {
 		
 		panneau.setMargin(panneauBas, new Insets(40));
 		//panneauBas.setMargin(groupeRecherche, new Insets(20));
-		
+		VBox panneauGestionAdherent = panneauGestionAdherent();
+		panneau.setRight(panneauGestionAdherent);
+		panneau.setMargin(panneauGestionAdherent, new Insets(0,0,0,60));
 		
 		primaryStage.setTitle("Médiathèque");
 	}
@@ -281,8 +280,15 @@ public class InterfacePrincipale {
 		
 	}
 	
-	private void panneauGestionAdherent() {
-		//String strNom, String strPrenom, String strAdresse, String strNoTelephone, String strNoPersonne
+	@SuppressWarnings("unchecked")
+	private VBox panneauGestionAdherent() {
+		VBox panneauListePersonne =new VBox(10);
+		panneauListePersonne.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
+		Label lblTitrelistePersonne = new Label("Liste des adhérents");
+		lblTitrelistePersonne.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		
+		TableView<Personne> tableAdherent = new TableView<Personne>();
 		
 		TableColumn<Personne, String> colonneNoPersonne = new TableColumn<Personne, String>("Identifiant");
 		TableColumn<Personne, String> colonnePrenom = new TableColumn<Personne, String>("Prénom");
@@ -301,6 +307,19 @@ public class InterfacePrincipale {
 		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
+		
+		ObservableList<Personne> donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
+		
+		
+		tableAdherent.getColumns().addAll(colonneNoPersonne,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
+		tableAdherent.setItems(donneePersonne);
+		
+		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne,tableAdherent);
+		VBox.setMargin(lblTitrelistePersonne, new Insets(0,0,0,180));
+		
+		panneauListePersonne.setPadding(new Insets(15));
+		
+		return panneauListePersonne;
 	}
 	
 }
