@@ -28,5 +28,8 @@ public class Pret {
 	public Amende getAmende() {
 		return amende;
 	}
+	public  void retourDoc(){
+		doc= null;
+	}
 
 }

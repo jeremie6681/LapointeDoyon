@@ -21,7 +21,7 @@ public class ListePersonnes {
 	private ArrayList<Personne> lstAdherent = new ArrayList<>();
 	private ArrayList<Personne> lstAdmin = new ArrayList<>();
 	
-	public static Map<TypePersonne, List<Personne>> mapPersonne = new HashMap<>();
+	public Map<TypePersonne, List<Personne>> mapPersonne = new HashMap<>();
 	
 	private static ListePersonnes instanceLst;
 	

@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Border;
@@ -58,8 +60,8 @@ public class InterfaceAjouterDocument {
 		//pour la box DVD
 		gpDVD= new GridPane();
 		Label lblNumDisque=new Label("No de periodique:");
-		TextField tfNumDisque = new TextField();
-		Label lblRealisateur=new Label("Auteur :");
+		//TextField tfNumDisque = new TextField();
+		Label lblRealisateur=new Label("Réalisateur:");
 		TextField tfRealisateur = new TextField();
 		Text txtInfosDVD= new Text("Informations sur le DVD ");
 		//pour la Box Perriodique
@@ -74,6 +76,11 @@ public class InterfaceAjouterDocument {
 		Label lblAuteur=new Label("Auteur :");
 		TextField tfAuteur = new TextField();
 		Text txtInfosLivre = new Text("Informations sur le livre ");
+		
+		//spinner DVD
+		Spinner<Integer> spinner = new Spinner<Integer>();
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1);
+		spinner.setValueFactory(valueFactory);
 		
 		//texts
 		txtInfos.setFont(fntTitre);
@@ -95,7 +102,7 @@ public class InterfaceAjouterDocument {
 		gpDVD.add(txtInfosDVD, 1, 0);
 		gpDVD.add(lblNumDisque,1, 2);
 		gpDVD.add(lblRealisateur,1, 3);
-		gpDVD.add(tfNumDisque,2, 2);
+		gpDVD.add(spinner,2, 2);
 		gpDVD.add(tfRealisateur,2, 3);
 		gpDVD.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		gpDVD.setHgap(10);

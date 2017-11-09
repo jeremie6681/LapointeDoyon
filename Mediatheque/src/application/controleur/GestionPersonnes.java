@@ -18,7 +18,7 @@ public class GestionPersonnes {
 		Alert alerteConnection = new Alert(AlertType.WARNING,"votre identifiant n'est pas valide",ButtonType.OK);
 		InterfacePrincipale interfacePrincipale ;
 		if (strNomConnection!=null && strNomConnection.trim()!="") {
-			for (Personne personne : ListePersonnes.mapPersonne.get(TypePersonne.Adherent)) {
+			for (Personne personne : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
 				if(personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
 					interfacePrincipale = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,personne ); 
 					primaryStage.setScene(interfacePrincipale.getScene());
@@ -37,8 +37,8 @@ public class GestionPersonnes {
 		Prepose temp ;
 		
 		if (strNomConnection!=null && strNomConnection.trim()!="") {
-			if (strNomConnection.trim().equals(ListePersonnes.mapPersonne.get(TypePersonne.Admin).get(0).getStrNoPersonne())) {
-				temp=(Prepose)ListePersonnes.mapPersonne.get(TypePersonne.Admin).get(0);
+			if (strNomConnection.trim().equals(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Admin).get(0).getStrNoPersonne())) {
+				temp=(Prepose)ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Admin).get(0);
 				if(strMotPasse.trim().equals(temp.getStrMotPasse())) {
 					interfacePrincipale = new InterfacePrincipale(primaryStage,TypePersonne.Admin,temp ); 
 					booConnecter=true;
@@ -46,7 +46,7 @@ public class GestionPersonnes {
 				} 
 			}
 			else {
-			for (Personne personne : ListePersonnes.mapPersonne.get(TypePersonne.Adherent)) {
+			for (Personne personne : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
 				if(personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
 					temp=(Prepose)personne;
 					if (temp.getStrMotPasse().equals(strMotPasse)){
