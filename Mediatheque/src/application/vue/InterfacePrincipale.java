@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
+import application.modele.Adherent;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -13,8 +14,11 @@ import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,7 +38,10 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -93,12 +100,22 @@ public class InterfacePrincipale {
 		panneau.setPadding(new Insets(20,50,30,50));
 		
 		//Recherche
-		HBox groupeRecherche = new HBox(10);
-		groupeRecherche.setAlignment(Pos.CENTER);
+		//HBox groupeRecherche = new HBox(10);
+		//groupeRecherche.setAlignment(Pos.CENTER);
 		//AnchorPane groupeRecherche = new AnchorPane();
 		//titled
-		groupeRecherche.setPadding(new Insets(40,0,0,0));
+		
+		GridPane groupeRecherche = new GridPane();
+		//groupeRecherche.setPadding(new Insets(40,0,0,0));
+		groupeRecherche.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		groupeRecherche.setHgap(15);
+		groupeRecherche.setVgap(15);
+		
+		groupeRecherche.setPrefSize(210, 100);
+		
+		
 		Label lblRecherche = new Label("Recherche");
+		lblRecherche.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		//groupeRecherche.setb
 		
 		//groupeRecherche.getChildren().add(lblRecherche);
@@ -109,14 +126,28 @@ public class InterfacePrincipale {
 		Button btnRecherche = new Button("Recherche");
 		Button btnReinitialiseListe = new Button("Réinitialiser liste document");
 		
+		groupeRecherche.add(lblRecherche, 0, 0,2,1);
+		groupeRecherche.add(tbRecherche, 0, 1);
+		groupeRecherche.add(rbAuteur, 1, 1);
+		groupeRecherche.add(rbMotCle, 1, 2);
+		groupeRecherche.add(btnRecherche, 0, 2);
+		
 		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
 		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd));
 		
+		GridPane.setMargin(lblRecherche, new Insets(15,0,0,15));
+		GridPane.setHalignment(lblRecherche, HPos.CENTER);
+		GridPane.setMargin(tbRecherche, new Insets(10,0,5,15));
+		GridPane.setHalignment(btnRecherche, HPos.CENTER);
 		
+		GridPane.setMargin(btnRecherche, new Insets(0,0,15,15));
+		GridPane.setMargin(rbMotCle, new Insets(0,0,15,0));
 		
-		groupeRecherche.setSpacing(10);
+		//groupeRecherche.setSpacing(10);
 		
-		groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur,rbMotCle, btnRecherche, btnReinitialiseListe);
+		//groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur);
+		//groupeRecherche.getChildren().addAll(rbMotCle, btnRecherche);
+		
 		
 		rbAuteur.setToggleGroup(tg);
 		rbMotCle.setToggleGroup(tg);
@@ -130,13 +161,20 @@ public class InterfacePrincipale {
 		
 		//panneau.prefWidthProperty().bind(sc);
 		
+		HBox panneauBas = new HBox(20);
+		panneauBas.getChildren().addAll(groupeRecherche,btnReinitialiseListe);
+		
+		
 		panneau.setTop(lblTitre);
 		panneau.setCenter(tabPane);
 		
-		panneau.setBottom(groupeRecherche);
+		panneau.setBottom(panneauBas);
 		
 		panneau.setAlignment(lblTitre, Pos.CENTER);
 		root.getChildren().add(panneau);
+		
+		panneau.setMargin(panneauBas, new Insets(40));
+		//panneauBas.setMargin(groupeRecherche, new Insets(20));
 		
 		
 		primaryStage.setTitle("Médiathèque");
@@ -214,7 +252,7 @@ public class InterfacePrincipale {
 		
 		colonneIdentifiant.setPrefWidth(80);
 		colonneTitre.setPrefWidth(275);
-		colonneDate.setPrefWidth(150);
+		colonneDate.setPrefWidth(100);
 		colonneEtat.setPrefWidth(100);
 		
 		colonneIdentifiant.setCellValueFactory(new PropertyValueFactory<>("strCodeDocument"));
@@ -228,4 +266,41 @@ public class InterfacePrincipale {
 	public Scene getScene() {
 		return scene;
 	}
+	
+	private void panneauGestion() {
+		//Gestion Document
+		Label lblTitreDoc = new Label("Gestion Document");
+		Button btnAjouterDocument = new Button("Ajouter Document");
+		Button btnSupprimerDocument = new Button("Supprimer Document");
+		
+		//Gestion Adhérent
+		Label lblTitrePersonne = new Label("Gestion Adhérent");
+		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
+		Button btnModifirerAdherent = new Button("Modifier Adhérent");
+		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
+		
+	}
+	
+	private void panneauGestionAdherent() {
+		//String strNom, String strPrenom, String strAdresse, String strNoTelephone, String strNoPersonne
+		
+		TableColumn<Personne, String> colonneNoPersonne = new TableColumn<Personne, String>("Identifiant");
+		TableColumn<Personne, String> colonnePrenom = new TableColumn<Personne, String>("Prénom");
+		TableColumn<Personne, String> colonneNom = new TableColumn<Personne, String>("Nom");
+		TableColumn<Personne, String> colonneAdresse = new TableColumn<Personne, String>("Adresse");
+		TableColumn<Personne, String> colonneTelephone = new TableColumn<Personne, String>("Numéro téléphone");
+		
+		colonneNoPersonne.setPrefWidth(100);
+		colonnePrenom.setPrefWidth(100);
+		colonneNom.setPrefWidth(100);
+		colonneAdresse.setPrefWidth(100);
+		colonneTelephone.setPrefWidth(100);
+		
+		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne"));
+		colonnePrenom.setCellValueFactory(new PropertyValueFactory<>("strPrenom"));
+		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
+		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
+		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
+	}
+	
 }

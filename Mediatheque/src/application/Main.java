@@ -2,6 +2,7 @@ package application;
 
 import application.modele.ListeDocuments;
 import application.modele.TypePersonne;
+import application.vue.InterfaceAjouterDocument;
 import application.vue.InterfacePrincipale;
 import javafx.application.Application;
 import javafx.stage.Stage;
