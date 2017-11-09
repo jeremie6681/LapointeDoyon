@@ -51,6 +51,7 @@ public class GestionPrets {
 				}
 				if (booAUneAmande) {
 					alerteAmende =new Alert(AlertType.WARNING,personne.getStrPrenom()+" "+personne.getStrNom()+" ne peut louer de documents en raison d'une amande impayée de "+calculerAmande(personne)+"$",ButtonType.OK);
+					alerteAmende.showAndWait();
 				}
 				else{
 					Pret pret= new Pret(document);
