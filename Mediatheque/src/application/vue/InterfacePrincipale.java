@@ -3,6 +3,9 @@ package application.vue;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
+
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
 import application.modele.Adherent;
@@ -49,6 +52,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class InterfacePrincipale {
 	private Scene scene;
@@ -158,8 +162,29 @@ public class InterfacePrincipale {
 		
 		//panneau.prefWidthProperty().bind(sc);
 		
+		
+		
+		panneau.setAlignment(lblTitre, Pos.CENTER);
+		root.getChildren().add(panneau);
+		
+		
+		
+		
+		
+		VBox panneauGestionAdherent = panneauGestionAdherent();
+		panneau.setRight(panneauGestionAdherent);
+		panneau.setMargin(panneauGestionAdherent, new Insets(0,0,0,60));
+		
+		VBox test = new VBox(15);
+		test.getChildren().addAll(panneauGestion().getKey(),panneauGestion().getValue());
+		
 		HBox panneauBas = new HBox(20);
-		panneauBas.getChildren().addAll(groupeRecherche,btnReinitialiseListe);
+		panneauBas.getChildren().addAll(groupeRecherche,btnReinitialiseListe, test);
+		
+		panneau.setMargin(panneauBas, new Insets(40));
+		panneauBas.setMargin(groupeRecherche, new Insets(20));
+		panneauBas.setMargin(test, new Insets(0,0,0,300));
+		panneauBas.setAlignment(Pos.CENTER);
 		
 		
 		panneau.setTop(lblTitre);
@@ -167,14 +192,6 @@ public class InterfacePrincipale {
 		
 		panneau.setBottom(panneauBas);
 		
-		panneau.setAlignment(lblTitre, Pos.CENTER);
-		root.getChildren().add(panneau);
-		
-		panneau.setMargin(panneauBas, new Insets(40));
-		//panneauBas.setMargin(groupeRecherche, new Insets(20));
-		VBox panneauGestionAdherent = panneauGestionAdherent();
-		panneau.setRight(panneauGestionAdherent);
-		panneau.setMargin(panneauGestionAdherent, new Insets(0,0,0,60));
 		
 		primaryStage.setTitle("Médiathèque");
 	}
@@ -266,7 +283,9 @@ public class InterfacePrincipale {
 		return scene;
 	}
 	
-	private void panneauGestion() {
+	
+	
+	private Pair<GridPane, GridPane> panneauGestion() {
 		//Gestion Document
 		GridPane panneauGesDoc = new GridPane();
 		panneauGesDoc.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
@@ -301,7 +320,7 @@ public class InterfacePrincipale {
 		panneauGesAdherent.add(btnModifirerAdherent, 1, 1);
 		panneauGesAdherent.add(btnSupprimerAdherent, 2, 1);
 		
-		
+		return new Pair<GridPane, GridPane>(panneauGesDoc, panneauGesAdherent);
 		
 	}
 	
@@ -324,8 +343,8 @@ public class InterfacePrincipale {
 		colonneNoPersonne.setPrefWidth(100);
 		colonnePrenom.setPrefWidth(100);
 		colonneNom.setPrefWidth(100);
-		colonneAdresse.setPrefWidth(100);
-		colonneTelephone.setPrefWidth(100);
+		colonneAdresse.setPrefWidth(120);
+		colonneTelephone.setPrefWidth(120);
 		
 		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne"));
 		colonnePrenom.setCellValueFactory(new PropertyValueFactory<>("strPrenom"));

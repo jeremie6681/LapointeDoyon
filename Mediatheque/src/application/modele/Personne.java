@@ -11,7 +11,7 @@ public class Personne {
 	private ArrayList<Pret> lstPrets=new ArrayList<Pret>();
 	
 	public Personne(String strNoPersonne, String strNom, String strPrenom, String strAdresse, String strNoTelephone) {
-		//this.strNoPersonne = strNoPersonne;
+		this.strNoPersonne = strNoPersonne;
 		this.strNom = strNom;
 		this.strPrenom = strPrenom;
 		this.strAdresse = strAdresse;
@@ -64,6 +64,12 @@ public class Personne {
 
 	public String getStrNoTelephone() {
 		return strNoTelephone;
+	}
+
+	@Override
+	public String toString() {
+		return "Personne [strNoPersonne=" + strNoPersonne + ", strNom=" + strNom + ", strPrenom=" + strPrenom
+				+ ", strAdresse=" + strAdresse + ", strNoTelephone=" + strNoTelephone + "]";
 	}
 
 }

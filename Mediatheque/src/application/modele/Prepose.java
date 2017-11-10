@@ -5,8 +5,8 @@ public class Prepose extends Personne {
 	private String strMotPasse;
 	
 	public Prepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,  String strMotPasse, String strNoPersonne) {
-		super(strNom, strPrenom, strAdresse, strNoTelephone,strNoPersonne );
-		//this.intNoEmploye=intNoEmploye;
+		super(strNoPersonne, strNom, strPrenom, strAdresse, strNoTelephone);
+		this.intNoEmploye=intNoEmploye;
 		this.strMotPasse=strMotPasse;
 	}
 

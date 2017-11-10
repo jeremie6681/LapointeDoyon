@@ -1,8 +1,10 @@
 package application.modele;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -79,7 +81,41 @@ public class ListePersonnes {
 		}
 	
 	private void lecture() {
+		BufferedReader brFichier = null;
 		
+		try {
+			brFichier = new BufferedReader(new FileReader(strNomFichierPersonne));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		String strLigne;
+		try {
+			while((strLigne = brFichier.readLine()) != null) {
+				String[] tabLigne = strLigne.split(",");
+				
+				//Selon le type de personne, il crée l'object et le range dans la liste approprié
+				switch (tabLigne[0].substring(0, 3)) {
+				case "Adm":
+					Prepose objAdministrateur = new Prepose(tabLigne[1], tabLigne[2], tabLigne[3], tabLigne[4], tabLigne[5], tabLigne[0]);
+					lstAdmin.add(objAdministrateur);
+					break;
+				case "Pre":
+					Prepose objPreposer = new Prepose(tabLigne[1], tabLigne[2], tabLigne[3], tabLigne[4], tabLigne[5], tabLigne[0]);
+					lstPrepose.add(objPreposer);
+					break;
+				case "Adh":
+					Adherent objAdherent = new Adherent(tabLigne[1], tabLigne[2], tabLigne[3], tabLigne[4], tabLigne[0]);
+					lstAdherent.add(objAdherent);;
+					break;
+
+				default:
+					throw new Exception();
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	public void miseAjourPrets() {
 		

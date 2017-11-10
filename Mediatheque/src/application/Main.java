@@ -1,6 +1,7 @@
 package application;
 
 import application.modele.ListeDocuments;
+import application.modele.ListePersonnes;
 import application.modele.TypePersonne;
 import application.vue.InterfaceAjouterDocument;
 import application.vue.InterfacePrincipale;
@@ -38,6 +39,9 @@ public class Main extends Application {
 	
 		ListeDocuments lstDocs = ListeDocuments.getInstance();
 		lstDocs.serialisation();
+		
+		ListePersonnes listePersonnes = ListePersonnes.getInstance();
+		listePersonnes.serialisation();
 
 		launch(args);
 	}
