@@ -22,4 +22,9 @@ public class Livre extends Document implements Serializable{
 		this.strAuteur = strAuteur;
 	}
 
+	@Override
+	public TypeDocument getTypeDocument() {
+		return TypeDocument.Livre;
+	}
+
 }

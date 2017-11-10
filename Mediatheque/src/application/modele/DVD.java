@@ -32,4 +32,8 @@ public class DVD extends Document implements Serializable{
 	public void setStrResalisateur(String strResalisateur) {
 		this.strResalisateur = strResalisateur;
 	}
+	public TypeDocument getTypeDocument() {
+		return TypeDocument.Dvd;
+	}
+	
 }

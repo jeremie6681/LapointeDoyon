@@ -32,4 +32,7 @@ public class Periodique extends Document implements Serializable {
 	public void setIntNoPeriodique(int intNoPeriodique) {
 		this.intNoPeriodique = intNoPeriodique;
 	}
+	public TypeDocument getTypeDocument() {
+		return TypeDocument.Periodique;
+	}
 }

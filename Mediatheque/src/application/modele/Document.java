@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Document implements Serializable {
+public abstract class Document implements Serializable {
 	
 	private static final long serialVersionUID = -1342101432549855316L;
 	private String strCodeDocument;
@@ -74,5 +74,5 @@ public class Document implements Serializable {
 		return "Document [strCodeDocument=" + strCodeDocument + ", strTitre=" + strTitre + ", dateParution="
 				+ dateParution + ", etatDoc=" + etatDoc + ", lstMots=" + lstMots + "]";
 	}
-	
+	abstract public TypeDocument getTypeDocument();
 }
