@@ -268,15 +268,40 @@ public class InterfacePrincipale {
 	
 	private void panneauGestion() {
 		//Gestion Document
+		GridPane panneauGesDoc = new GridPane();
+		panneauGesDoc.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		panneauGesDoc.setVgap(10);
+		panneauGesDoc.setHgap(10);
+		
 		Label lblTitreDoc = new Label("Gestion Document");
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		Button btnSupprimerDocument = new Button("Supprimer Document");
 		
+		lblTitreDoc.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		
+		panneauGesDoc.add(lblTitreDoc, 0, 0,2,1);
+		panneauGesDoc.add(btnAjouterDocument, 0, 1);
+		panneauGesDoc.add(btnSupprimerDocument, 1, 1);
+		
 		//Gestion Adhérent
+		GridPane panneauGesAdherent = new GridPane();
+		panneauGesAdherent.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		panneauGesAdherent.setVgap(10);
+		panneauGesAdherent.setHgap(10);
+		
 		Label lblTitrePersonne = new Label("Gestion Adhérent");
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
+		
+		lblTitrePersonne.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		
+		panneauGesAdherent.add(lblTitrePersonne, 0, 0,3,1);
+		panneauGesAdherent.add(btnAjouterAdherent, 0, 1);
+		panneauGesAdherent.add(btnModifirerAdherent, 1, 1);
+		panneauGesAdherent.add(btnSupprimerAdherent, 2, 1);
+		
+		
 		
 	}
 	

@@ -11,6 +11,8 @@ import javafx.scene.control.TableView;
 public class GestionDocuments {
 	public void ajouterDocument(){
 		
+		//Doit créer la fenetre modal nécessaire
+		
 		//Doit être appeler en moment donner
 		motCleAjout();
 	}
