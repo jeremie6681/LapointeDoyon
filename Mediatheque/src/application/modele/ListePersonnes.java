@@ -30,7 +30,7 @@ public class ListePersonnes {
 	public ListePersonnes() {
 		mapPersonne.put(TypePersonne.Adherent, lstAdherent);
 		mapPersonne.put(TypePersonne.Prepose, lstPrepose);
-		mapPersonne.put(TypePersonne.Admin, Arrays.asList( new Prepose("bob", "graton", "123 rue", "5141234567", "secret","admin")));
+		mapPersonne.put(TypePersonne.Admin, lstAdmin);
 		
 		//si pas de fichier sérialiser touver
 		
