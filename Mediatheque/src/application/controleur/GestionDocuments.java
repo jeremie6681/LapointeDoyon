@@ -6,15 +6,20 @@ import application.modele.Document;
 import application.modele.ListeDocuments;
 import application.modele.Livre;
 import application.modele.TypeDocument;
+import application.vue.InterfaceAjouterDocument;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class GestionDocuments {
-	public void ajouterDocument(){
+	///
+	///methode a appeler quand on clic sur btnAjouterDocument ou equivalent
+	///
+	public void ouvrirFenetreAjouterDocument(){
 		
-		//Doit créer la fenetre modal nécessaire
-		
-		//Doit être appeler en moment donner
-		motCleAjout();
+		Stage secondaryStage = new Stage();
+		InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument();
+		secondaryStage.setScene(interfaceAjouterDoc.getScene());
+		secondaryStage.showAndWait();
 	}
 	
 	public void supprimerDocuments(String strCodeDocument){
@@ -65,8 +70,19 @@ public class GestionDocuments {
 		}
 	}
 	
-	private void motCleAjout() {
+	private static void motCleAjout() {
 		
+	}
+	
+	///
+	///methode appellé par le event handler du bouton que l'on pesse pou ajouter le doc 
+	///appel la methode qui ajoute les mots clés
+	///
+	public static void ajouterDocument() {
+		
+		
+		
+		motCleAjout();
 	}
 	
 }

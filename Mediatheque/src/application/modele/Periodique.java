@@ -2,7 +2,6 @@ package application.modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Periodique extends Document implements Serializable {
 	

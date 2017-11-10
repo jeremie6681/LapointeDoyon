@@ -25,7 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
+import application.controleur.GestionDocuments;
 public class InterfaceAjouterDocument {
 	private Scene scene;
 	private RadioButton rbDVD;
@@ -50,6 +50,7 @@ public class InterfaceAjouterDocument {
 		Text txtInstruction= new Text("Ajout de document");
 		btnRetour = new Button("retour");
 		Font fntTitre=(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
+		
 		//pour la box infos générals
 		GridPane gpInfos= new GridPane();
 		Label lblTitre=new Label("Titre:");
@@ -57,13 +58,16 @@ public class InterfaceAjouterDocument {
 		Label lblDate=new Label("Date de Parution :");
 		DatePicker tfDate = new DatePicker();
 		Text txtInfos = new Text("Informations sur le document  ");
+		
 		//pour la box DVD
 		gpDVD= new GridPane();
 		Label lblNumDisque=new Label("Nombre");
+		
 		//TextField tfNumDisque = new TextField();
 		Label lblRealisateur=new Label("Réalisateur:");
 		TextField tfRealisateur = new TextField();
 		Text txtInfosDVD= new Text("Informations sur le DVD ");
+		
 		//pour la Box Perriodique
 		gpPeriodique= new GridPane();
 		Label lblNoPeriodique=new Label("No de periodique:");
@@ -71,6 +75,7 @@ public class InterfaceAjouterDocument {
 		Label lblNoVolume=new Label("No De Volume :");
 		TextField tfNoVolume = new TextField();
 		Text txtInfosPeriodique= new Text("Informations sur le Périodique ");
+		
 		//pour les livres
 		gpLivre = new GridPane();
 		Label lblAuteur=new Label("Auteur :");
@@ -141,7 +146,7 @@ public class InterfaceAjouterDocument {
 		
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
-		
+		btnConfirmer.setOnAction(e->application.controleur.GestionDocuments.ajouterDocument());
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));
 		
@@ -149,6 +154,7 @@ public class InterfaceAjouterDocument {
 		rbDVD.setToggleGroup(tgType);
 		rbPeriodique.setToggleGroup(tgType);
 		rbLivre.setToggleGroup(tgType);
+		
 		//radio buttons 
 		rbDVD.setSelected(true);
 		rbDVD.setOnAction(gestionBoxCreationDocuments);
