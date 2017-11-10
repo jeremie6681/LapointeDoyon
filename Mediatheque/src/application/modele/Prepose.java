@@ -1,6 +1,10 @@
 package application.modele;
 
-public class Prepose extends Personne {
+import java.io.Serializable;
+
+public class Prepose extends Personne implements Serializable {
+
+	private static final long serialVersionUID = -7225017568166257641L;
 	private int intNoEmploye;
 	private String strMotPasse;
 	

@@ -1,8 +1,11 @@
 package application.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Personne {
+public class Personne implements Serializable{
+
+	private static final long serialVersionUID = 7597084348346483128L;
 	private String strNoPersonne;
 	private String strNom;
 	private String strPrenom;
