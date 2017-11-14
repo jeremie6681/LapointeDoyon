@@ -11,6 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class GestionDocuments {
+	String[] tabMotCleExclu = {"les","une","des","aux","cet","cette","ces","mon","ton","son","mes","tes","ses","notre",
+			"votre","leur","nos","vos","quel","quelle","quels","quelles","aucun","aucune","aucuns","aucunes","maint",
+			"mainte","maints","leur","leurs","mais","doc","car","nous","vous","ils","par","avec","sous","dans","pour",
+			"en","sans","où","ai","est","que","qui","quand"};
+	
 	///
 	///methode a appeler quand on clic sur btnAjouterDocument ou equivalent
 	///
@@ -64,6 +69,7 @@ public class GestionDocuments {
 				//parcours la liste des documents du même type
 				for(int y=0; y < typeDoc.size();y++) {
 					// a completer ... Dépends si liste mot clé banie fournie
+					
 					
 				}
 			}
