@@ -25,7 +25,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
+import java.time.LocalDate;
+
 import application.controleur.GestionDocuments;
+import application.modele.TypeDocument;
 public class InterfaceAjouterDocument {
 	private Scene scene;
 	private RadioButton rbDVD;
@@ -37,6 +41,13 @@ public class InterfaceAjouterDocument {
 	private GridPane gpPeriodique;
 	private GridPane gpDVD;
 	private VBox vb;
+	
+	private TextField tfAuteur;
+	private TextField tfNoVolume;
+	private TextField tfNoPeriodique;
+	private TextField tfRealisateur;
+	private DatePicker tfDate ;
+	private TextField tfTitre;
 	
 	public  InterfaceAjouterDocument(){
 		vb= new VBox(10) ;
@@ -54,9 +65,9 @@ public class InterfaceAjouterDocument {
 		//pour la box infos générals
 		GridPane gpInfos= new GridPane();
 		Label lblTitre=new Label("Titre:");
-		TextField tfTitre = new TextField();
+		tfTitre = new TextField();
 		Label lblDate=new Label("Date de Parution :");
-		DatePicker tfDate = new DatePicker();
+		tfDate = new DatePicker();
 		Text txtInfos = new Text("Informations sur le document  ");
 		
 		//pour la box DVD
@@ -65,21 +76,21 @@ public class InterfaceAjouterDocument {
 		
 		//TextField tfNumDisque = new TextField();
 		Label lblRealisateur=new Label("Réalisateur:");
-		TextField tfRealisateur = new TextField();
+		tfRealisateur = new TextField();
 		Text txtInfosDVD= new Text("Informations sur le DVD ");
 		
 		//pour la Box Perriodique
 		gpPeriodique= new GridPane();
 		Label lblNoPeriodique=new Label("No de periodique:");
-		TextField tfNoPeriodique = new TextField();
+		tfNoPeriodique = new TextField();
 		Label lblNoVolume=new Label("No De Volume :");
-		TextField tfNoVolume = new TextField();
+		tfNoVolume = new TextField();
 		Text txtInfosPeriodique= new Text("Informations sur le Périodique ");
 		
 		//pour les livres
 		gpLivre = new GridPane();
 		Label lblAuteur=new Label("Auteur :");
-		TextField tfAuteur = new TextField();
+		tfAuteur = new TextField();
 		Text txtInfosLivre = new Text("Informations sur le livre ");
 		
 		//spinner DVD
@@ -146,7 +157,7 @@ public class InterfaceAjouterDocument {
 		
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
-		btnConfirmer.setOnAction(e->application.controleur.GestionDocuments.ajouterDocument());
+		btnConfirmer.setOnAction(gestionAjouterDocuments);
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));
 		
@@ -180,6 +191,33 @@ public class InterfaceAjouterDocument {
 			}
 			else {
 				vb.getChildren().add(3,gpPeriodique);
+			}
+		}
+	};
+	EventHandler<ActionEvent> gestionAjouterDocuments =  new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent event) {
+			String strTitre=tfTitre.getText();
+			LocalDate dateParution=tfDate.getValue();
+			String strRealisateur;
+			String strNoVolume;
+			String strNoPeriodique;
+			String strAuteur;
+			TypeDocument type; 
+			if(rbDVD.isSelected()) {
+				strRealisateur=tfRealisateur.getText();
+				type=TypeDocument.Dvd;
+				//appeller methode ajouter docs
+			}
+			else if(rbLivre.isSelected()) {
+				strAuteur= tfAuteur.getText();
+				type=TypeDocument.Livre;
+				//appeller methode ajouter docs
+			}
+			else {
+				strNoPeriodique= tfNoPeriodique.getText();
+				strNoVolume=tfNoPeriodique.getText();
+				type=TypeDocument.Periodique;
+				//appeller methode ajouter docs
 			}
 		}
 	};

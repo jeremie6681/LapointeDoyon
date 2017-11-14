@@ -43,6 +43,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -285,8 +286,10 @@ public class InterfacePrincipale {
 	private Accordion optionPreposer() {	
 		Font policeMenu = Font.font("arial",FontWeight.BOLD ,13);
 		Stage secondaryStage = new Stage();
+		secondaryStage.initModality(Modality.APPLICATION_MODAL);
+		secondaryStage.sizeToScene();
 		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument();
-		//final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(typePersonne);
+		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(utilisateur);
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();});
@@ -299,7 +302,9 @@ public class InterfacePrincipale {
 		
 		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
+		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();});
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
+		
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
 		
 		VBox panneauSeconGesAdh = new VBox(10,btnAjouterAdherent,btnModifirerAdherent,btnSupprimerAdherent);

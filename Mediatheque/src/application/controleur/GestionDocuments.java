@@ -19,13 +19,13 @@ public class GestionDocuments {
 	///
 	///methode a appeler quand on clic sur btnAjouterDocument ou equivalent
 	///
-	public void ouvrirFenetreAjouterDocument(){
+	/*public void ouvrirFenetreAjouterDocument(){
 		
 		Stage secondaryStage = new Stage();
 		InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument();
 		secondaryStage.setScene(interfaceAjouterDoc.getScene());
 		secondaryStage.showAndWait();
-	}
+	}*/
 	
 	public void supprimerDocuments(String strCodeDocument){
 		TypeDocument typeSupprimer = null;
