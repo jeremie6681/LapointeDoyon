@@ -3,12 +3,8 @@ package application.vue;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
-
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
-import application.modele.Adherent;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -20,11 +16,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -34,6 +29,7 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Border;
@@ -42,21 +38,17 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
+	TypePersonne utilisateur = TypePersonne.Adherent;
 	//private Stage primaryStage;
 	
 	//Liste Observable pour les tables dans les onglets
@@ -64,6 +56,7 @@ public class InterfacePrincipale {
 	
 	@SuppressWarnings("static-access")
 	public InterfacePrincipale(Stage primaryStage, TypePersonne typePersonne,Personne personne ) {
+		
 		
 		Group root =new Group();
 		
@@ -84,13 +77,14 @@ public class InterfacePrincipale {
 		
 		TableView<Document>[] lstTable = tableau();
 		
+		//onglet document
 		Tab ongletDoc = new Tab("Document");
 		VBox panneauV = new VBox();
 		panneauV.getChildren().add(lstTable[0]);
 		ongletDoc.setContent(panneauV);
 		tabPane.getTabs().add(ongletDoc);
 		
-		
+		//Crée les onglets Livre,Periodique et Dvd
 		for(int i =0; i< 3;i++) {
 			Tab ongletType = new Tab(TypeDocument.values()[i].getStrNomType());
 			VBox panneauVboxType = new VBox();
@@ -102,24 +96,17 @@ public class InterfacePrincipale {
 		}
 		
 		
-		
-		panneau.setPadding(new Insets(20,50,30,50));
-		
 		//Recherche
 		GridPane groupeRecherche = new GridPane();
-		//groupeRecherche.setPadding(new Insets(40,0,0,0));
 		groupeRecherche.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		groupeRecherche.setHgap(15);
 		groupeRecherche.setVgap(15);
 		
 		groupeRecherche.setPrefSize(210, 100);
 		
-		
 		Label lblRecherche = new Label("Recherche document");
 		lblRecherche.setFont(Font.font("arial",FontWeight.BOLD ,15));
-		//groupeRecherche.setb
 		
-		//groupeRecherche.getChildren().add(lblRecherche);
 		ToggleGroup tg = new ToggleGroup();
 		TextField tbRecherche = new TextField();
 		RadioButton rbAuteur = new RadioButton("Auteur");
@@ -144,54 +131,64 @@ public class InterfacePrincipale {
 		GridPane.setMargin(btnRecherche, new Insets(0,0,15,15));
 		GridPane.setMargin(rbMotCle, new Insets(0,0,15,0));
 		
-		//groupeRecherche.setSpacing(10);
-		
-		//groupeRecherche.getChildren().addAll(tbRecherche,rbAuteur);
-		//groupeRecherche.getChildren().addAll(rbMotCle, btnRecherche);
-		
-		
 		rbAuteur.setToggleGroup(tg);
 		rbMotCle.setToggleGroup(tg);
-		
 		rbAuteur.setSelected(true);
 		
 		tbRecherche.setPromptText("Recherche");
 		tbRecherche.setMaxWidth(100);
 		
-		
-		
 		//panneau.prefWidthProperty().bind(sc);
 		
+		VBox panneauTableauDoc = new VBox(10);
+		panneauTableauDoc.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
+		Label lblTitreListeDoc = new Label("Documents");
+		lblTitreListeDoc.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		
+		panneauTableauDoc.getChildren().addAll(lblTitreListeDoc,tabPane);
+		panneauTableauDoc.setPadding(new Insets(15));
+		panneauTableauDoc.setAlignment(Pos.CENTER);
+		
+		panneau.setCenter(panneauTableauDoc);
+		
+		//Panneau de gauche
+		BorderPane panOption = new BorderPane();
+		panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
+		panOption.setBottom(groupeRecherche);
+		panOption.setPadding(new Insets(0,30,0,0));
+		panOption.setTop(lblTitre);
+		//-----------------------------> Ajouter question et reinistialliser...
+		
+		panneau.setLeft(panOption);
+		
+		//Affichage selon le type d'utilisateur
+		
+		if(utilisateur.equals(TypePersonne.Prepose)) {
+			//Panneau préposer a gauche
+			panOption.setCenter(optionPreposer());
+			
+			
+			//panneau liste adherent
+			VBox panneauGestionAdherent = panneauGestionAdherent();
+			panneau.setRight(panneauGestionAdherent);
+			panneau.setMargin(panneauGestionAdherent, new Insets(0,0,0,30));
+		}
+		else if(utilisateur.equals(TypePersonne.Adherent)) {
+			// a faire
+			//panOption.setCenter(Image);
+			
+			//Ajouter consulter son dossier
+		}
+		//Administarteur
+		else {
+			
+		}
 		
 		
-		panneau.setAlignment(lblTitre, Pos.CENTER);
+		
+		panneau.setPadding(new Insets(20,30,30,30));
 		root.getChildren().add(panneau);
-		
-		
-		
-		
-		
-		VBox panneauGestionAdherent = panneauGestionAdherent();
-		panneau.setRight(panneauGestionAdherent);
-		panneau.setMargin(panneauGestionAdherent, new Insets(0,0,0,60));
-		
-		VBox test = new VBox(15);
-		test.getChildren().addAll(panneauGestion().getKey(),panneauGestion().getValue());
-		
-		HBox panneauBas = new HBox(20);
-		panneauBas.getChildren().addAll(groupeRecherche,btnReinitialiseListe, test);
-		
-		panneau.setMargin(panneauBas, new Insets(40));
-		panneauBas.setMargin(groupeRecherche, new Insets(20));
-		panneauBas.setMargin(test, new Insets(0,0,0,300));
-		panneauBas.setAlignment(Pos.CENTER);
-		
-		
-		panneau.setTop(lblTitre);
-		panneau.setCenter(tabPane);
-		
-		panneau.setBottom(panneauBas);
-		
 		
 		primaryStage.setTitle("Médiathèque");
 	}
@@ -235,7 +232,6 @@ public class InterfacePrincipale {
 		colonneTableauCommune(tableDvd);
 		tableDvd.getColumns().addAll(colonneNbDisque, colonneRealisateur);
 		
-		
 		donneeDoc = FXCollections.observableArrayList(
 				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList()));
 		donneeLiv = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
@@ -255,8 +251,7 @@ public class InterfacePrincipale {
 		lstTable[2] = tablePer;
 		lstTable[3] = tableDvd;
 		
-		return lstTable;
-		
+		return lstTable;	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -283,45 +278,44 @@ public class InterfacePrincipale {
 		return scene;
 	}
 	
-	
-	
-	private Pair<GridPane, GridPane> panneauGestion() {
-		//Gestion Document
-		GridPane panneauGesDoc = new GridPane();
-		panneauGesDoc.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
-		panneauGesDoc.setVgap(10);
-		panneauGesDoc.setHgap(10);
+	private Accordion optionPreposer() {	
+		Font policeMenu = Font.font("arial",FontWeight.BOLD ,13);
 		
-		Label lblTitreDoc = new Label("Gestion Document");
+		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		Button btnSupprimerDocument = new Button("Supprimer Document");
 		
-		lblTitreDoc.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
+		TitledPane panneauGestionDoc = new TitledPane("Gestion Document", panneauSeconGesDoc);
+		panneauGestionDoc.setFont(policeMenu);
+		panneauSeconGesDoc.setAlignment(Pos.CENTER_LEFT);
 		
-		panneauGesDoc.add(lblTitreDoc, 0, 0,2,1);
-		panneauGesDoc.add(btnAjouterDocument, 0, 1);
-		panneauGesDoc.add(btnSupprimerDocument, 1, 1);
-		
-		//Gestion Adhérent
-		GridPane panneauGesAdherent = new GridPane();
-		panneauGesAdherent.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
-		panneauGesAdherent.setVgap(10);
-		panneauGesAdherent.setHgap(10);
-		
-		Label lblTitrePersonne = new Label("Gestion Adhérent");
+		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
 		
-		lblTitrePersonne.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		VBox panneauSeconGesAdh = new VBox(10,btnAjouterAdherent,btnModifirerAdherent,btnSupprimerAdherent);
+		TitledPane panneauGestionAdh = new TitledPane("Gestion Adhérent", panneauSeconGesAdh);
+		panneauGestionAdh.setFont(policeMenu);
+		panneauSeconGesAdh.setAlignment(Pos.CENTER_LEFT);
 		
-		panneauGesAdherent.add(lblTitrePersonne, 0, 0,3,1);
-		panneauGesAdherent.add(btnAjouterAdherent, 0, 1);
-		panneauGesAdherent.add(btnModifirerAdherent, 1, 1);
-		panneauGesAdherent.add(btnSupprimerAdherent, 2, 1);
+		//gestion pret
+		Button btnEmprunterDoc = new Button("Emprunter un document");
+		Button btnRetournerDoc = new Button("Retourner un document");
+		Button btnPayerAmende = new Button("Payer une amende");
 		
-		return new Pair<GridPane, GridPane>(panneauGesDoc, panneauGesAdherent);
+		VBox panneauSeconGesPret = new VBox(10, btnEmprunterDoc,btnRetournerDoc,btnPayerAmende);
+		TitledPane panneauGestionPret = new TitledPane("Gestion Prêt", panneauSeconGesPret);
+		panneauGestionPret.setFont(policeMenu);
+		panneauSeconGesPret.setAlignment(Pos.CENTER_LEFT);
 		
+		//Panneau des options latérals
+		Accordion panneauOptionLateral = new Accordion(panneauGestionDoc, panneauGestionAdh, panneauGestionPret);
+		panneauOptionLateral.setExpandedPane(panneauGestionPret);
+		panneauOptionLateral.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
+		return panneauOptionLateral;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -329,8 +323,8 @@ public class InterfacePrincipale {
 		VBox panneauListePersonne =new VBox(10);
 		panneauListePersonne.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
-		Label lblTitrelistePersonne = new Label("Liste des adhérents");
-		lblTitrelistePersonne.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		Label lblTitrelistePersonne = new Label("Adhérents");
+		lblTitrelistePersonne.setFont(Font.font("arial",FontWeight.BOLD ,16));
 		
 		TableView<Personne> tableAdherent = new TableView<Personne>();
 		
@@ -354,14 +348,15 @@ public class InterfacePrincipale {
 		
 		ObservableList<Personne> donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
 		
-		
 		tableAdherent.getColumns().addAll(colonneNoPersonne,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
 		tableAdherent.setItems(donneePersonne);
+		tableAdherent.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
 		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne,tableAdherent);
-		VBox.setMargin(lblTitrelistePersonne, new Insets(0,0,0,180));
-		
+		panneauListePersonne.setAlignment(Pos.CENTER);
 		panneauListePersonne.setPadding(new Insets(15));
+		
+		VBox.setMargin(lblTitrelistePersonne, new Insets(0,0,10,0));
 		
 		return panneauListePersonne;
 	}
