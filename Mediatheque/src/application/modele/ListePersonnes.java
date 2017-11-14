@@ -118,11 +118,16 @@ public class ListePersonnes {
 		}
 	}
 	public void miseAjourPrets() {
-		
+		for (Personne personne : lstAdherent) {
+			for(Pret pret : personne.getLstPrets()) {
+				pret.gestionAmende();
+			}
+		}
 	}
 	
 	
 	public static ListePersonnes getInstance() {
+					//////////////////////////////////////////peut-etre updater les amendes(et les noix) lorque l'on passe ici  
 		  if (instanceLst == null) 
 			  instanceLst = new ListePersonnes();
 		  return instanceLst;

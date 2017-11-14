@@ -1,14 +1,16 @@
 package application.modele;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Pret {
 	
+	final private static double dblMontantPenalite=0.50; 
 	private static int intCompteurNoPret=1;
 	private int intNoPret;          //used?
 	private LocalDate datePret;
 	private LocalDate dateRetourPrevue;
-	private LocalDate dateEffectiveRetour;
+	private LocalDate dateEffectiveRetour;  //inutile
 	private Amende amende=null;
 	private Document doc;
 	
@@ -34,6 +36,9 @@ public class Pret {
 		dateEffectiveRetour=LocalDate.now();
 	}
 	public void gestionAmende(){
-		
+		if (ChronoUnit.DAYS.between(datePret,LocalDate.now())>doc.getTypeDocument().getIntNbJoursEmprunt()){
+			this.amende= new Amende(dateRetourPrevue, LocalDate.now(), dblMontantPenalite);
+			this.doc.setEtatDoc(Etat.RETARD);
+		}
 	}
 }
