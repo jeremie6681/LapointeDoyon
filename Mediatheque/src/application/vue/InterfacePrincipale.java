@@ -48,9 +48,7 @@ import javafx.stage.Stage;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-	//TypePersonne utilisateur = TypePersonne.Adherent;
-	//private Stage primaryStage;
-	
+
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
