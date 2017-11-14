@@ -14,13 +14,13 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
+			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 
-			//InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,null);
+			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,null);
 
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			primaryStage.setScene(ifLogin.getScene());

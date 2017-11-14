@@ -50,13 +50,13 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Admin;
+	TypePersonne utilisateur = TypePersonne.Prepose;
 
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
-	public InterfacePrincipale(Stage primaryStage, TypePersonne TEST,Personne personne ) {
-		
+	public InterfacePrincipale(Stage primaryStage, TypePersonne type,Personne personne ) {
+		utilisateur = type;
 		
 		Group root =new Group();
 		
@@ -393,6 +393,12 @@ public class InterfacePrincipale {
 		
 		
 		return new Pair<GridPane, VBox>(groupeRecherche, panneauTableauDoc);
+	}
+	
+	private VBox panneauListePreposer() {
+		
+		
+		return null;
 	}
 	
 	
