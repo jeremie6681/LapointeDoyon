@@ -12,8 +12,11 @@ import application.modele.ListePersonnes;
 import application.modele.Personne;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -44,19 +47,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.util.Pair;
 
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Prepose;
+	TypePersonne utilisateur = TypePersonne.Admin;
 
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type,Personne personne ) {
-		utilisateur = type;
+		//utilisateur = type;
 		
 		Group root =new Group();
 		
@@ -102,12 +107,7 @@ public class InterfacePrincipale {
 		//panneau.prefWidthProperty().bind(sc);
 		
 		
-		
-		
-		
-		//Panneau de gauche
-		
-		//-----------------------------> Ajouter question et reinistialliser...
+		//-----------------------------> Ajouter question et reinistialliser et déconnection...
 		
 		
 		
@@ -155,13 +155,25 @@ public class InterfacePrincipale {
 		}
 		//Administarteur
 		else {
-			
+			panneau.setCenter(panneauAdministrateur().getKey());
+			panneau.setBottom(panneauAdministrateur().getValue());
+			panneau.setTop(lblTitre);
 		}
 		
 		
 		
 		panneau.setPadding(new Insets(20,30,30,30));
 		root.getChildren().add(panneau);
+		
+
+		/*
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {                        
+				Platform.setImplicitExit(false);
+				primaryStage.close();
+				
+			}
+		});*/
 		
 		primaryStage.setTitle("Médiathèque");
 	}
@@ -395,12 +407,66 @@ public class InterfacePrincipale {
 		return new Pair<GridPane, VBox>(groupeRecherche, panneauTableauDoc);
 	}
 	
-	private VBox panneauListePreposer() {
+	@SuppressWarnings("unchecked")
+	private Pair<VBox, GridPane> panneauAdministrateur() {
+		//tableau préposer
+		VBox panneauListePersonne =new VBox(10);
+		panneauListePersonne.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
+		Label lblTitrelistePersonne = new Label("Préposé");
+		lblTitrelistePersonne.setFont(Font.font("arial",FontWeight.BOLD ,16));
+		
+		TableView<Personne> tablePrepose = new TableView<Personne>();
+		
+		TableColumn<Personne, String> colonneNoPersonne = new TableColumn<Personne, String>("Identifiant");
+		TableColumn<Personne, String> colonnePrenom = new TableColumn<Personne, String>("Prénom");
+		TableColumn<Personne, String> colonneNom = new TableColumn<Personne, String>("Nom");
+		TableColumn<Personne, String> colonneAdresse = new TableColumn<Personne, String>("Adresse");
+		TableColumn<Personne, String> colonneTelephone = new TableColumn<Personne, String>("Numéro téléphone");
+		TableColumn<Personne, String> colonneMotdePasse = new TableColumn<Personne, String>("Mot de passe");
+		
+		colonneNoPersonne.setPrefWidth(100);
+		colonnePrenom.setPrefWidth(100);
+		colonneNom.setPrefWidth(100);
+		colonneAdresse.setPrefWidth(120);
+		colonneTelephone.setPrefWidth(120);
+		colonneMotdePasse.setPrefWidth(120);
+		
+		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne"));
+		colonnePrenom.setCellValueFactory(new PropertyValueFactory<>("strPrenom"));
+		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
+		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
+		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
+		colonneMotdePasse.setCellValueFactory(new PropertyValueFactory<>("strMotPasse"));
+		
+		ObservableList<Personne> donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
+		
+		tablePrepose.getColumns().addAll(colonneNoPersonne,colonneMotdePasse,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
+		tablePrepose.setItems(donneePersonne);
+		tablePrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
+		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne,tablePrepose);
+		panneauListePersonne.setAlignment(Pos.CENTER);
+		panneauListePersonne.setPadding(new Insets(15));
+		
+		//Option
+		Label lblTitreGestionAdmin = new Label("Gestion Préposé");
+		Button btnAjouterPrepose = new Button("Ajouter");
+		Button btnModifierPrepose = new Button("Modifier");
+		Button btnSupprimerPrepose = new Button("Supprimer");
+		
+		GridPane panneauGestionDesPrepose = new GridPane();
+		panneauGestionDesPrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		
+		panneauGestionDesPrepose.add(lblTitreGestionAdmin, 0, 0,3,1);
+		panneauGestionDesPrepose.add(btnAjouterPrepose, 0, 1);
+		panneauGestionDesPrepose.add(btnModifierPrepose, 1, 1);
+		panneauGestionDesPrepose.add(btnSupprimerPrepose, 2, 1);
 		
 		
-		return null;
+		
+		return  new Pair<VBox, GridPane>(panneauListePersonne, panneauGestionDesPrepose);
+		
 	}
-	
-	
 	
 }
