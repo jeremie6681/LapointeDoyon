@@ -49,7 +49,7 @@ import javafx.util.Pair;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-	TypePersonne utilisateur = TypePersonne.Prepose;
+	TypePersonne utilisateur = TypePersonne.Admin;
 	//private Stage primaryStage;
 	
 	//Liste Observable pour les tables dans les onglets
@@ -335,7 +335,8 @@ public class InterfacePrincipale {
 		return panneauListePersonne;
 	}
 	
-	private  Pair<GridPane, VBox> panneauCommunPreAdh(TableView<Document>[] lstTable) {
+	//Les panneau commun au préposer et a l'adherent
+	private Pair<GridPane, VBox> panneauCommunPreAdh(TableView<Document>[] lstTable) {
 		//Panneau recherche
 		GridPane groupeRecherche = new GridPane();
 		groupeRecherche.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
@@ -392,4 +393,7 @@ public class InterfacePrincipale {
 		
 		return new Pair<GridPane, VBox>(groupeRecherche, panneauTableauDoc);
 	}
+	
+	
+	
 }
