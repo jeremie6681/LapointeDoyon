@@ -15,10 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-
-import com.sun.corba.se.pept.transport.Connection;
-
-import application.controleur.GestionPersonnes.*;
+import application.controleur.GestionPersonnes;
 public class InterfaceLoginPrepose  {
 	
 	private Scene scene;
@@ -59,7 +56,7 @@ public class InterfaceLoginPrepose  {
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
-		btnConfirmer.setOnAction(e->application.controleur.GestionPersonnes.connection(tfUtilisateur.getText(),pfPwd.getText(),primaryStage));
+		btnConfirmer.setOnAction(e->GestionPersonnes.connection(tfUtilisateur.getText(),pfPwd.getText(),primaryStage));
 		
 		hbUtilisateur.getChildren().addAll(lblUtilisateur,tfUtilisateur);
 		hbPwd.getChildren().addAll(lblPwd,pfPwd);

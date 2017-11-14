@@ -48,14 +48,14 @@ import javafx.stage.Stage;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-	TypePersonne utilisateur = TypePersonne.Adherent;
+	//TypePersonne utilisateur = TypePersonne.Prepose;
 	//private Stage primaryStage;
 	
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
-	public InterfacePrincipale(Stage primaryStage, TypePersonne typePersonne,Personne personne ) {
+	public InterfacePrincipale(Stage primaryStage, TypePersonne utilisateur,Personne personne ) {
 		
 		
 		Group root =new Group();

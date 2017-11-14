@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 public class GestionDocuments {
 	String[] tabMotCleExclu = {"les","une","des","aux","cet","cette","ces","mon","ton","son","mes","tes","ses","notre",
 			"votre","leur","nos","vos","quel","quelle","quels","quelles","aucun","aucune","aucuns","aucunes","maint",
-			"mainte","maints","leur","leurs","mais","doc","car","nous","vous","ils","par","avec","sous","dans","pour",
-			"en","sans","où","ai","est","que","qui","quand"};
+			"mainte","maints","leur","leurs","mais","donc","car","nous","vous","ils","par","avec","sous","dans","pour",
+			"sans","est","que","qui","quand"};
 	
 	///
 	///methode a appeler quand on clic sur btnAjouterDocument ou equivalent
