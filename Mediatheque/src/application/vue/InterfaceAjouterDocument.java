@@ -27,7 +27,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import application.controleur.GestionDocuments;
 public class InterfaceAjouterDocument {
-	private static Scene scene;
+	private Scene scene;
 	private RadioButton rbDVD;
 	private RadioButton rbPeriodique;
 	private RadioButton rbLivre;
@@ -165,7 +165,7 @@ public class InterfaceAjouterDocument {
 		
 		scene = new Scene(vb);
 	}
-	public static Scene getScene() {
+	public Scene getScene() {
 		return scene;
 	}
 	EventHandler<ActionEvent>  gestionBoxCreationDocuments=  new EventHandler<ActionEvent>() {

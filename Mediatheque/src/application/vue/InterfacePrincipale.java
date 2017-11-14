@@ -44,18 +44,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-	
-	TypePersonne utilisateur = TypePersonne.Admin;
 
+	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
-	public InterfacePrincipale(Stage primaryStage, TypePersonne TEST,Personne personne ) {
+	public InterfacePrincipale(Stage primaryStage, TypePersonne utilisateur,Personne personne ) {
 		
 		
 		Group root =new Group();
@@ -97,35 +95,74 @@ public class InterfacePrincipale {
 		
 		
 		//Recherche
+		GridPane groupeRecherche = new GridPane();
+		groupeRecherche.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		groupeRecherche.setHgap(15);
+		groupeRecherche.setVgap(15);
 		
+		groupeRecherche.setPrefSize(210, 100);
+		
+		Label lblRecherche = new Label("Recherche document");
+		lblRecherche.setFont(Font.font("arial",FontWeight.BOLD ,15));
+		
+		ToggleGroup tg = new ToggleGroup();
+		TextField tbRecherche = new TextField();
+		RadioButton rbAuteur = new RadioButton("Auteur");
+		RadioButton rbMotCle = new RadioButton("Mot clé");
+		Button btnRecherche = new Button("Recherche");
+		Button btnReinitialiseListe = new Button("Réinitialiser liste document");
+		
+		groupeRecherche.add(lblRecherche, 0, 0,2,1);
+		groupeRecherche.add(tbRecherche, 0, 1);
+		groupeRecherche.add(rbAuteur, 1, 1);
+		groupeRecherche.add(rbMotCle, 1, 2);
+		groupeRecherche.add(btnRecherche, 0, 2);
+		
+		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
+		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd));
+		
+		GridPane.setMargin(lblRecherche, new Insets(15,0,0,15));
+		GridPane.setHalignment(lblRecherche, HPos.CENTER);
+		GridPane.setMargin(tbRecherche, new Insets(10,0,5,15));
+		GridPane.setHalignment(btnRecherche, HPos.CENTER);
+		
+		GridPane.setMargin(btnRecherche, new Insets(0,0,15,15));
+		GridPane.setMargin(rbMotCle, new Insets(0,0,15,0));
+		
+		rbAuteur.setToggleGroup(tg);
+		rbMotCle.setToggleGroup(tg);
+		rbAuteur.setSelected(true);
+		
+		tbRecherche.setPromptText("Recherche");
+		tbRecherche.setMaxWidth(100);
 		
 		//panneau.prefWidthProperty().bind(sc);
 		
+		VBox panneauTableauDoc = new VBox(10);
+		panneauTableauDoc.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
+		Label lblTitreListeDoc = new Label("Documents");
+		lblTitreListeDoc.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		
+		panneauTableauDoc.getChildren().addAll(lblTitreListeDoc,tabPane);
+		panneauTableauDoc.setPadding(new Insets(15));
+		panneauTableauDoc.setAlignment(Pos.CENTER);
 		
+		panneau.setCenter(panneauTableauDoc);
 		
 		//Panneau de gauche
-		
+		BorderPane panOption = new BorderPane();
+		panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
+		panOption.setBottom(groupeRecherche);
+		panOption.setPadding(new Insets(0,30,0,0));
+		panOption.setTop(lblTitre);
 		//-----------------------------> Ajouter question et reinistialliser...
 		
-		
+		panneau.setLeft(panOption);
 		
 		//Affichage selon le type d'utilisateur
 		
 		if(utilisateur.equals(TypePersonne.Prepose)) {
-			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
-			VBox panneauTableauDoc = panneauCommunPreAdh(lstTable).getValue();
-			
-			BorderPane panOption = new BorderPane();
-			panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
-			panOption.setBottom(groupeRecherche);
-			panOption.setPadding(new Insets(0,30,0,0));
-			panOption.setTop(lblTitre);
-			
-			panneau.setLeft(panOption);
-			
-			panneau.setCenter(panneauTableauDoc);
 			//Panneau préposer a gauche
 			panOption.setCenter(optionPreposer());
 			
@@ -136,18 +173,6 @@ public class InterfacePrincipale {
 			panneau.setMargin(panneauGestionAdherent, new Insets(0,0,0,30));
 		}
 		else if(utilisateur.equals(TypePersonne.Adherent)) {
-			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
-			VBox panneauTableauDoc = panneauCommunPreAdh(lstTable).getValue();
-			
-			BorderPane panOption = new BorderPane();
-			panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
-			panOption.setBottom(groupeRecherche);
-			panOption.setPadding(new Insets(0,30,0,0));
-			panOption.setTop(lblTitre);
-			
-			panneau.setLeft(panOption);
-			
-			panneau.setCenter(panneauTableauDoc);
 			// a faire
 			//panOption.setCenter(Image);
 			
@@ -254,10 +279,11 @@ public class InterfacePrincipale {
 	private Accordion optionPreposer() {	
 		Font policeMenu = Font.font("arial",FontWeight.BOLD ,13);
 		Stage secondaryStage = new Stage();
-		final InterfaceAjouterDocument intAjouterDoc = new InterfaceAjouterDocument();
+		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument();
+		//final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(typePersonne);
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
-		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(InterfaceAjouterDocument.getScene());secondaryStage.showAndWait();});
+		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();});
 		Button btnSupprimerDocument = new Button("Supprimer Document");
 		
 		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
@@ -335,66 +361,5 @@ public class InterfacePrincipale {
 		
 		return panneauListePersonne;
 	}
-	
-	//Les panneau commun au préposer et a l'adherent
-	private Pair<GridPane, VBox> panneauCommunPreAdh(TableView<Document>[] lstTable) {
-		//Panneau recherche
-		GridPane groupeRecherche = new GridPane();
-		groupeRecherche.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
-		groupeRecherche.setHgap(15);
-		groupeRecherche.setVgap(15);
-		
-		groupeRecherche.setPrefSize(210, 100);
-		
-		Label lblRecherche = new Label("Recherche document");
-		lblRecherche.setFont(Font.font("arial",FontWeight.BOLD ,15));
-		
-		ToggleGroup tg = new ToggleGroup();
-		TextField tbRecherche = new TextField();
-		RadioButton rbAuteur = new RadioButton("Auteur");
-		RadioButton rbMotCle = new RadioButton("Mot clé");
-		Button btnRecherche = new Button("Recherche");
-		Button btnReinitialiseListe = new Button("Réinitialiser liste document");
-		
-		groupeRecherche.add(lblRecherche, 0, 0,2,1);
-		groupeRecherche.add(tbRecherche, 0, 1);
-		groupeRecherche.add(rbAuteur, 1, 1);
-		groupeRecherche.add(rbMotCle, 1, 2);
-		groupeRecherche.add(btnRecherche, 0, 2);
-		
-		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
-		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd));
-		
-		GridPane.setMargin(lblRecherche, new Insets(15,0,0,15));
-		GridPane.setHalignment(lblRecherche, HPos.CENTER);
-		GridPane.setMargin(tbRecherche, new Insets(10,0,5,15));
-		GridPane.setHalignment(btnRecherche, HPos.CENTER);
-		
-		GridPane.setMargin(btnRecherche, new Insets(0,0,15,15));
-		GridPane.setMargin(rbMotCle, new Insets(0,0,15,0));
-		
-		rbAuteur.setToggleGroup(tg);
-		rbMotCle.setToggleGroup(tg);
-		rbAuteur.setSelected(true);
-		
-		tbRecherche.setPromptText("Recherche");
-		tbRecherche.setMaxWidth(100);
-		
-		//Tableau Document
-		VBox panneauTableauDoc = new VBox(10);
-		panneauTableauDoc.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
-		
-		Label lblTitreListeDoc = new Label("Documents");
-		lblTitreListeDoc.setFont(Font.font("arial",FontWeight.BOLD ,15));
-		
-		panneauTableauDoc.getChildren().addAll(lblTitreListeDoc,tabPane);
-		panneauTableauDoc.setPadding(new Insets(15));
-		panneauTableauDoc.setAlignment(Pos.CENTER);
-		
-		
-		return new Pair<GridPane, VBox>(groupeRecherche, panneauTableauDoc);
-	}
-	
-	
 	
 }

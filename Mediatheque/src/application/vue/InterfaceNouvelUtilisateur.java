@@ -1,6 +1,7 @@
 package application.vue;
 
 
+import application.modele.TypePersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -36,7 +37,7 @@ public class InterfaceNouvelUtilisateur {
 	private VBox vb;
 	private GridPane gpPrep;
 	
-	public  InterfaceNouvelUtilisateur(){
+	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout){
 		vb= new VBox(10) ;
 		rbAdherent= new RadioButton("Adhérent");
 		rbPrepose= new RadioButton("Préposé");
