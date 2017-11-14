@@ -49,10 +49,9 @@ import javafx.util.Pair;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-	TypePersonne utilisateur = TypePersonne.Admin;
-	//private Stage primaryStage;
 	
-	//Liste Observable pour les tables dans les onglets
+	TypePersonne utilisateur = TypePersonne.Admin;
+
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
@@ -254,9 +253,11 @@ public class InterfacePrincipale {
 	
 	private Accordion optionPreposer() {	
 		Font policeMenu = Font.font("arial",FontWeight.BOLD ,13);
-		
+		Stage secondaryStage = new Stage();
+		final InterfaceAjouterDocument intAjouterDoc = new InterfaceAjouterDocument();
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
+		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(InterfaceAjouterDocument.getScene());secondaryStage.showAndWait();});
 		Button btnSupprimerDocument = new Button("Supprimer Document");
 		
 		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
