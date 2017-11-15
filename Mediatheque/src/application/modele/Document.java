@@ -15,7 +15,7 @@ public abstract class Document implements Serializable {
 	private ArrayList<String> lstMots = new ArrayList<String>();
 	
 	
-	public Document(String strCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc) {
+	public Document(String strCodeDocument,String strTitre, LocalDate dateParution, Etat etatDoc) {
 		super();
 		this.strCodeDocument = strCodeDocument;
 		this.strTitre = strTitre;
@@ -74,5 +74,7 @@ public abstract class Document implements Serializable {
 		return "Document [strCodeDocument=" + strCodeDocument + ", strTitre=" + strTitre + ", dateParution="
 				+ dateParution + ", etatDoc=" + etatDoc + ", lstMots=" + lstMots + "]";
 	}
-	abstract public TypeDocument getTypeDocument();
+	abstract public   TypeDocument getTypeDocument();
+	//abstract  String setCodeDocument();
+	
 }

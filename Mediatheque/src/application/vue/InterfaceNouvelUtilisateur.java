@@ -1,6 +1,7 @@
 package application.vue;
 
 
+import application.controleur.GestionPersonnes;
 import application.modele.TypePersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,21 +26,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 public class InterfaceNouvelUtilisateur {
 	
 	private Scene scene;
 	private Button btnConfirmer;
-	private Button btnRetour;
 	private VBox vb;
 	private GridPane gpPrep;
 	
-	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout){
+	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout,Stage stage){
 		vb= new VBox(10) ;
 		btnConfirmer = new Button("Confirmer");
 		Text txtInstruction= new Text("Création d'utilisateur");
-		btnRetour = new Button("retour");
+		Button btnRetour = new Button("retour");
 		//pour la box de création de préposés
 		gpPrep= new GridPane();
 		Label lblPwd= new Label("Mot de passe :");
@@ -58,6 +59,8 @@ public class InterfaceNouvelUtilisateur {
 		Label lblNoTel=new Label("Numéros de Téléphone :");
 		TextField tfNoTel = new TextField();
 		Text txtInfos = new Text("Informations de la personne ");
+		//btnRetour
+		btnRetour.setOnAction(e->stage.hide());
 		
 		txtInfos.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
 		
@@ -96,6 +99,12 @@ public class InterfaceNouvelUtilisateur {
 		
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
+		if(typeAjout.equals(TypePersonne.Prepose)) {
+			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent());
+		}
+		else {
+			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose());
+		}
 		
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));

@@ -57,8 +57,8 @@ public class InterfacePrincipale {
 	private TabPane tabPane = new TabPane();
 	
 	TypePersonne utilisateur = TypePersonne.Adherent;
-
-
+	TableView<Document>[] lstTable; 
+	
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
@@ -84,7 +84,7 @@ public class InterfacePrincipale {
 		tabPane.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
 		
-		TableView<Document>[] lstTable = tableau();
+		 lstTable = tableau();
 		
 		//onglet document
 		Tab ongletDoc = new Tab("Document");
@@ -171,7 +171,7 @@ public class InterfacePrincipale {
 		TableView<Document>[] lstTable = new TableView[4];
 		
 		//Tableau Document
-		TableView<Document> tableDoc = new TableView<Document>();
+		TableView<Document> tableDoc = new TableView<Document>(); ///jai gosser avec cela
 		TableView<Document> tableLiv = new TableView<Document>();
 		TableView<Document> tablePer = new TableView<Document>();
 		TableView<Document> tableDvd = new TableView<Document>();
@@ -256,12 +256,15 @@ public class InterfacePrincipale {
 		Stage secondaryStage = new Stage();
 		secondaryStage.initModality(Modality.APPLICATION_MODAL);
 		secondaryStage.sizeToScene();
-		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument();
-		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(utilisateur);
+		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument(secondaryStage);
+		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(utilisateur,secondaryStage);
+		
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
-		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();});
+		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();});///////////manque mise a jour
+		
 		Button btnSupprimerDocument = new Button("Supprimer Document");
+		btnSupprimerDocument.setOnAction(e->GestionDocuments.supprimerDocuments(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem()));///manque Mise a jour/////////////////////////////////////iiiiiccccciiiii
 		
 		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
 		TitledPane panneauGestionDoc = new TitledPane("Gestion Document", panneauSeconGesDoc);
@@ -270,7 +273,7 @@ public class InterfacePrincipale {
 		
 		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
-		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();});
+		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();});//////manque mise a jour
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");

@@ -64,5 +64,13 @@ public class GestionPersonnes {
 		primaryStage.setScene(interfacePrincipale.getScene());
 	}
    }
+	public static Object ajouterAdherent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public static Object ajouterPrepose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class DVD extends Document implements Serializable{
 	
-
+	private static int intNoDocs= 1;
 	private static final long serialVersionUID = -1678710002762416560L;
 	private short shNbDisques;
 	private String strResalisateur;
@@ -15,6 +15,12 @@ public class DVD extends Document implements Serializable{
 		super(strCodeDocument, strTitre, dateParution, etatDoc);
 		this.shNbDisques=shNbDisque;
 		this.strResalisateur= strResalisateur;
+		intNoDocs++;
+	}
+	public DVD(String strTitre, LocalDate dateParution,short shNbDisque,String strResalisateur) {
+		super(setCodeDocument(), strTitre, dateParution, Etat.DISPONIBLE);
+		this.shNbDisques=shNbDisque;
+		this.strResalisateur= strResalisateur;intNoDocs++;
 	}
 
 	public short getShNbDisques() {
@@ -32,8 +38,18 @@ public class DVD extends Document implements Serializable{
 	public void setStrResalisateur(String strResalisateur) {
 		this.strResalisateur = strResalisateur;
 	}
-	public TypeDocument getTypeDocument() {
+	public  TypeDocument getTypeDocument() {
 		return TypeDocument.Dvd;
+	}
+	private static String setCodeDocument() {
+		String strCodeDoc="";
+		if(intNoDocs<10) {
+		strCodeDoc=TypeDocument.Dvd.getStrIndicateurType()+"0"+intNoDocs;
+		}
+		else {
+		strCodeDoc=TypeDocument.Dvd.getStrIndicateurType()+intNoDocs;
+		}
+		return strCodeDoc;
 	}
 	
 }

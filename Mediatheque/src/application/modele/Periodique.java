@@ -5,13 +5,18 @@ import java.time.LocalDate;
 
 public class Periodique extends Document implements Serializable {
 	
-
+	static int intNoDocs=1;
 	private static final long serialVersionUID = 3408058369694863163L;
 	private int intNoVolume;
 	private int intNoPeriodique;
 	
 	public Periodique(String strCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc, int intNoVolume, int intNoPeriodique) {
 		super(strCodeDocument, strTitre, dateParution, etatDoc);
+		this.intNoVolume=intNoVolume;
+		this.intNoPeriodique=intNoPeriodique;
+	}
+	public Periodique( String strTitre, LocalDate dateParution, int intNoVolume, int intNoPeriodique) {
+		super(setCodeDocument(), strTitre, dateParution, Etat.DISPONIBLE);
 		this.intNoVolume=intNoVolume;
 		this.intNoPeriodique=intNoPeriodique;
 	}
@@ -31,7 +36,17 @@ public class Periodique extends Document implements Serializable {
 	public void setIntNoPeriodique(int intNoPeriodique) {
 		this.intNoPeriodique = intNoPeriodique;
 	}
-	public TypeDocument getTypeDocument() {
+	public  TypeDocument getTypeDocument() {
 		return TypeDocument.Periodique;
+	}
+	private static String setCodeDocument() {
+		String strCodeDoc="";
+		if(intNoDocs<10) {
+		strCodeDoc=TypeDocument.Periodique.getStrIndicateurType()+"0"+intNoDocs;
+		}
+		else {
+		strCodeDoc=TypeDocument.Periodique.getStrIndicateurType()+intNoDocs;
+		}
+		return strCodeDoc;
 	}
 }

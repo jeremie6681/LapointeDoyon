@@ -25,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
@@ -35,8 +36,6 @@ public class InterfaceAjouterDocument {
 	private RadioButton rbDVD;
 	private RadioButton rbPeriodique;
 	private RadioButton rbLivre;
-	private Button btnConfirmer;
-	private Button btnRetour;
 	private GridPane gpLivre;
 	private GridPane gpPeriodique;
 	private GridPane gpDVD;
@@ -48,18 +47,20 @@ public class InterfaceAjouterDocument {
 	private TextField tfRealisateur;
 	private DatePicker tfDate ;
 	private TextField tfTitre;
-	
-	public  InterfaceAjouterDocument(){
+	private Spinner<Integer> spinner;
+	private Stage stage ;
+	public  InterfaceAjouterDocument(Stage stage){
+		this.stage=stage;
 		vb= new VBox(10) ;
 		rbDVD= new RadioButton("DVD");
 		rbPeriodique= new RadioButton("Périodique");
 		rbLivre= new RadioButton("Livre");
 		ToggleGroup tgType =new ToggleGroup();
-		btnConfirmer = new Button("Confirmer");
+		Button btnConfirmer = new Button("Confirmer");
 		VBox vbRadioButtons = new VBox(10);
 		Text txtInstructionRadio = new Text("Choisir le type de document");
 		Text txtInstruction= new Text("Ajout de document");
-		btnRetour = new Button("retour");
+		Button btnRetour = new Button("retour");
 		Font fntTitre=(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
 		
 		//pour la box infos générals
@@ -94,7 +95,7 @@ public class InterfaceAjouterDocument {
 		Text txtInfosLivre = new Text("Informations sur le livre ");
 		
 		//spinner DVD
-		Spinner<Integer> spinner = new Spinner<Integer>();
+		spinner = new Spinner<Integer>();
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1);
 		spinner.setValueFactory(valueFactory);
 		
@@ -160,6 +161,8 @@ public class InterfaceAjouterDocument {
 		btnConfirmer.setOnAction(gestionAjouterDocuments);
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));
+		//btnRetour
+		btnRetour.setOnAction(e->stage.hide());
 		
 		//group pour radioButtons
 		rbDVD.setToggleGroup(tgType);
@@ -202,22 +205,26 @@ public class InterfaceAjouterDocument {
 			String strNoVolume;
 			String strNoPeriodique;
 			String strAuteur;
+			boolean booAjoute=false;
 			TypeDocument type; 
 			if(rbDVD.isSelected()) {
 				strRealisateur=tfRealisateur.getText();
 				type=TypeDocument.Dvd;
-				//appeller methode ajouter docs
+				booAjoute=GestionDocuments.ajouterDVD(strTitre, dateParution, spinner.getValue(), strRealisateur);
 			}
 			else if(rbLivre.isSelected()) {
 				strAuteur= tfAuteur.getText();
 				type=TypeDocument.Livre;
-				//appeller methode ajouter docs
+				booAjoute=GestionDocuments.ajouterLivre(strTitre, dateParution, strAuteur);
 			}
 			else {
 				strNoPeriodique= tfNoPeriodique.getText();
 				strNoVolume=tfNoPeriodique.getText();
 				type=TypeDocument.Periodique;
-				//appeller methode ajouter docs
+				booAjoute=GestionDocuments.ajouterPeriodique(strTitre, dateParution, strNoVolume, strNoPeriodique);
+			}
+			if(booAjoute) {
+				stage.hide();
 			}
 		}
 	};

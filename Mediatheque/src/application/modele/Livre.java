@@ -6,12 +6,20 @@ import java.util.Date;
 
 public class Livre extends Document implements Serializable{
 	
+	private static int intNoDocs= 1;
+	
 	private static final long serialVersionUID = -4268118706365795753L;
 	private String strAuteur;
 	
-	public Livre(String strCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc, String strAuteur) {
-		super(strCodeDocument, strTitre, dateParution, etatDoc);
+	public Livre(String strNoCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc, String strAuteur) {
+		super(strNoCodeDocument,strTitre, dateParution, etatDoc);
 		this.strAuteur=strAuteur;
+		intNoDocs++;
+	}
+	public Livre(String strTitre, LocalDate dateParution, String strAuteur) {
+		super(setCodeDocument(),strTitre, dateParution, Etat.DISPONIBLE);
+		this.strAuteur=strAuteur;
+		intNoDocs++;
 	}
 
 	public String getStrAuteur() {
@@ -22,9 +30,18 @@ public class Livre extends Document implements Serializable{
 		this.strAuteur = strAuteur;
 	}
 
-	@Override
-	public TypeDocument getTypeDocument() {
+	public  TypeDocument getTypeDocument() {
 		return TypeDocument.Livre;
+	}
+	private static String setCodeDocument() {
+		String strCodeDoc="";
+		if(intNoDocs<10) {
+		strCodeDoc=TypeDocument.Livre.getStrIndicateurType()+"0"+intNoDocs;
+		}
+		else {
+		strCodeDoc=TypeDocument.Livre.getStrIndicateurType()+intNoDocs;
+		}
+		return strCodeDoc;
 	}
 
 }
