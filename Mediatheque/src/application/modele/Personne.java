@@ -3,7 +3,7 @@ package application.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Personne implements Serializable{
+public abstract class Personne implements Serializable{
 
 	private static final long serialVersionUID = 7597084348346483128L;
 	private String strNoPersonne;
@@ -74,5 +74,6 @@ public class Personne implements Serializable{
 		return "Personne [strNoPersonne=" + strNoPersonne + ", strNom=" + strNom + ", strPrenom=" + strPrenom
 				+ ", strAdresse=" + strAdresse + ", strNoTelephone=" + strNoTelephone + "]";
 	}
+	abstract public TypePersonne getTypePersonne();
 
 }

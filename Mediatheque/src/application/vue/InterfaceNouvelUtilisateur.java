@@ -100,10 +100,10 @@ public class InterfaceNouvelUtilisateur {
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
 		if(typeAjout.equals(TypePersonne.Prepose)) {
-			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent());
+			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText()));
 		}
 		else {
-			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose());
+			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),pfPwd.getText(),pfConfirmerPwd.getText()));
 		}
 		
 		//txtInstruction

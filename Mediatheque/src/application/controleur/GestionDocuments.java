@@ -14,6 +14,7 @@ import application.modele.Livre;
 import application.modele.Periodique;
 import application.modele.TypeDocument;
 import application.vue.InterfaceAjouterDocument;
+import application.vue.InterfacePrincipale;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -56,7 +57,7 @@ public class GestionDocuments {
 		
 		ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument()).removeIf(d->document.equals(d));
 		//ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).forEach(e-> System.out.println(e.getStrTitre())); //just pour verifier la supression
-
+		
 	}
 	
 	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable){

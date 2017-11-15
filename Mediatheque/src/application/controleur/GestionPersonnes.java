@@ -1,6 +1,7 @@
 package application.controleur;
 
 import application.modele.Adherent;
+import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
 import application.modele.Prepose;
@@ -46,7 +47,6 @@ public class GestionPersonnes {
 				} 
 			}
 			else {
-				System.out.println("avant for");
 			for (Personne personne : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose)) {
 				if(personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
 					temp=(Prepose)personne;
@@ -64,13 +64,62 @@ public class GestionPersonnes {
 		primaryStage.setScene(interfacePrincipale.getScene());
 	}
    }
-	public static Object ajouterAdherent() {
-		// TODO Auto-generated method stub
-		return null;
+	public static boolean ajouterAdherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone) {
+		boolean booAjoute= false ;
+		Alert alerteAjouterPersonne = ajouterDeBase(strNom, strPrenom, strAdresse, strNoTelephone);
+		
+		if(alerteAjouterPersonne==null) {
+			Adherent adherent=new Adherent(strNom, strPrenom, strAdresse, strNoTelephone); 
+			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).add(adherent);
+			alerteAjouterPersonne=new Alert(AlertType.CONFIRMATION,strPrenom+" "+strNom+ "a été créer avec succes. Son Identifiant est : "+adherent.getStrNoPersonne(),ButtonType.OK);
+			booAjoute=true;
+		}
+		alerteAjouterPersonne.showAndWait();
+		return booAjoute;
 	}
-	public static Object ajouterPrepose() {
-		// TODO Auto-generated method stub
-		return null;
+	public static Object ajouterPrepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,String strPwd,String strPwdConfirmer) {
+		boolean booAjoute= false ;
+		Alert alerteAjouterPersonne = ajouterDeBase(strNom, strPrenom, strAdresse, strNoTelephone);
+		
+		if(strPwd==null||strPwd.trim().equals("")||strPwdConfirmer==null||strPwdConfirmer.trim().equals("")){
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"veuillez insrire le mot de passe ainsi que sa confirmation",ButtonType.OK);
+		}else if (!strPwd.equals(strPwdConfirmer)){
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"Le mot de passe et que sa confirmation ne sont pas identiques",ButtonType.OK);
+		}
+		
+		if(alerteAjouterPersonne==null) {
+			Prepose prepose = new Prepose(strNom, strPrenom, strAdresse, strNoTelephone, strPwd);
+			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).add(prepose);
+			alerteAjouterPersonne=new Alert(AlertType.CONFIRMATION,strPrenom+" "+strNom+ "a été créer avec succes. Son Identifiant est : "+prepose.getStrNoPersonne(),ButtonType.OK);
+			booAjoute=true;
+		}
+		alerteAjouterPersonne.showAndWait();
+		return booAjoute;
 	}
+	private static Alert ajouterDeBase(String strNom, String strPrenom, String strAdresse, String strNoTelephone){
+		
+		Alert alerteAjouterPersonne = null;
+		if (strNom==null||strNom.trim().equals("")){
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"veuillez spécifier un nom ",ButtonType.OK);
+		}
+		else if (strPrenom==null||strPrenom.trim().equals("")){
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"veuillez spécifier un Prénom ",ButtonType.OK);
+		}
+		else if(strAdresse==null||strAdresse.trim().equals("")){
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"veuillez spécifier une adresse ",ButtonType.OK);
+		}else if(strNoTelephone==null||strNoTelephone.trim().equals("")){
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"veuillez spécifier une numéro de téléphone",ButtonType.OK);
+		} 
+		else if(!strNoTelephone.trim().matches("^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$")){//https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/
+			alerteAjouterPersonne= new Alert(AlertType.WARNING,"veuillez spécifier une numéro de téléphone valide en Amérique du Nord",ButtonType.OK);
+		}
+	
+		return alerteAjouterPersonne;
+	}
+	public static  void supprimerPersonne(Personne personne) {
+	
+		ListePersonnes.getInstance().mapPersonne.get(personne.getTypePersonne()).removeIf(p->personne.equals(p));
+		////////manque inserer alerte pour confirmer
+	} 
 	
 }

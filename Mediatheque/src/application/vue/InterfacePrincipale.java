@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
+import application.controleur.GestionPersonnes;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -261,10 +262,15 @@ public class InterfacePrincipale {
 		
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
-		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();});///////////manque mise a jour
+		//ajouter Document et mettre a jour l'affichage
+		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();
+		GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		Button btnSupprimerDocument = new Button("Supprimer Document");
-		btnSupprimerDocument.setOnAction(e->GestionDocuments.supprimerDocuments(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem()));///manque Mise a jour/////////////////////////////////////iiiiiccccciiiii
+		//supprimer un document et mettre l'affichage à jour
+		btnSupprimerDocument.setOnAction(e->
+		{GestionDocuments.supprimerDocuments(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
+		GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
 		TitledPane panneauGestionDoc = new TitledPane("Gestion Document", panneauSeconGesDoc);
@@ -277,7 +283,7 @@ public class InterfacePrincipale {
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
-		
+		//btnSupprimerAdherent.setOnAction(e->GestionPersonnes.supprimerPersonne());
 		VBox panneauSeconGesAdh = new VBox(10,btnAjouterAdherent,btnModifirerAdherent,btnSupprimerAdherent);
 		TitledPane panneauGestionAdh = new TitledPane("Gestion Adhérent", panneauSeconGesAdh);
 		panneauGestionAdh.setFont(policeMenu);
