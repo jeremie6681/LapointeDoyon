@@ -46,6 +46,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -55,13 +56,16 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Admin;
+	TypePersonne utilisateur = TypePersonne.Adherent;
 
+
+	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	
 	@SuppressWarnings("static-access")
+
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type,Personne personne ) {
-		//utilisateur = type;
+		utilisateur = type;
 		
 		Group root =new Group();
 		
@@ -100,36 +104,22 @@ public class InterfacePrincipale {
 			tabPane.getTabs().add(ongletType);
 		}
 		
-		
-		//Recherche
-		
-		
-		//panneau.prefWidthProperty().bind(sc);
-		
-		
-		//-----------------------------> Ajouter question et reinistialliser et déconnection...
-		
-		
+		//-----------------------------> Ajouter question et reinistialliser...
 		
 		//Affichage selon le type d'utilisateur
 		
 		if(utilisateur.equals(TypePersonne.Prepose)) {
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
-			VBox panneauTableauDoc = panneauCommunPreAdh(lstTable).getValue();
-			
+			//Panneau préposer a gauche
 			BorderPane panOption = new BorderPane();
 			panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0,30,0,0));
 			panOption.setTop(lblTitre);
+			panOption.setCenter(optionPreposer());
+			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 			
 			panneau.setLeft(panOption);
-			
-			panneau.setCenter(panneauTableauDoc);
-			//Panneau préposer a gauche
-			panOption.setCenter(optionPreposer());
-			
-			
 			//panneau liste adherent
 			VBox panneauGestionAdherent = panneauGestionAdherent();
 			panneau.setRight(panneauGestionAdherent);
@@ -137,17 +127,15 @@ public class InterfacePrincipale {
 		}
 		else if(utilisateur.equals(TypePersonne.Adherent)) {
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
-			VBox panneauTableauDoc = panneauCommunPreAdh(lstTable).getValue();
-			
 			BorderPane panOption = new BorderPane();
 			panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0,30,0,0));
 			panOption.setTop(lblTitre);
 			
-			panneau.setLeft(panOption);
+			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 			
-			panneau.setCenter(panneauTableauDoc);
+			panneau.setLeft(panOption);
 			// a faire
 			//panOption.setCenter(Image);
 			
@@ -266,10 +254,13 @@ public class InterfacePrincipale {
 	private Accordion optionPreposer() {	
 		Font policeMenu = Font.font("arial",FontWeight.BOLD ,13);
 		Stage secondaryStage = new Stage();
-		final InterfaceAjouterDocument intAjouterDoc = new InterfaceAjouterDocument();
+		secondaryStage.initModality(Modality.APPLICATION_MODAL);
+		secondaryStage.sizeToScene();
+		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument();
+		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(utilisateur);
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
-		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(InterfaceAjouterDocument.getScene());secondaryStage.showAndWait();});
+		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();});
 		Button btnSupprimerDocument = new Button("Supprimer Document");
 		
 		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
@@ -279,7 +270,9 @@ public class InterfacePrincipale {
 		
 		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
+		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();});
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
+		
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
 		
 		VBox panneauSeconGesAdh = new VBox(10,btnAjouterAdherent,btnModifirerAdherent,btnSupprimerAdherent);
@@ -347,7 +340,7 @@ public class InterfacePrincipale {
 		
 		return panneauListePersonne;
 	}
-	
+
 	//Les panneau commun au préposer et a l'adherent
 	private Pair<GridPane, VBox> panneauCommunPreAdh(TableView<Document>[] lstTable) {
 		//Panneau recherche

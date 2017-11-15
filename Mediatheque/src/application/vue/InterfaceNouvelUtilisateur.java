@@ -1,6 +1,7 @@
 package application.vue;
 
 
+import application.modele.TypePersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -29,21 +30,14 @@ import javafx.scene.text.Text;
 public class InterfaceNouvelUtilisateur {
 	
 	private Scene scene;
-	private RadioButton rbAdherent;
-	private RadioButton rbPrepose;
 	private Button btnConfirmer;
 	private Button btnRetour;
 	private VBox vb;
 	private GridPane gpPrep;
 	
-	public  InterfaceNouvelUtilisateur(){
+	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout){
 		vb= new VBox(10) ;
-		rbAdherent= new RadioButton("Adhérent");
-		rbPrepose= new RadioButton("Préposé");
-		ToggleGroup tgType =new ToggleGroup();
 		btnConfirmer = new Button("Confirmer");
-		VBox vbRadioButtons = new VBox(10);
-		Text txtInstructionRadio = new Text("Choisir le type d'utilisateur");
 		Text txtInstruction= new Text("Création d'utilisateur");
 		btnRetour = new Button("retour");
 		//pour la box de création de préposés
@@ -63,7 +57,7 @@ public class InterfaceNouvelUtilisateur {
 		TextField tfAdresse = new TextField();
 		Label lblNoTel=new Label("Numéros de Téléphone :");
 		TextField tfNoTel = new TextField();
-		Text txtInfos = new Text("Infos Générales");
+		Text txtInfos = new Text("Informations de la personne ");
 		
 		txtInfos.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
 		
@@ -81,9 +75,6 @@ public class InterfaceNouvelUtilisateur {
 		gpInfos.setVgap(10);
 		gpInfos.setPadding(new Insets(20));
 		
-		
-		
-		
 		//modifications txtInstructionPrepose
 		txtInstructionPrepose.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 14));
 		
@@ -99,16 +90,9 @@ public class InterfaceNouvelUtilisateur {
 		
 		
 		
-		
 		//Modifications vb	
 		vb.setAlignment(Pos.CENTER);
 		vb.setPadding(new Insets(20));
-		
-		//vbRadioButton
-		vbRadioButtons.setPadding(new Insets(20));
-		vbRadioButtons.setAlignment(Pos.CENTER_LEFT);
-		vbRadioButtons.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
-		vbRadioButtons.setMaxWidth(Double.MAX_VALUE);
 		
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
@@ -116,35 +100,22 @@ public class InterfaceNouvelUtilisateur {
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));
 		
-		//group pour radioButtons
-		rbAdherent.setToggleGroup(tgType);
-		rbPrepose.setToggleGroup(tgType);
+		//typeAjout=TypePersonne.Admin;
+		if(typeAjout.equals(TypePersonne.Admin)) {
+			gpInfos.add(lblPwd, 1, 6);
+			gpInfos.add(lblConfirmerPwd, 1, 7);
+			gpInfos.add(pfPwd, 2, 6);
+			gpInfos.add(pfConfirmerPwd, 2, 7);
+		}
 		
-		//radio buttons 
-		rbAdherent.setSelected(true);
-		rbAdherent.setOnAction(gestionBoxCreationUtilisateur);
-		rbPrepose.setOnAction(gestionBoxCreationUtilisateur);
-		vbRadioButtons.getChildren().addAll(txtInstructionRadio,rbAdherent,rbPrepose);
-		vb.getChildren().addAll(txtInstruction,vbRadioButtons,gpInfos,btnConfirmer,btnRetour);
+		vb.getChildren().addAll(txtInstruction,gpInfos,btnConfirmer,btnRetour);
 		
-		scene = new Scene(vb,400,600);
+		scene = new Scene(vb);
 		
 	}
 	
 	public Scene getScene() {
 		return scene;
 	}
-	
-	//eventHandlers
-	EventHandler<ActionEvent>  gestionBoxCreationUtilisateur=  new EventHandler<ActionEvent>() {
-		public void handle(ActionEvent event) {
-			if(rbAdherent.isSelected()) {
-				vb.getChildren().remove(3);
-			}
-			else {
-				vb.getChildren().add(3, gpPrep);
-				
-			}
-		}
-	};
+
 }
