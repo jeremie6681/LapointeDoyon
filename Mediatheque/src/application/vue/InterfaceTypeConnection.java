@@ -1,5 +1,7 @@
 package application.vue;
 
+import application.modele.ListeDocuments;
+import application.modele.ListePersonnes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -63,6 +65,9 @@ public class InterfaceTypeConnection {
 		InterfaceLoginPrepose inLogPrep = new InterfaceLoginPrepose(primaryStage,scene);
 		btnAdherent.setOnAction(e->primaryStage.setScene(inLogAd.getScene()));
 		btnPrepose.setOnAction(e->primaryStage.setScene(inLogPrep.getScene()));
+		
+		//Fait la sérialisation lorsque l'on quitte l'application
+		primaryStage.setOnCloseRequest(r -> {ListePersonnes.getInstance().serialisation();ListeDocuments.getInstance().serialisation();});
 		
 	}
 

@@ -36,13 +36,12 @@ public class Main extends Application {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 	
 		ListeDocuments lstDocs = ListeDocuments.getInstance();
-		lstDocs.serialisation();
 		
 		ListePersonnes listePersonnes = ListePersonnes.getInstance();
-		listePersonnes.serialisation();
 
 		launch(args);
 	}
