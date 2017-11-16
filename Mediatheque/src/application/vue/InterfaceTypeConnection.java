@@ -56,7 +56,6 @@ public class InterfaceTypeConnection {
 		//btnNouvelUtilisateur = new Button("Créer un nouvel Utilisateur");
 		//btnNouvelUtilisateur.setFont(fntBoutons);  
 		
-		
 		hbBoutons.getChildren().addAll(btnAdherent,btnPrepose);
 		vb.getChildren().addAll(txtInstruction,hbBoutons);
 		scene = new Scene(vb);
