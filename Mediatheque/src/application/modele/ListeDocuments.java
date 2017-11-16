@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import application.controleur.GestionDocuments;
+
 public final class ListeDocuments implements Serializable {
 	/**
 	 * 
@@ -56,20 +58,19 @@ public final class ListeDocuments implements Serializable {
 		}
 
 		
-		//System.out.println(mapDocument.get(TypeDocument.Livre).get(0).getClass().getSimpleName());
 		mapDocument.get(TypeDocument.Livre).forEach(System.out :: println);
 
 	}
 	
 	private void lectureFichierOriginal() {
-		//Lecture fichier (0 = dvd, 1 = livre, 2 = periodique)
+		//Lecture fichier (2 = dvd, 0 = livre, 1 = periodique)
 		for(int intTypeDocument = 0; intTypeDocument < 3;intTypeDocument++) {
 			BufferedReader brFichier = null;
 			try {
-				if(intTypeDocument == 0) {
+				if(intTypeDocument == 2) {
 					brFichier = new BufferedReader(new FileReader(strNomFichierDVD));
 				}
-				else if (intTypeDocument == 1) {
+				else if (intTypeDocument == 0) {
 					brFichier = new BufferedReader(new FileReader(strNomFichierLivre));
 				}
 				else {
@@ -90,31 +91,31 @@ public final class ListeDocuments implements Serializable {
 					LocalDate dateDocument = LocalDate.parse(tabLigne[2].trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu"));
 					
 					//Crée le document et l'ajoute dans la liste selon son type
-					if(intTypeDocument == 0) {
-						DVD objDVD = new DVD(tabLigne[0], tabLigne[1], dateDocument , Etat.DISPONIBLE, Short.parseShort(tabLigne[3].trim()), tabLigne[4]);
+					if(intTypeDocument == 2) {
+						DVD objDVD = new DVD(tabLigne[0].trim(), tabLigne[1].trim(), dateDocument , Etat.DISPONIBLE, Short.parseShort(tabLigne[3].trim()), tabLigne[4].trim());
 						lstDvd.add(objDVD);
 					}
-					else if (intTypeDocument == 1) {
-						Livre objLivre = new Livre(tabLigne[0], tabLigne[1], dateDocument, Etat.DISPONIBLE, tabLigne[3]);
+					else if (intTypeDocument == 0) {
+						Livre objLivre = new Livre(tabLigne[0].trim(), tabLigne[1].trim(), dateDocument, Etat.DISPONIBLE, tabLigne[3].trim());
 						lstLivre.add(objLivre);
 					}
 					else {
-						Periodique objPeriodique = new Periodique(tabLigne[0], tabLigne[1], dateDocument, Etat.DISPONIBLE, Integer.parseInt(tabLigne[3].trim()), Integer.parseInt(tabLigne[4].trim()));
+						Periodique objPeriodique = new Periodique(tabLigne[0].trim(), tabLigne[1].trim(), dateDocument, Etat.DISPONIBLE, Integer.parseInt(tabLigne[3].trim()), Integer.parseInt(tabLigne[4].trim()));
 						lstPeriodique.add(objPeriodique);
 					}	
 				}
+				
+				//Parcours la liste de documents pour ajouter des mots clé
+				mapDocument.get(TypeDocument.values()[intTypeDocument]).forEach(f ->GestionDocuments.motCleAjout(f));
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 				System.out.println(e);
 			}
-			
-			
+	
 		}
 		
 		
-		//mapDocument.get(TypeDocument.Livre).forEach(System.out :: println);
-		//if(lstDocument.get(0).
 	}
 	
 	public void serialisation() {

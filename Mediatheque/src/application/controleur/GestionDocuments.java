@@ -1,34 +1,27 @@
 package application.controleur;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import application.modele.DVD;
 import application.modele.Document;
-import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.Livre;
 import application.modele.Periodique;
 import application.modele.TypeDocument;
-import application.vue.InterfaceAjouterDocument;
-import application.vue.InterfacePrincipale;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
-import sun.security.krb5.internal.tools.Ktab;
 
 public class GestionDocuments {
-	String[] tabMotCleExclu = {"les","une","des","aux","cet","cette","ces","mon","ton","son","mes","tes","ses","notre",
+	private final static String[] tabMotCleExclu = {"les","une","des","aux","cet","cette","ces","mon","ton","son","mes","tes","ses","notre",
 			"votre","leur","nos","vos","quel","quelle","quels","quelles","aucun","aucune","aucuns","aucunes","maint",
 			"mainte","maints","leur","leurs","mais","donc","car","nous","vous","ils","par","avec","sous","dans","pour",
-			"sans","est","que","qui","quand"};
+			"sans","est","que","qui","quand", "eux", "tous", "tout","toute", "toutes","ceux", "celle", "et", "sur", "ont"};
 	
 	///
 	///methode a appeler quand on clic sur btnAjouterDocument ou equivalent
@@ -60,43 +53,46 @@ public class GestionDocuments {
 	}
 	
 	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable){
-		//Si la recherche n'est pas vide
-		if(!strMotRecherche.isEmpty()) {
+		//Si la recherche n'est pas vide ou a plusieur mot
+		if(!strMotRecherche.isEmpty() && strMotRecherche.split(" ").length == 1) {
 			if (booRechercheMotClée) {
-				
+				lstTable[0].getItems().removeIf(docu -> docu.getLstMots().contains(strMotRecherche.toLowerCase()));
 			}
 			//Recherche par auteur
 			else {
 				lstTable[1].getItems().removeIf(docu-> !((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
-				
-				
 			}
-		}	
-	}
-	
-	//Parcours la liste de documents pour ajouter des mots clé
-	public void motCleListe() {
-		
-		//Parcours les 3 types de documents
-		for(int x = 0; x<3;x++) {
-			List<Document> typeDoc = ListeDocuments.getInstance().mapDocument.get(TypeDocument.values()[x]);
-			
-			//Vérifie que les listes ne sont pas null
-			if(typeDoc.size() > 0) {
-				
-				//parcours la liste des documents du même type
-				for(int y=0; y < typeDoc.size();y++) {
-					// a completer ... Dépends si liste mot clé banie fournie
-					
-					
-				}
-			}
+		}
+		else {
+			Alert alRecherche = new Alert(AlertType.WARNING, "Vous devez inscrire un mot et seulement un pour effectuer une recherche!", ButtonType.OK);
+			alRecherche.showAndWait();
 		}
 	}
 	
-	private static void motCleAjout() {
+	
+	//Trouve les mots clé pour le document
+	public static void motCleAjout(Document doc) {
 		
+		if (doc.getTypeDocument().equals(TypeDocument.Livre)) {
+			//Auteur
+			String[] tabNom = ((Livre) doc).getStrAuteur().split(" ");
+			Arrays.asList(tabNom).stream().filter(h -> !Arrays.asList(tabMotCleExclu).contains(h.trim().toLowerCase())).filter(q -> !q.trim().equals("")).forEach(f -> doc.setLstMots(f.trim().toLowerCase()));
+		}
+		else if (doc.getTypeDocument().equals(TypeDocument.Dvd)) {
+			//Réalisateur
+			String[] tabNom = ((DVD) doc).getStrResalisateur().split(" ");
+			Arrays.asList(tabNom).stream().filter(h -> !Arrays.asList(tabMotCleExclu).contains(h.trim().toLowerCase())).filter(q -> !q.trim().equals("")).forEach(f -> doc.setLstMots(f.trim().toLowerCase()));
+		}
+		
+		//Titre
+		String[] tabTitre = doc.getStrTitre().replace('\'', ' ').replace(':', ' ').split(" ");
+		Arrays.asList(tabTitre).stream().filter(f -> f.length() > 2).filter(h -> !Arrays.asList(tabMotCleExclu).contains(h.trim().toLowerCase())).forEach(g -> doc.setLstMots(g.trim().toLowerCase()));
+		
+		doc.getLstMots().forEach(System.out::println);
 	}
+	
+	
+	
 	public static boolean ajouterLivre(String strTitre,LocalDate dateParution,String strAuteur) {
 		boolean booAjoutReussi=false;
 		Alert alerteDocument=validerDocuments(dateParution,strTitre);
@@ -109,11 +105,15 @@ public class GestionDocuments {
 			Livre livre =new Livre(strTitre,dateParution,strAuteur);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).add(livre);
 			booAjoutReussi=true;
+			
+			motCleAjout(livre);
+			
 		}
 		alerteDocument.showAndWait();
-		motCleAjout();
+		
 		return booAjoutReussi;
 	}
+	
 	public static boolean ajouterDVD(String strTitre,LocalDate dateParution,int intNbDisques,String strRealisateur) {
 		boolean booAjoutReussi=false;
 		Alert alerteDocument=validerDocuments(dateParution,strTitre);
@@ -126,12 +126,15 @@ public class GestionDocuments {
 			DVD dvd =new DVD(strTitre,dateParution,(short)intNbDisques,strRealisateur);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd).add(dvd);
 			booAjoutReussi=true;
+			
+			motCleAjout(dvd);
+			
 		}
 		alerteDocument.showAndWait();
 		
-		motCleAjout();
 		return booAjoutReussi;
 	}
+	
 	@SuppressWarnings("unused")
 	public static boolean ajouterPeriodique(String strTitre,LocalDate dateParution,String strNoVolume,String strNoPeriodique) {
 		boolean booAjoutReussi=false;
@@ -157,10 +160,12 @@ public class GestionDocuments {
 			Periodique periodique =new Periodique(strTitre,dateParution,intNoVolume,intNoPeriodique);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique).add(periodique);
 			booAjoutReussi=true;
+			
+			motCleAjout(periodique);
+			
 		}
 		alerteDocument.showAndWait();
 		
-		motCleAjout();
 		return booAjoutReussi;
 	}
 	
