@@ -13,6 +13,7 @@ import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
+import application.modele.Prepose;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
@@ -57,9 +58,9 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Prepose;
-	TableView<Document>[] lstTable; 
-	TableView<Personne> tableAdherent ;
+	TypePersonne utilisateur = TypePersonne.Admin;
+	private TableView<Document>[] lstTable; 
+	private TableView<Personne> tableAdherent;
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
 	public ObservableList<Personne> donneePersonne;
@@ -107,17 +108,37 @@ public class InterfacePrincipale {
 		
 		//-----------------------------> Ajouter question et reinistialliser... déconnexion
 		
-		ImageView deconnection = new ImageView(new Image("image-test.png"));
+		ImageView ivDeconnection = new ImageView(new Image("image-test.png"));
 		
-		deconnection.setFitHeight(20);
-		deconnection.setFitWidth(30);
+		ImageView ivReinsialiseRecherche = new ImageView(new Image("image-test.png"));
+		ImageView ivInformationLogiciel = new ImageView(new Image("image-test.png"));
+		
+		
+		ivDeconnection.setFitHeight(30);
+		ivDeconnection.setFitWidth(30);
+		
+		ivReinsialiseRecherche.setFitHeight(30);
+		ivReinsialiseRecherche.setFitWidth(30);
+		
+		ivInformationLogiciel.setFitHeight(30);
+		ivInformationLogiciel.setFitWidth(30);
+		
+		
+		
+		HBox panneauBoutonIcone = new HBox(60);
+		
+		
+		
+		
+		
 		
 		//Affichage selon le type d'utilisateur
 		
 		if(utilisateur.equals(TypePersonne.Prepose)) {
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
 			
-			HBox panneauBoutonIcone = new HBox(10);
+			panneauBoutonIcone.getChildren().addAll(ivDeconnection,ivReinsialiseRecherche,ivInformationLogiciel);
+			VBox panneauCentreGauche = new VBox(10, optionPreposer(),panneauBoutonIcone);
 			
 			//Panneau préposer a gauche
 			BorderPane panOption = new BorderPane();
@@ -125,7 +146,7 @@ public class InterfacePrincipale {
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0,30,0,0));
 			panOption.setTop(lblTitre);
-			panOption.setCenter(optionPreposer());
+			panOption.setCenter(panneauCentreGauche);
 			
 			panneau.setLeft(panOption);
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
@@ -305,17 +326,22 @@ public class InterfacePrincipale {
 		panneauGestionAdh.setFont(policeMenu);
 		panneauSeconGesAdh.setAlignment(Pos.CENTER_LEFT);
 		
-		//gestion pret
+		//gestion pret et amende
 		Button btnEmprunterDoc = new Button("Emprunter un document");
-		btnEmprunterDoc.setOnAction(e->{GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
+		btnEmprunterDoc.setOnAction(e->{GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),
+				lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
 		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		Button btnRetournerDoc = new Button("Retourner un document");
 		btnRetournerDoc.setOnAction(e->{GestionPrets.retournerDocument(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());});
+		
 		Button btnPayerAmende = new Button("Payer une amende");
 		btnPayerAmende.setOnAction(e->{ListePersonnes.getInstance().miseAjourPrets();GestionPrets.payerAmande((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
 		lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem();});
-		VBox panneauSeconGesPret = new VBox(10, btnEmprunterDoc,btnRetournerDoc,btnPayerAmende);
+		
+		Button btnVisualisePret = new Button("Visualise les prêts d'un adhérent");
+		
+		VBox panneauSeconGesPret = new VBox(10, btnEmprunterDoc,btnRetournerDoc,btnPayerAmende,btnVisualisePret);
 		TitledPane panneauGestionPret = new TitledPane("Gestion Prêt", panneauSeconGesPret);
 		panneauGestionPret.setFont(policeMenu);
 		panneauSeconGesPret.setAlignment(Pos.CENTER_LEFT);
@@ -324,6 +350,7 @@ public class InterfacePrincipale {
 		Accordion panneauOptionLateral = new Accordion(panneauGestionDoc, panneauGestionAdh, panneauGestionPret);
 		panneauOptionLateral.setExpandedPane(panneauGestionPret);
 		panneauOptionLateral.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		panneauOptionLateral.setMinHeight(240);
 		
 		return panneauOptionLateral;
 	}
@@ -477,6 +504,8 @@ public class InterfacePrincipale {
 		Button btnAjouterPrepose = new Button("Ajouter");
 		Button btnModifierPrepose = new Button("Modifier");
 		Button btnSupprimerPrepose = new Button("Supprimer");
+		
+		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Prepose) tablePrepose.getSelectionModel().getSelectedItem()); tablePrepose.refresh();});
 		
 		lblTitreGestionAdmin.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		

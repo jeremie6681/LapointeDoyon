@@ -15,6 +15,7 @@ public class Pret implements Serializable{
 	private LocalDate dateEffectiveRetour;  //inutile
 	private Amende amende=null;
 	private Document doc;
+	private String strCodeDoc = doc.getStrTitre();
 	
 	public Pret(Document doc) {
 		TypeDocument typeEmprunte= null;
@@ -50,6 +51,38 @@ public class Pret implements Serializable{
 		}catch(NullPointerException n) {
 			
 		}
+	}
+
+	public String getStrCodeDoc() {
+		return strCodeDoc;
+	}
+
+	public int getIntNoPret() {
+		return intNoPret;
+	}
+
+	public void setIntNoPret(int intNoPret) {
+		this.intNoPret = intNoPret;
+	}
+
+	public LocalDate getDatePret() {
+		return datePret;
+	}
+
+	public void setDatePret(LocalDate datePret) {
+		this.datePret = datePret;
+	}
+
+	public LocalDate getDateRetourPrevue() {
+		return dateRetourPrevue;
+	}
+
+	public void setDateRetourPrevue(LocalDate dateRetourPrevue) {
+		this.dateRetourPrevue = dateRetourPrevue;
+	}
+
+	public void setStrCodeDoc(String strCodeDoc) {
+		this.strCodeDoc = strCodeDoc;
 	}
 
 		
