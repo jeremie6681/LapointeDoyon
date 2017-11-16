@@ -32,6 +32,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -39,7 +41,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -52,7 +54,7 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Admin;
+	TypePersonne utilisateur = TypePersonne.Prepose;
 	TableView<Document>[] lstTable; 
 	
 	//Liste Observable pour les tables dans les onglets
@@ -102,10 +104,18 @@ public class InterfacePrincipale {
 		
 		//-----------------------------> Ajouter question et reinistialliser... déconnexion
 		
+		ImageView deconnection = new ImageView(new Image("image-test.png"));
+		
+		deconnection.setFitHeight(20);
+		deconnection.setFitWidth(30);
+		
 		//Affichage selon le type d'utilisateur
 		
 		if(utilisateur.equals(TypePersonne.Prepose)) {
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
+			
+			HBox panneauBoutonIcone = new HBox(10);
+			
 			//Panneau préposer a gauche
 			BorderPane panOption = new BorderPane();
 			panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
@@ -113,9 +123,11 @@ public class InterfacePrincipale {
 			panOption.setPadding(new Insets(0,30,0,0));
 			panOption.setTop(lblTitre);
 			panOption.setCenter(optionPreposer());
-			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 			
 			panneau.setLeft(panOption);
+			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
+			
+			
 			//panneau liste adherent
 			VBox panneauGestionAdherent = panneauGestionAdherent();
 			panneau.setRight(panneauGestionAdherent);
