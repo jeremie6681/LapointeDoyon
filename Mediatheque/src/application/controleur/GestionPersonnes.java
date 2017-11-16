@@ -67,7 +67,7 @@ public class GestionPersonnes {
 		primaryStage.setScene(interfacePrincipale.getScene());
 	}
    }
-	public static boolean ajouterAdherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone) {
+	public static boolean ajouterAdherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone,Stage stage) {
 		boolean booAjoute= false ;
 		Alert alerteAjouterPersonne = ajouterDeBase(strNom, strPrenom, strAdresse, strNoTelephone);
 		
@@ -80,7 +80,7 @@ public class GestionPersonnes {
 		alerteAjouterPersonne.showAndWait();
 		return booAjoute;
 	}
-	public static Object ajouterPrepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,String strPwd,String strPwdConfirmer) {
+	public static Object ajouterPrepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,String strPwd,String strPwdConfirmer,Stage stage) {
 		boolean booAjoute= false ;
 		Alert alerteAjouterPersonne = ajouterDeBase(strNom, strPrenom, strAdresse, strNoTelephone);
 		
@@ -95,6 +95,7 @@ public class GestionPersonnes {
 			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).add(prepose);
 			alerteAjouterPersonne=new Alert(AlertType.CONFIRMATION,strPrenom+" "+strNom+ "a été créer avec succes. Son Identifiant est : "+prepose.getStrNoPersonne(),ButtonType.OK);
 			booAjoute=true;
+			stage.hide();
 		}
 		alerteAjouterPersonne.showAndWait();
 		return booAjoute;
@@ -137,12 +138,13 @@ public class GestionPersonnes {
 		}
 	
 	}
-	public static  void modifierAdherent(Adherent adh,String strAdresse,String strNoTelephone) {
+	public static  void modifierAdherent(Adherent adh,String strAdresse,String strNoTelephone,Stage stage) {
 		Alert alerteModifierPersonne = ajouterDeBase(adh.getStrNom(), adh.getStrPrenom(), strAdresse, strNoTelephone);
 		if (alerteModifierPersonne==null) {
-			adh.setStrNoTelephone(strNoTelephone);
+			adh.setStrAdresse(strAdresse);
 			adh.setStrNoTelephone(strNoTelephone);
 			alerteModifierPersonne =new Alert(AlertType.CONFIRMATION,adh.getStrPrenom()+" "+adh.getStrNom()+ "a été modfié avec succes",ButtonType.OK);
+			stage.hide();
 		}
 		alerteModifierPersonne.showAndWait();
 	}

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
+import application.controleur.GestionPersonnes;
+import application.controleur.GestionPrets;
+import application.modele.Adherent;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -56,10 +59,10 @@ public class InterfacePrincipale {
 	
 	TypePersonne utilisateur = TypePersonne.Prepose;
 	TableView<Document>[] lstTable; 
-	
+	TableView<Personne> tableAdherent ;
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
-	
+	public ObservableList<Personne> donneePersonne;
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type,Personne personne ) {
@@ -265,7 +268,7 @@ public class InterfacePrincipale {
 		secondaryStage.sizeToScene();
 		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument(secondaryStage);
 		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(utilisateur,secondaryStage);
-		
+		final InterfaceNouvelUtilisateur intefaceModifUtilisateur= new InterfaceNouvelUtilisateur(null,secondaryStage);
 		//gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		//ajouter Document et mettre a jour l'affichage
@@ -285,11 +288,18 @@ public class InterfacePrincipale {
 		
 		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
-		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();});//////manque mise a jour
-		Button btnModifirerAdherent = new Button("Modifier Adhérent");
+		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();
+		tableAdherent.refresh();});
 		
+		Button btnModifirerAdherent = new Button("Modifier Adhérent");
+		btnModifirerAdherent.setOnAction(e->{intefaceModifUtilisateur.modifierAdherent((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
+		secondaryStage.setScene(intefaceModifUtilisateur.getScene());
+		if ((Adherent) tableAdherent.getSelectionModel().getSelectedItem()!=null) {secondaryStage.showAndWait();tableAdherent.refresh();};});
+		
+		//tableAdherent.
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
-		//btnSupprimerAdherent.setOnAction(e->GestionPersonnes.supprimerPersonne());
+		btnSupprimerAdherent.setOnAction(e->{GestionPersonnes.supprimerPersonne((Adherent) tableAdherent.getSelectionModel().getSelectedItem());tableAdherent.refresh();});
+		
 		VBox panneauSeconGesAdh = new VBox(10,btnAjouterAdherent,btnModifirerAdherent,btnSupprimerAdherent);
 		TitledPane panneauGestionAdh = new TitledPane("Gestion Adhérent", panneauSeconGesAdh);
 		panneauGestionAdh.setFont(policeMenu);
@@ -297,9 +307,14 @@ public class InterfacePrincipale {
 		
 		//gestion pret
 		Button btnEmprunterDoc = new Button("Emprunter un document");
-		Button btnRetournerDoc = new Button("Retourner un document");
-		Button btnPayerAmende = new Button("Payer une amende");
+		btnEmprunterDoc.setOnAction(e->{GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
+		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
+		Button btnRetournerDoc = new Button("Retourner un document");
+		btnRetournerDoc.setOnAction(e->{GestionPrets.retournerDocument(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());});
+		Button btnPayerAmende = new Button("Payer une amende");
+		btnPayerAmende.setOnAction(e->{ListePersonnes.getInstance().miseAjourPrets();GestionPrets.payerAmande((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
+		lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem();});
 		VBox panneauSeconGesPret = new VBox(10, btnEmprunterDoc,btnRetournerDoc,btnPayerAmende);
 		TitledPane panneauGestionPret = new TitledPane("Gestion Prêt", panneauSeconGesPret);
 		panneauGestionPret.setFont(policeMenu);
@@ -321,7 +336,7 @@ public class InterfacePrincipale {
 		Label lblTitrelistePersonne = new Label("Adhérents");
 		lblTitrelistePersonne.setFont(Font.font("arial",FontWeight.BOLD ,16));
 		
-		TableView<Personne> tableAdherent = new TableView<Personne>();
+		tableAdherent = new TableView<Personne>();
 		
 		TableColumn<Personne, String> colonneNoPersonne = new TableColumn<Personne, String>("Identifiant");
 		TableColumn<Personne, String> colonnePrenom = new TableColumn<Personne, String>("Prénom");
@@ -341,7 +356,7 @@ public class InterfacePrincipale {
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
 		
-		ObservableList<Personne> donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
+		donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
 		
 		tableAdherent.getColumns().addAll(colonneNoPersonne,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
 		tableAdherent.setItems(donneePersonne);

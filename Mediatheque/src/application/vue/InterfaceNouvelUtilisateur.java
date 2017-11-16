@@ -108,21 +108,21 @@ public class InterfaceNouvelUtilisateur {
 		
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
-		if(typeAjout.equals(TypePersonne.Prepose)) {
-			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText()));
+		if(typeAjout==TypePersonne.Prepose) {
+			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),stage));
 		}
-		else if (typeAjout.equals(typeAjout.Admin)){
-			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),pfPwd.getText(),pfConfirmerPwd.getText()));
+		else if (typeAjout==TypePersonne.Admin){
+			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),pfPwd.getText(),pfConfirmerPwd.getText(),stage));
 		}
-		else if(typeAjout.equals(null)) {
-			btnConfirmer.setOnAction(e->GestionPersonnes.modifierAdherent(adhAmodifier,tfAdresse.getText(),tfNoTel.getText()));
+		else if(typeAjout==null) {
+			btnConfirmer.setOnAction(e->GestionPersonnes.modifierAdherent(adhAmodifier,tfAdresse.getText(),tfNoTel.getText(),stage));
 		}
 		
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));
 		
 		//typeAjout=TypePersonne.Admin;
-		if(typeAjout.equals(TypePersonne.Admin)) {
+		if(typeAjout==TypePersonne.Admin) {
 			gpInfos.add(lblPwd, 1, 6);
 			gpInfos.add(lblConfirmerPwd, 1, 7);
 			gpInfos.add(pfPwd, 2, 6);

@@ -68,16 +68,6 @@ public class GestionInterface {
 				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList())));
 	}
 	
-	//Réinitialise les données du tableau d'adhérent
-	public static void rechargeDonneeAdh(ObservableList<Personne> donneeAdherent) {
-		donneeAdherent.clear();
-		donneeAdherent.addAll(FXCollections.observableArrayList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)));
-	}
-	
-	//Réinitialise les données du tableau de préposé
-	public static void rechargeDonneeAdm(ObservableList<Personne> donneePrepose) {
-		donneePrepose.clear();
-		donneePrepose.addAll(FXCollections.observableArrayList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose)));
-	}
+
 	
 }

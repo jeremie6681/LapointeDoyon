@@ -1,5 +1,8 @@
 package application.controleur;
 
+import java.util.Optional;
+
+import application.modele.Adherent;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListePersonnes;
@@ -11,15 +14,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 public class GestionPrets {
-	public void emprunterDocument(Personne personne, Document document){
-		Alert alerteTropDoc ;
-		Alert alerteConfimation = new Alert(AlertType.CONFIRMATION,personne.getStrPrenom()+" "+personne.getStrNom()+" à louer "+document.getStrTitre(),ButtonType.OK);
-		Alert alerteDocLoue = new Alert(AlertType.WARNING,"Le document "+document.getStrCodeDocument()+" est déja loué",ButtonType.OK);
-		Alert alerteAmende ;
-		int intDocTypeEmprunte= 0;
-		boolean booAUneAmande=false;
+	public static void emprunterDocument(Personne personne, Document document){
+
 		
 		//vérifier disponibilité du document 
+		if (document!=null&personne!= null) {
+			Alert alerteTropDoc ;
+			Alert alerteConfimation = new Alert(AlertType.CONFIRMATION,personne.getStrPrenom()+" "+personne.getStrNom()+" à louer "+document.getStrTitre(),ButtonType.OK);
+			Alert alerteDocLoue = new Alert(AlertType.WARNING,"Le document "+document.getStrCodeDocument()+" est déja loué",ButtonType.OK);
+			Alert alerteAmende ;
+			int intDocTypeEmprunte= 0;
+			boolean booAUneAmande=false;
 		if (!document.getEtatDoc().equals(Etat.DISPONIBLE)) {
 			alerteDocLoue.show();
 		}
@@ -38,7 +43,7 @@ public class GestionPrets {
 			}
 			else {
 				for(Pret  pret: personne.getLstPrets()) {
-					if (!pret.getAmende().equals(null)) {
+					if (pret.getAmende()!=null) {
 						booAUneAmande=true;
 					}
 				}
@@ -53,44 +58,74 @@ public class GestionPrets {
 				}
 			}
 		}
-			
+		}
+		else {
+			Alert alerteDocsNonSelectionne =new Alert(AlertType.WARNING,"veuillez selectionner un document ET un adhérent",ButtonType.OK);
+			alerteDocsNonSelectionne.showAndWait();
+		}
 	}
-	public void retournerDocument(Document doc) {
+	public static void retournerDocument(Document doc) {
+		if (doc!= null) {
 		if (!doc.getEtatDoc().equals(Etat.DISPONIBLE)){
-			doc.setEtatDoc(Etat.DISPONIBLE);
-			           //ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).removeIf(personne -> personne.getLstPrets().stream().filter(f->f.equals(doc)).findFirst().equals(personne));     retirer une personne selon un doc 
-			           //ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(f->f.getLstPrets().removeIf(j->j.equals(doc))); RETirer un pret selon un doc 
-			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(f->f.getLstPrets().stream().filter(j->j.getDoc().equals(doc)).findFirst().get().retourDoc());
+			
+			
+			//ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(f->f.getLstPrets().stream().filter(j->j.getDoc().equals(doc)).findFirst().get().retourDoc());
+			
+				
+		for(Personne adh:ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
+			for (Pret p :adh.getLstPrets()) {
+				if(doc.equals(p.getDoc())) 
+				doc.setEtatDoc(Etat.DISPONIBLE); 
+				p.retourDoc();
+			}
+		}
+			
 		}
 		else{
-			Alert alerteDocumentNonEmprumte=new Alert(AlertType.WARNING,"Le document "+doc .getStrTitre()+" est déja emprunté",ButtonType.OK);
+			Alert alerteDocumentNonEmprumte=new Alert(AlertType.WARNING,"Le document "+doc .getStrTitre()+" n'est pas emprunté ",ButtonType.OK);
 			alerteDocumentNonEmprumte.showAndWait();
 		}
+		}else {
+			Alert alerteDocsNonSelectionne =new Alert(AlertType.WARNING,"veuillez selectionner un document à retourner",ButtonType.OK);
+			alerteDocsNonSelectionne.showAndWait();
+		}
 	}
-	public double calculerAmande(Personne personne) {
+	public static double calculerAmande(Personne personne) {
 		double dblAmende=0;
 		for(Pret  pret: personne.getLstPrets()) {
-			if (!pret.getAmende().equals(null)) {
+			if (pret.getAmende()!=null) {
 				dblAmende+=pret.getAmende().getDblMontant();
 			}
 		}
 		return dblAmende;
 	}
-	public void payerAmande(Personne personne) {
+	public static void payerAmande(Personne personne) {
 		Alert alerteAucuneAmende;
 		double dblAmende= calculerAmande(personne);
+		String s = String.format("%.2f", dblAmende);
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Amende");
+		alert.setHeaderText("Payer une amende");
+		alert.setContentText(personne.getStrNoPersonne()+" "+personne.getStrNom()+ "veut vas payer son amende de " + s +"$");
+		
+
 		if (dblAmende!=0){
-			for (Pret pret : personne.getLstPrets()){
-				if (pret.getDoc().equals(null)){
-					pret=null;
-				}
-			}
-			alerteAucuneAmende = new Alert(AlertType.INFORMATION,personne.getStrPrenom()+" n'a aucune amende à rembourser",ButtonType.OK);
-			alerteAucuneAmende.showAndWait();
+			
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				
+				for (Pret pret : personne.getLstPrets()){
+					if (pret.getDoc()==null){
+						personne.getLstPrets().remove(pret);
+					}
+				}	
+			} else {}
+			
 		}
 		else {
 			alerteAucuneAmende = new Alert(AlertType.INFORMATION,personne.getStrPrenom()+" n'a aucune amende à rembourser",ButtonType.OK);
 			alerteAucuneAmende.showAndWait();
 		}
 	}
+
 }
