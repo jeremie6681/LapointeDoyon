@@ -125,7 +125,7 @@ public class InterfacePrincipale_Sauvegarde {
 		groupeRecherche.add(btnRecherche, 0, 2);
 		
 		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
-		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd));
+		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd));
 		
 		GridPane.setMargin(lblRecherche, new Insets(15,0,0,15));
 		GridPane.setHalignment(lblRecherche, HPos.CENTER);

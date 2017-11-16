@@ -264,13 +264,13 @@ public class InterfacePrincipale {
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		//ajouter Document et mettre a jour l'affichage
 		btnAjouterDocument.setOnAction(e->{secondaryStage.setScene(interfaceAjouterDoc.getScene());secondaryStage.showAndWait();
-		GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd);});
+		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		Button btnSupprimerDocument = new Button("Supprimer Document");
 		//supprimer un document et mettre l'affichage à jour
 		btnSupprimerDocument.setOnAction(e->
 		{GestionDocuments.supprimerDocuments(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-		GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd);});
+		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		VBox panneauSeconGesDoc = new VBox(10,btnAjouterDocument,btnSupprimerDocument);
 		TitledPane panneauGestionDoc = new TitledPane("Gestion Document", panneauSeconGesDoc);
@@ -377,7 +377,7 @@ public class InterfacePrincipale {
 		groupeRecherche.add(btnRecherche, 0, 2);
 		
 		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
-		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonnee(donneeDoc, donneeLiv, donneePer, donneeDvd));
+		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd));
 		
 		GridPane.setMargin(lblRecherche, new Insets(15,0,0,15));
 		GridPane.setHalignment(lblRecherche, HPos.CENTER);

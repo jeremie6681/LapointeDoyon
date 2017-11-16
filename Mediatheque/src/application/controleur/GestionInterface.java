@@ -5,7 +5,10 @@ import java.util.stream.Collectors;
 
 import application.modele.Document;
 import application.modele.ListeDocuments;
+import application.modele.ListePersonnes;
+import application.modele.Personne;
 import application.modele.TypeDocument;
+import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -48,7 +51,7 @@ public class GestionInterface {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////Note penser a rajouter le vide zone de texte
 	//Réinitialise les données des onglets avec les listes de documents
-	public static void rechargeDonnee(ObservableList<Document> donneeDoc,ObservableList<Document> donneeLiv,
+	public static void rechargeDonneeDoc(ObservableList<Document> donneeDoc,ObservableList<Document> donneeLiv,
 			ObservableList<Document> donneePer,ObservableList<Document> donneeDvd) {
 		
 		donneeDvd.clear();
@@ -64,4 +67,17 @@ public class GestionInterface {
 		donneeDoc.addAll(FXCollections.observableArrayList(
 				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList())));
 	}
+	
+	//Réinitialise les données du tableau d'adhérent
+	public static void rechargeDonneeAdh(ObservableList<Personne> donneeAdherent) {
+		donneeAdherent.clear();
+		donneeAdherent.addAll(FXCollections.observableArrayList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)));
+	}
+	
+	//Réinitialise les données du tableau de préposé
+	public static void rechargeDonneeAdm(ObservableList<Personne> donneePrepose) {
+		donneePrepose.clear();
+		donneePrepose.addAll(FXCollections.observableArrayList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose)));
+	}
+	
 }
