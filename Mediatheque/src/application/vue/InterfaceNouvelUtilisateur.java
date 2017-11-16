@@ -2,18 +2,21 @@ package application.vue;
 
 
 import application.controleur.GestionPersonnes;
+import application.modele.Adherent;
 import application.modele.TypePersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -36,6 +39,12 @@ public class InterfaceNouvelUtilisateur {
 	private VBox vb;
 	private GridPane gpPrep;
 	
+	private TextField tfNom;
+	private TextField tfPrenom;
+	private TextField tfAdresse;
+	private TextField tfNoTel;
+	private Adherent adhAmodifier=null;
+	
 	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout,Stage stage){
 		vb= new VBox(10) ;
 		btnConfirmer = new Button("Confirmer");
@@ -51,13 +60,13 @@ public class InterfaceNouvelUtilisateur {
 		//pour la box infos générals
 		GridPane gpInfos= new GridPane();
 		Label lblNom=new Label("Nom :");
-		TextField tfNom = new TextField();
+		tfNom = new TextField();
 		Label lblPrenom=new Label("Prénom :");
-		TextField tfPrenom = new TextField();
+		tfPrenom = new TextField();
 		Label lblAdresse=new Label("Adresse :");
-		TextField tfAdresse = new TextField();
+		tfAdresse = new TextField();
 		Label lblNoTel=new Label("Numéros de Téléphone :");
-		TextField tfNoTel = new TextField();
+		tfNoTel = new TextField();
 		Text txtInfos = new Text("Informations de la personne ");
 		//btnRetour
 		btnRetour.setOnAction(e->stage.hide());
@@ -102,8 +111,11 @@ public class InterfaceNouvelUtilisateur {
 		if(typeAjout.equals(TypePersonne.Prepose)) {
 			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText()));
 		}
-		else {
+		else if (typeAjout.equals(typeAjout.Admin)){
 			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),pfPwd.getText(),pfConfirmerPwd.getText()));
+		}
+		else if(typeAjout.equals(null)) {
+			btnConfirmer.setOnAction(e->GestionPersonnes.modifierAdherent(adhAmodifier,tfAdresse.getText(),tfNoTel.getText()));
 		}
 		
 		//txtInstruction
@@ -125,6 +137,21 @@ public class InterfaceNouvelUtilisateur {
 	
 	public Scene getScene() {
 		return scene;
+	}
+	public void modifierAdherent(Adherent adh) {
+		try {
+		tfNom.setText(adh.getStrNom());
+		tfPrenom.setText(adh.getStrPrenom());
+		tfNoTel.setText(adh.getStrNoTelephone());
+		tfAdresse.setText(adh.getStrAdresse());
+		tfNom.setDisable(true);
+		tfPrenom.setDisable(true);
+		adhAmodifier=adh;
+		
+		}catch(NullPointerException n ) {
+			Alert alertErreur = new Alert(AlertType.WARNING,"vous devez choisir une personne");
+			alertErreur.showAndWait();
+		}
 	}
 
 }

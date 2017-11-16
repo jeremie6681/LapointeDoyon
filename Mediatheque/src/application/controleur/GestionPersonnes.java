@@ -137,5 +137,14 @@ public class GestionPersonnes {
 		}
 	
 	}
+	public static  void modifierAdherent(Adherent adh,String strAdresse,String strNoTelephone) {
+		Alert alerteModifierPersonne = ajouterDeBase(adh.getStrNom(), adh.getStrPrenom(), strAdresse, strNoTelephone);
+		if (alerteModifierPersonne==null) {
+			adh.setStrNoTelephone(strNoTelephone);
+			adh.setStrNoTelephone(strNoTelephone);
+			alerteModifierPersonne =new Alert(AlertType.CONFIRMATION,adh.getStrPrenom()+" "+adh.getStrNom()+ "a été modfié avec succes",ButtonType.OK);
+		}
+		alerteModifierPersonne.showAndWait();
+	}
 	
 }
