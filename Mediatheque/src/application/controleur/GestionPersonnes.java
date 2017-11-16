@@ -1,6 +1,9 @@
 package application.controleur;
 
+import java.util.Optional;
+
 import application.modele.Adherent;
+import application.modele.Document;
 import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
@@ -116,10 +119,23 @@ public class GestionPersonnes {
 	
 		return alerteAjouterPersonne;
 	}
+
 	public static  void supprimerPersonne(Personne personne) {
+		try {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("Suppresion du dossier d'une personne");
+		alert.setContentText("Voulez vous vraiment Supprimer le dossier de "+personne.getStrPrenom()+" "+personne.getStrNom()+"?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			ListePersonnes.getInstance().mapPersonne.get(personne.getTypePersonne()).removeIf(p->personne.equals(p));
+		} else {}
+		}catch(NullPointerException e) {
+			Alert alertErreur = new Alert(AlertType.WARNING,"vous devez choisir une personne");
+			alertErreur.showAndWait();
+		}
 	
-		ListePersonnes.getInstance().mapPersonne.get(personne.getTypePersonne()).removeIf(p->personne.equals(p));
-		////////manque inserer alerte pour confirmer
-	} 
+	}
 	
 }

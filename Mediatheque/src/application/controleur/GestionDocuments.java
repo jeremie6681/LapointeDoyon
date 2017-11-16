@@ -3,6 +3,7 @@ package application.controleur;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -41,23 +42,21 @@ public class GestionDocuments {
 	}*/
 	
 	public static void supprimerDocuments(Document document){
-		/*TypeDocument typeSupprimer = null;
-		
-		//Détermine le type du document
-		for(TypeDocument type : TypeDocument.values()) {
-			if(type.getStrIndicateurType().equals(strCodeDocument.substring(0, 3)))
-				typeSupprimer = type;
+		try {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation ");
+		alert.setHeaderText("Supression d'un document");
+		alert.setContentText("Voulez-vous vraiment Suprimer le "+document.getTypeDocument().getStrNomType()+": "+document.getStrTitre());
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument()).removeIf(d->document.equals(d));
+		} else {}
+		}catch(NullPointerException e) {
+			Alert alertErreur = new Alert(AlertType.WARNING,"vous devez selectionner un document");
+			alertErreur.showAndWait();
 		}
-		
-		ListeDocuments.getInstance().mapDocument.get(typeSupprimer).removeIf(docu -> docu.getStrCodeDocument().equals(strCodeDocument));
-		
-		//*////////////////////////////////////////////////////////////////////////////////Peut etre remettre a jour les onglets
-		
-		//a ajouter fenetre voulez vous vraiment
-		
-		ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument()).removeIf(d->document.equals(d));
-		//ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).forEach(e-> System.out.println(e.getStrTitre())); //just pour verifier la supression
-		
+	
 	}
 	
 	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable){
@@ -106,7 +105,7 @@ public class GestionDocuments {
 			alerteDocument = new Alert(AlertType.WARNING,"Veuillez spécifier un auteur", ButtonType.OK);
 		}
 		if(alerteDocument==null) {
-			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \"à été ajouté avec succèss", ButtonType.OK);
+			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \" à été ajouté avec succèss", ButtonType.OK);
 			Livre livre =new Livre(strTitre,dateParution,strAuteur);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).add(livre);
 			booAjoutReussi=true;
@@ -123,7 +122,7 @@ public class GestionDocuments {
 			alerteDocument = new Alert(AlertType.WARNING,"Veuillez spécifier un réalisateur", ButtonType.OK);
 		}
 		if(alerteDocument==null) {
-			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \"à été ajouté avec succèss", ButtonType.OK);
+			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \" à été ajouté avec succèss", ButtonType.OK);
 			DVD dvd =new DVD(strTitre,dateParution,(short)intNbDisques,strRealisateur);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd).add(dvd);
 			booAjoutReussi=true;
@@ -154,7 +153,7 @@ public class GestionDocuments {
 			
 		}
 		if(alerteDocument==null) {
-			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \"à été ajouté avec succèss", ButtonType.OK);
+			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \" à été ajouté avec succèss", ButtonType.OK);
 			Periodique periodique =new Periodique(strTitre,dateParution,intNoVolume,intNoPeriodique);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique).add(periodique);
 			booAjoutReussi=true;
