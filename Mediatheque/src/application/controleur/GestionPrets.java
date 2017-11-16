@@ -134,13 +134,16 @@ public class GestionPrets {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
 				for (Pret pret : personne.getLstPrets()){
-					try {
+				/*	try {
 					if(pret.getDoc().getEtatDoc()==Etat.DISPONIBLE) {		///paye les dettes pour documents retournés
 						personne.getLstPrets().remove(pret);
 					}
 				}	
 				catch(NullPointerException n) {
-				}	
+				}*/
+				if (pret.getAmende()!= null&&pret.getAmende().getBooRetour()==true) {
+					personne.getLstPrets().remove(pret);
+				}
 				}
 			} else {
 			}	
