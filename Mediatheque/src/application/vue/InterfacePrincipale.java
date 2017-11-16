@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
-import application.controleur.GestionPersonnes;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -13,11 +12,8 @@ import application.modele.ListePersonnes;
 import application.modele.Personne;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,6 +32,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -43,21 +41,20 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import javafx.util.Pair;
 
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Adherent;
+	TypePersonne utilisateur = TypePersonne.Prepose;
 	TableView<Document>[] lstTable; 
 	
 	//Liste Observable pour les tables dans les onglets
@@ -66,7 +63,7 @@ public class InterfacePrincipale {
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type,Personne personne ) {
-		utilisateur = type;
+		//utilisateur = type;
 		
 		Group root =new Group();
 		
@@ -85,7 +82,7 @@ public class InterfacePrincipale {
 		tabPane.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
 		
-		 lstTable = tableau();
+		lstTable = tableau();
 		
 		//onglet document
 		Tab ongletDoc = new Tab("Document");
@@ -105,12 +102,20 @@ public class InterfacePrincipale {
 			tabPane.getTabs().add(ongletType);
 		}
 		
-		//-----------------------------> Ajouter question et reinistialliser...
+		//-----------------------------> Ajouter question et reinistialliser... déconnexion
+		
+		ImageView deconnection = new ImageView(new Image("image-test.png"));
+		
+		deconnection.setFitHeight(20);
+		deconnection.setFitWidth(30);
 		
 		//Affichage selon le type d'utilisateur
 		
 		if(utilisateur.equals(TypePersonne.Prepose)) {
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
+			
+			HBox panneauBoutonIcone = new HBox(10);
+			
 			//Panneau préposer a gauche
 			BorderPane panOption = new BorderPane();
 			panOption.setMargin(groupeRecherche, new Insets(15,0,0,0));
@@ -118,9 +123,11 @@ public class InterfacePrincipale {
 			panOption.setPadding(new Insets(0,30,0,0));
 			panOption.setTop(lblTitre);
 			panOption.setCenter(optionPreposer());
-			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 			
 			panneau.setLeft(panOption);
+			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
+			
+			
 			//panneau liste adherent
 			VBox panneauGestionAdherent = panneauGestionAdherent();
 			panneau.setRight(panneauGestionAdherent);
@@ -144,9 +151,14 @@ public class InterfacePrincipale {
 		}
 		//Administarteur
 		else {
+			GridPane panneauGestionDesPrepose = panneauAdministrateur().getValue();
+			
 			panneau.setCenter(panneauAdministrateur().getKey());
-			panneau.setBottom(panneauAdministrateur().getValue());
+			panneau.setBottom(panneauGestionDesPrepose);
 			panneau.setTop(lblTitre);
+			panneau.setAlignment(lblTitre, Pos.CENTER);
+			
+			panneau.setMargin(panneauGestionDesPrepose, new Insets(25,0,0,0));
 		}
 		
 		
@@ -154,15 +166,8 @@ public class InterfacePrincipale {
 		panneau.setPadding(new Insets(20,30,30,30));
 		root.getChildren().add(panneau);
 		
-
-		/*
-		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			public void handle(WindowEvent we) {                        
-				Platform.setImplicitExit(false);
-				primaryStage.close();
-				
-			}
-		});*/
+		//Fait la sérialisation lorsque l'on quitte l'application
+		primaryStage.setOnCloseRequest(r -> {ListePersonnes.getInstance().serialisation();ListeDocuments.getInstance().serialisation();});
 		
 		primaryStage.setTitle("Médiathèque");
 	}
@@ -228,6 +233,7 @@ public class InterfacePrincipale {
 		return lstTable;	
 	}
 	
+	//Colonne commune pour les tableau des documents
 	@SuppressWarnings("unchecked")
 	private void colonneTableauCommune(TableView<Document> table) {
 		TableColumn<Document, String> colonneIdentifiant = new TableColumn<Document, String>("Identifiant");
@@ -457,14 +463,20 @@ public class InterfacePrincipale {
 		Button btnModifierPrepose = new Button("Modifier");
 		Button btnSupprimerPrepose = new Button("Supprimer");
 		
-		GridPane panneauGestionDesPrepose = new GridPane();
-		panneauGestionDesPrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		lblTitreGestionAdmin.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		
+		GridPane panneauGestionDesPrepose = new GridPane();
+		panneauGestionDesPrepose.setHgap(15);
+		panneauGestionDesPrepose.setVgap(10);
+		panneauGestionDesPrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
+		panneauGestionDesPrepose.setPadding(new Insets(10));
+		panneauGestionDesPrepose.setMaxSize(250, 75);
 		panneauGestionDesPrepose.add(lblTitreGestionAdmin, 0, 0,3,1);
 		panneauGestionDesPrepose.add(btnAjouterPrepose, 0, 1);
 		panneauGestionDesPrepose.add(btnModifierPrepose, 1, 1);
 		panneauGestionDesPrepose.add(btnSupprimerPrepose, 2, 1);
 		
+		GridPane.setHalignment(lblTitreGestionAdmin, HPos.CENTER);
 		
 		
 		return  new Pair<VBox, GridPane>(panneauListePersonne, panneauGestionDesPrepose);
