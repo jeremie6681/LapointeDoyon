@@ -171,7 +171,10 @@ public class GestionDocuments {
 	
 	private static Alert validerDocuments(LocalDate dateParution,String strTitre) {
 		Alert alerteDocument= null;
-		if (LocalDate.now().isBefore(dateParution)){
+		if (dateParution==null) {
+			alerteDocument = new Alert(AlertType.WARNING,"veuillez entrer une date", ButtonType.OK);
+		}
+		else if (LocalDate.now().isBefore(dateParution)){
 			alerteDocument = new Alert(AlertType.WARNING,"La date de parution spécifiée est après la date d'aujourd'hui", ButtonType.OK);
 		}
 		else if (strTitre.equals(null)||strTitre.trim().equals("")) {

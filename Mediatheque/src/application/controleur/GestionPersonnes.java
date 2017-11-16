@@ -8,6 +8,7 @@ import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
 import application.modele.Prepose;
+import application.modele.Pret;
 import application.modele.TypePersonne;
 import application.vue.InterfacePrincipale;
 import javafx.scene.control.Alert;
@@ -76,6 +77,7 @@ public class GestionPersonnes {
 			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).add(adherent);
 			alerteAjouterPersonne=new Alert(AlertType.CONFIRMATION,strPrenom+" "+strNom+ "a été créer avec succes. Son Identifiant est : "+adherent.getStrNoPersonne(),ButtonType.OK);
 			booAjoute=true;
+			stage.hide();
 		}
 		alerteAjouterPersonne.showAndWait();
 		return booAjoute;
@@ -123,15 +125,22 @@ public class GestionPersonnes {
 
 	public static  void supprimerPersonne(Personne personne) {
 		try {
+			System.out.println(personne.getLstPrets().size());
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation");
 		alert.setHeaderText("Suppresion du dossier d'une personne");
 		alert.setContentText("Voulez vous vraiment Supprimer le dossier de "+personne.getStrPrenom()+" "+personne.getStrNom()+"?");
-
+		if(personne.getLstPrets().size()==0){
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
 			ListePersonnes.getInstance().mapPersonne.get(personne.getTypePersonne()).removeIf(p->personne.equals(p));
 		} else {}
+		}
+		else {
+			alert=new Alert(AlertType.WARNING,personne.getStrPrenom()+" "+personne.getStrPrenom()+ 
+					" doit avoir retourné tous ses emprunts et avoir payé ses frais de retard avant de pouovoir fermer son dossier",ButtonType.OK);
+			alert.showAndWait();
+		}
 		}catch(NullPointerException e) {
 			Alert alertErreur = new Alert(AlertType.WARNING,"vous devez choisir une personne");
 			alertErreur.showAndWait();
@@ -147,6 +156,34 @@ public class GestionPersonnes {
 			stage.hide();
 		}
 		alerteModifierPersonne.showAndWait();
+	}
+	public static void afficherPrets(Personne p) {
+		if (p!=null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Affichage des prets" );
+			alert.setHeaderText("Prets de "+p.getStrPrenom()+" "+p.getStrNom()+" ("+p.getStrNoPersonne()+")");
+			String strContentext="";
+			
+			 if (p.getLstPrets().size()==0||p.getLstPrets()==null) {
+				strContentext =p.getStrPrenom()+" "+p.getStrNom()+" ("+p.getStrNoPersonne()+") n'a aucuns Prets et Amendes";
+			 }
+			 else {
+				 for (Pret pret: p.getLstPrets()) {
+					strContentext+=pret.toString();
+				}
+			 }
+			
+			
+		
+			alert.setContentText(strContentext);
+			alert.showAndWait();
+			
+			
+		}
+		else {
+			Alert alert = new Alert(AlertType.WARNING,"vous devez selectionner un personne pour laquelle afficher les prets");
+			alert.showAndWait();
+		}
 	}
 	
 }

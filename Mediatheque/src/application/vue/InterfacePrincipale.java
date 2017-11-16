@@ -58,7 +58,7 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Admin;
+	TypePersonne utilisateur = TypePersonne.Prepose;
 	private TableView<Document>[] lstTable; 
 	private TableView<Personne> tableAdherent;
 	//Liste Observable pour les tables dans les onglets
@@ -333,13 +333,15 @@ public class InterfacePrincipale {
 		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		Button btnRetournerDoc = new Button("Retourner un document");
-		btnRetournerDoc.setOnAction(e->{GestionPrets.retournerDocument(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());});
+		btnRetournerDoc.setOnAction(e->{GestionPrets.retournerDocument(lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
+		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		Button btnPayerAmende = new Button("Payer une amende");
 		btnPayerAmende.setOnAction(e->{ListePersonnes.getInstance().miseAjourPrets();GestionPrets.payerAmande((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
-		lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem();});
+		GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);});
 		
 		Button btnVisualisePret = new Button("Visualise les prêts d'un adhérent");
+		btnVisualisePret.setOnAction(e->GestionPersonnes.afficherPrets((Adherent) tableAdherent.getSelectionModel().getSelectedItem()));
 		
 		VBox panneauSeconGesPret = new VBox(10, btnEmprunterDoc,btnRetournerDoc,btnPayerAmende,btnVisualisePret);
 		TitledPane panneauGestionPret = new TitledPane("Gestion Prêt", panneauSeconGesPret);

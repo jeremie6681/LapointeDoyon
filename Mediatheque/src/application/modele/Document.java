@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Document implements Serializable {
+public abstract class Document implements Serializable,Comparable<Document>{
 	
 	private static final long serialVersionUID = -1342101432549855316L;
 	private String strCodeDocument;
@@ -81,5 +81,10 @@ public abstract class Document implements Serializable {
 	public ArrayList<String> getLstMots() {
 		return lstMots;
 	}
+	@Override
+	public int compareTo(Document d) {
+		return this.strCodeDocument.compareTo(d.strCodeDocument);
+	}
+	
 	
 }

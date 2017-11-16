@@ -3,7 +3,7 @@ package application.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Personne implements Serializable{
+public abstract class Personne implements Serializable,Comparable<Personne>{
 
 	private static final long serialVersionUID = 7597084348346483128L;
 	private String strNoPersonne;
@@ -76,4 +76,10 @@ public abstract class Personne implements Serializable{
 	}
 	abstract public TypePersonne getTypePersonne();
 
+	@Override
+	public int compareTo(Personne p) {
+		return this.strNoPersonne.compareTo(p.strNoPersonne);
+	}
+
+	
 }

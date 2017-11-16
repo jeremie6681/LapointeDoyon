@@ -2,11 +2,12 @@ package application.modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Date;
 
 public class DVD extends Document implements Serializable{
 	
-	private static int intNoDocs= 1;
+	private static int intNoDocs= ouRenduNoPersonnes();
 	private static final long serialVersionUID = -1678710002762416560L;
 	private short shNbDisques;
 	private String strResalisateur;
@@ -15,7 +16,7 @@ public class DVD extends Document implements Serializable{
 		super(strCodeDocument, strTitre, dateParution, etatDoc);
 		this.shNbDisques=shNbDisque;
 		this.strResalisateur= strResalisateur;
-		intNoDocs++;
+		
 	}
 	public DVD(String strTitre, LocalDate dateParution,short shNbDisque,String strResalisateur) {
 		super(setCodeDocument(), strTitre, dateParution, Etat.DISPONIBLE);
@@ -50,6 +51,18 @@ public class DVD extends Document implements Serializable{
 		strCodeDoc=TypeDocument.Dvd.getStrIndicateurType()+intNoDocs;
 		}
 		return strCodeDoc;
+	}
+	private static int ouRenduNoPersonnes() {
+		
+		int intNoDoc=1;
+		if (intNoDocs!=1) {
+		String strNo;
+		Collections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
+		strNo =ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd).get((ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd)).size()-1).getStrCodeDocument();
+		strNo= strNo.toUpperCase().replace(TypeDocument.Dvd.getStrIndicateurType().toUpperCase(),"");
+		intNoDoc= Integer.parseInt(strNo)+1;
+		}
+		return intNoDoc;
 	}
 	
 }

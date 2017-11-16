@@ -1,11 +1,12 @@
 package application.modele;
 
 import java.io.Serializable;
+import java.util.Collections;
 
 public class Prepose extends Personne implements Serializable {
 
 	private static final long serialVersionUID = -7225017568166257641L;
-	private static int intNoEmploye=1;
+	private static int intNoEmploye=ouRenduNoPersonnes();
 	private String strMotPasse;
 	
 	public Prepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,  String strMotPasse, String strNoPersonne) {
@@ -39,6 +40,20 @@ public class Prepose extends Personne implements Serializable {
 	public
 	TypePersonne getTypePersonne() {
 		return TypePersonne.Prepose;
+	}
+
+	private static int ouRenduNoPersonnes() {
+	
+		int intNoPersonne=1;
+		if (intNoEmploye!=1) {
+		String strNo;
+		Collections.sort(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
+		strNo =ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).get(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).size()-1).getStrNoPersonne();
+		strNo= strNo.toUpperCase().replace(TypePersonne.Prepose.getStrIndicateurType().toUpperCase(),"");
+		intNoPersonne= Integer.parseInt(strNo)+1;
+		}
+		System.out.println(intNoPersonne);
+		return intNoPersonne;
 	}
 
 }

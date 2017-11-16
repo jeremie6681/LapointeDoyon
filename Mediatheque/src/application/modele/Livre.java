@@ -2,11 +2,12 @@ package application.modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Date;
 
 public class Livre extends Document implements Serializable{
 	
-	private static int intNoDocs= 1;
+	private static int intNoDocs= ouRenduNoPersonnes();
 	
 	private static final long serialVersionUID = -4268118706365795753L;
 	private String strAuteur;
@@ -14,7 +15,7 @@ public class Livre extends Document implements Serializable{
 	public Livre(String strNoCodeDocument, String strTitre, LocalDate dateParution, Etat etatDoc, String strAuteur) {
 		super(strNoCodeDocument,strTitre, dateParution, etatDoc);
 		this.strAuteur=strAuteur;
-		intNoDocs++;
+		
 	}
 	public Livre(String strTitre, LocalDate dateParution, String strAuteur) {
 		super(setCodeDocument(),strTitre, dateParution, Etat.DISPONIBLE);
@@ -42,6 +43,18 @@ public class Livre extends Document implements Serializable{
 		strCodeDoc=TypeDocument.Livre.getStrIndicateurType()+intNoDocs;
 		}
 		return strCodeDoc;
+	}
+	private static int ouRenduNoPersonnes() {
+		
+		int intNoDoc=1;
+		if (intNoDocs!=1) {
+		String strNo;
+		Collections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
+		strNo =ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).get((ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre)).size()-1).getStrCodeDocument();
+		strNo= strNo.toUpperCase().replace(TypeDocument.Livre.getStrIndicateurType().toUpperCase(),"");
+		intNoDoc= Integer.parseInt(strNo)+1;
+		}
+		return intNoDoc;
 	}
 
 }

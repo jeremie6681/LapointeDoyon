@@ -20,7 +20,7 @@ public class Main extends Application {
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 
-			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,null);
+			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,null);
 
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			primaryStage.setScene(ifLogin.getScene());

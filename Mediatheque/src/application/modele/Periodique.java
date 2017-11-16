@@ -2,10 +2,11 @@ package application.modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
 
 public class Periodique extends Document implements Serializable {
 	
-	static int intNoDocs=1;
+	private static int intNoDocs=ouRenduNoPersonnes();
 	private static final long serialVersionUID = 3408058369694863163L;
 	private int intNoVolume;
 	private int intNoPeriodique;
@@ -19,6 +20,7 @@ public class Periodique extends Document implements Serializable {
 		super(setCodeDocument(), strTitre, dateParution, Etat.DISPONIBLE);
 		this.intNoVolume=intNoVolume;
 		this.intNoPeriodique=intNoPeriodique;
+		intNoDocs++;
 	}
 
 	public int getIntNoVolume() {
@@ -48,5 +50,17 @@ public class Periodique extends Document implements Serializable {
 		strCodeDoc=TypeDocument.Periodique.getStrIndicateurType()+intNoDocs;
 		}
 		return strCodeDoc;
+	}
+	private static int ouRenduNoPersonnes() {
+		
+		int intNoDoc=1;
+		if (intNoDocs!=1) {
+		String strNo;
+		Collections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
+		strNo =ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique).get((ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique)).size()-1).getStrCodeDocument();
+		strNo= strNo.toUpperCase().replace(TypeDocument.Periodique.getStrIndicateurType().toUpperCase(),"");
+		intNoDoc= Integer.parseInt(strNo)+1;
+		}
+		return intNoDoc;
 	}
 }
