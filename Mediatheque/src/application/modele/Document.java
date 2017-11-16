@@ -76,5 +76,10 @@ public abstract class Document implements Serializable {
 	}
 	abstract public   TypeDocument getTypeDocument();
 	//abstract  String setCodeDocument();
+
+
+	public ArrayList<String> getLstMots() {
+		return lstMots;
+	}
 	
 }
