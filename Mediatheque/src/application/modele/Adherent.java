@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class Adherent extends Personne implements Serializable {
-	private static int intNbrAdh=ouRenduNoPersonnes();
+	private static int intNbrAdh;//=ouRenduNoPersonnes();
 	private static final long serialVersionUID = 5978651855639753884L;
 
 	public Adherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone, String strNoPersonne) {
@@ -31,7 +31,8 @@ public class Adherent extends Personne implements Serializable {
 	public TypePersonne getTypePersonne() {
 		return TypePersonne.Adherent;
 	}
-	private static int ouRenduNoPersonnes() {
+	
+	public static void  ouRenduNoPersonnes() {
 	
 		int intNoPersonne=1;
 		if (intNbrAdh!=1) {
@@ -42,7 +43,8 @@ public class Adherent extends Personne implements Serializable {
 		intNoPersonne= Integer.parseInt(strNo)+1;
 		}
 		System.out.println(intNoPersonne);
-		return intNoPersonne;
+		 intNbrAdh =intNoPersonne;
 	}
+	
 
 }

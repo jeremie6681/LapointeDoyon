@@ -6,7 +6,7 @@ import java.util.Collections;
 
 public class Periodique extends Document implements Serializable {
 	
-	private static int intNoDocs=ouRenduNoPersonnes();
+	private static int intNoDocs;//ouRenduNoPersonnes();
 	private static final long serialVersionUID = 3408058369694863163L;
 	private int intNoVolume;
 	private int intNoPeriodique;
@@ -51,7 +51,7 @@ public class Periodique extends Document implements Serializable {
 		}
 		return strCodeDoc;
 	}
-	private static int ouRenduNoPersonnes() {
+	public static void ouRenduNo() {
 		
 		int intNoDoc=1;
 		if (intNoDocs!=1) {
@@ -61,6 +61,6 @@ public class Periodique extends Document implements Serializable {
 		strNo= strNo.toUpperCase().replace(TypeDocument.Periodique.getStrIndicateurType().toUpperCase(),"");
 		intNoDoc= Integer.parseInt(strNo)+1;
 		}
-		return intNoDoc;
+		intNoDocs= intNoDoc;
 	}
 }

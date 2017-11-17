@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Livre extends Document implements Serializable{
 	
-	private static int intNoDocs= ouRenduNoPersonnes();
+	private static int intNoDocs;//= ouRenduNoPersonnes();
 	
 	private static final long serialVersionUID = -4268118706365795753L;
 	private String strAuteur;
@@ -44,7 +44,7 @@ public class Livre extends Document implements Serializable{
 		}
 		return strCodeDoc;
 	}
-	private static int ouRenduNoPersonnes() {
+	public static void ouRenduNo() {
 		
 		int intNoDoc=1;
 		if (intNoDocs!=1) {
@@ -54,7 +54,7 @@ public class Livre extends Document implements Serializable{
 		strNo= strNo.toUpperCase().replace(TypeDocument.Livre.getStrIndicateurType().toUpperCase(),"");
 		intNoDoc= Integer.parseInt(strNo)+1;
 		}
-		return intNoDoc;
+		intNoDocs= intNoDoc;
 	}
 
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DVD extends Document implements Serializable{
 	
-	private static int intNoDocs= ouRenduNoPersonnes();
+	private static int intNoDocs;//= ouRenduNoPersonnes();
 	private static final long serialVersionUID = -1678710002762416560L;
 	private short shNbDisques;
 	private String strResalisateur;
@@ -52,7 +52,7 @@ public class DVD extends Document implements Serializable{
 		}
 		return strCodeDoc;
 	}
-	private static int ouRenduNoPersonnes() {
+	public static void ouRenduNo(){
 		
 		int intNoDoc=1;
 		if (intNoDocs!=1) {
@@ -62,7 +62,7 @@ public class DVD extends Document implements Serializable{
 		strNo= strNo.toUpperCase().replace(TypeDocument.Dvd.getStrIndicateurType().toUpperCase(),"");
 		intNoDoc= Integer.parseInt(strNo)+1;
 		}
-		return intNoDoc;
+		intNoDocs= intNoDoc;
 	}
 	
 }

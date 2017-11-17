@@ -6,7 +6,7 @@ import java.util.Collections;
 public class Prepose extends Personne implements Serializable {
 
 	private static final long serialVersionUID = -7225017568166257641L;
-	private static int intNoEmploye=ouRenduNoPersonnes();
+	private static int intNoEmploye;//=ouRenduNoPersonnes();
 	private String strMotPasse;
 	
 	public Prepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,  String strMotPasse, String strNoPersonne) {
@@ -42,7 +42,7 @@ public class Prepose extends Personne implements Serializable {
 		return TypePersonne.Prepose;
 	}
 
-	private static int ouRenduNoPersonnes() {
+	public static void ouRenduNoPersonnes() {
 	
 		int intNoPersonne=1;
 		if (intNoEmploye!=1) {
@@ -53,7 +53,7 @@ public class Prepose extends Personne implements Serializable {
 		intNoPersonne= Integer.parseInt(strNo)+1;
 		}
 		System.out.println(intNoPersonne);
-		return intNoPersonne;
+		intNoEmploye=intNoPersonne;
 	}
 
 }

@@ -159,8 +159,9 @@ public final class ListeDocuments implements Serializable {
 	}
 	
 	public static ListeDocuments getInstance() {
-		  if (instanceDoc == null) 
+		  if (instanceDoc == null) {
 			  instanceDoc = new ListeDocuments();
+		  }
 		  return instanceDoc;
 	}
 }

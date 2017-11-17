@@ -101,6 +101,7 @@ public class GestionDocuments {
 			alerteDocument = new Alert(AlertType.WARNING,"Veuillez spécifier un auteur", ButtonType.OK);
 		}
 		if(alerteDocument==null) {
+			DVD.ouRenduNo();
 			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \" à été ajouté avec succèss", ButtonType.OK);
 			Livre livre =new Livre(strTitre,dateParution,strAuteur);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).add(livre);
@@ -122,6 +123,7 @@ public class GestionDocuments {
 			alerteDocument = new Alert(AlertType.WARNING,"Veuillez spécifier un réalisateur", ButtonType.OK);
 		}
 		if(alerteDocument==null) {
+			DVD.ouRenduNo();
 			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \" à été ajouté avec succèss", ButtonType.OK);
 			DVD dvd =new DVD(strTitre,dateParution,(short)intNbDisques,strRealisateur);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd).add(dvd);
@@ -156,6 +158,7 @@ public class GestionDocuments {
 			
 		}
 		if(alerteDocument==null) {
+			Periodique.ouRenduNo();
 			alerteDocument= new Alert(AlertType.CONFIRMATION,"Le document \" "+strTitre+" \" à été ajouté avec succèss", ButtonType.OK);
 			Periodique periodique =new Periodique(strTitre,dateParution,intNoVolume,intNoPeriodique);
 			ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique).add(periodique);
