@@ -18,6 +18,7 @@ import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -63,7 +64,7 @@ public class InterfacePrincipale {
 	private TableView<Personne> tableAdherent;
 	//Liste Observable pour les tables dans les onglets
 	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
-	public ObservableList<Personne> donneePersonne;
+	public ObservableList<Personne> donneeAdherent;
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type,Personne personne ) {
@@ -126,7 +127,7 @@ public class InterfacePrincipale {
 		
 		
 		HBox panneauBoutonIcone = new HBox(60);
-		
+		panneauBoutonIcone.setPadding(new Insets(10));
 		
 		
 		
@@ -309,8 +310,9 @@ public class InterfacePrincipale {
 		
 		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
+		Adherent test = new Adherent("gjhgjh", "gjhfuy", "jhfe", "htyt");
 		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();
-		tableAdherent.refresh();});
+		donneeAdherent.forEach(System.out::println);});
 		
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		btnModifirerAdherent.setOnAction(e->{intefaceModifUtilisateur.modifierAdherent((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
@@ -385,10 +387,10 @@ public class InterfacePrincipale {
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
 		
-		donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
+		donneeAdherent = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
 		
 		tableAdherent.getColumns().addAll(colonneNoPersonne,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
-		tableAdherent.setItems(donneePersonne);
+		tableAdherent.setItems(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
 		tableAdherent.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
 		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne,tableAdherent);
@@ -491,10 +493,10 @@ public class InterfacePrincipale {
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
 		colonneMotdePasse.setCellValueFactory(new PropertyValueFactory<>("strMotPasse"));
 		
-		ObservableList<Personne> donneePersonne = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
+		ObservableList<Personne> donneePrepose = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
 		
 		tablePrepose.getColumns().addAll(colonneNoPersonne,colonneMotdePasse,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
-		tablePrepose.setItems(donneePersonne);
+		tablePrepose.setItems(donneePrepose);
 		tablePrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
 		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne,tablePrepose);
@@ -506,6 +508,8 @@ public class InterfacePrincipale {
 		Button btnAjouterPrepose = new Button("Ajouter");
 		Button btnModifierPrepose = new Button("Modifier");
 		Button btnSupprimerPrepose = new Button("Supprimer");
+		
+		btnAjouterPrepose.setOnAction(e -> {GestionInterface.rechargeDonneePrepose( donneePrepose); System.out.println("ok");});
 		
 		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Prepose) tablePrepose.getSelectionModel().getSelectedItem()); tablePrepose.refresh();});
 		
