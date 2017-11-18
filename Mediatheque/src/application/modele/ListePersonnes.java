@@ -1,29 +1,41 @@
 package application.modele;
 
 import java.io.BufferedReader;
+import java.io.Externalizable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ListePersonnes {
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class ListePersonnes implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2361481750244889545L;
 	private final String strNomFichierPersonne = "Donnee/Personnes.txt";
 	private final String strNomFichierSerialiser = "Donnee/lstPersonnes.ser";
 	
-	private ArrayList<Personne> lstPrepose = new ArrayList<>();
-	private ArrayList<Personne> lstAdherent = new ArrayList<>();
-	private ArrayList<Personne> lstAdmin = new ArrayList<>();
+	private ObservableList<Personne> lstPrepose = FXCollections.observableArrayList();
+	private ObservableList<Personne> lstAdherent = FXCollections.observableArrayList();
+	private ObservableList<Personne> lstAdmin = FXCollections.observableArrayList();
 	
-	public Map<TypePersonne, List<Personne>> mapPersonne = new HashMap<>();
+	public Map<TypePersonne, ObservableList<Personne>> mapPersonne = new HashMap<>();
+	
 	
 	private static ListePersonnes instanceLst;
 	
@@ -51,7 +63,14 @@ public class ListePersonnes {
 		    
 			FileOutputStream fichier = new FileOutputStream(strNomFichierSerialiser); 
 			ObjectOutputStream oos = new ObjectOutputStream(fichier);    
-			oos.writeObject(this.mapPersonne);
+			
+			//Passage d'un observableList à des arrayLists
+			Map<TypePersonne, List<Personne>> mapTempo = new HashMap<TypePersonne, List<Personne>>();
+			mapTempo.put(TypePersonne.Adherent, new ArrayList<>(mapPersonne.get(TypePersonne.Adherent)));
+			mapTempo.put(TypePersonne.Prepose,new ArrayList<>(mapPersonne.get(TypePersonne.Prepose)));
+			mapTempo.put(TypePersonne.Admin, new ArrayList<>(mapPersonne.get(TypePersonne.Admin)));
+			
+			oos.writeObject(mapTempo);
 			oos.close();
 			fichier.close();
 			System.out.println("sérialisation des personnes terminée avec succès");
@@ -64,10 +83,18 @@ public class ListePersonnes {
 		try {
 			 FileInputStream fichier = new FileInputStream(strNomFichierSerialiser); 
 			 ObjectInputStream ois = new ObjectInputStream(fichier);
-			 this.mapPersonne = (HashMap<TypePersonne, List<Personne>>) ois.readObject();
-			 this.lstAdherent= (ArrayList<Personne>) mapPersonne.get(TypePersonne.Adherent);
-			 this.lstPrepose=(ArrayList<Personne>) mapPersonne.get(TypePersonne.Prepose);
-			 this.lstAdmin=(ArrayList<Personne>) mapPersonne.get(TypePersonne.Admin);
+			 
+			 Map<TypePersonne, List<Personne>> mapTempo = (HashMap<TypePersonne, List<Personne>>) ois.readObject();
+			 
+			 //Passage d'arraylist à des observableList
+			 mapPersonne.get(TypePersonne.Adherent).addAll(mapTempo.get(TypePersonne.Adherent));
+			 this.lstAdherent = mapPersonne.get(TypePersonne.Adherent);
+			 
+			 mapPersonne.get(TypePersonne.Prepose).addAll(mapTempo.get(TypePersonne.Prepose));
+			 this.lstPrepose = mapPersonne.get(TypePersonne.Prepose);
+			 
+			 mapPersonne.get(TypePersonne.Admin).addAll(mapTempo.get(TypePersonne.Admin));
+			 this.lstAdmin = mapPersonne.get(TypePersonne.Admin);
 			 ois.close();
 			 fichier.close();
 			 System.out.println("désérialisation des personnes terminée avec succès");
@@ -128,8 +155,11 @@ public class ListePersonnes {
 	
 	public static ListePersonnes getInstance() {
 					//////////////////////////////////////////peut-etre updater les amendes(et les noix) lorque l'on passe ici  
-		  if (instanceLst == null) 
+		  if (instanceLst == null) {
+			  System.out.println("pas d affaire la");
 			  instanceLst = new ListePersonnes();
+		  }
 		  return instanceLst;
 	}
+
 }

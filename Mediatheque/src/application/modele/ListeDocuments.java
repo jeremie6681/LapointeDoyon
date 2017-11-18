@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import application.controleur.GestionDocuments;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public final class ListeDocuments implements Serializable {
 	/**
@@ -30,12 +32,16 @@ public final class ListeDocuments implements Serializable {
 	private final String strNomFichierSerialiser = "Donnee/lstDocuments.ser";
 
 	//public ArrayList<Document> lstDocument = new ArrayList<>();
-	
+	/*
 	private ArrayList<Document> lstLivre = new ArrayList<>();
 	private ArrayList<Document> lstDvd = new ArrayList<>();
-	private ArrayList<Document> lstPeriodique = new ArrayList<>();
+	private ArrayList<Document> lstPeriodique = new ArrayList<>();*/
 	
-	public Map<TypeDocument, List<Document>> mapDocument = new HashMap<>();
+	private ObservableList<Document> lstLivre = FXCollections.observableArrayList();
+	private ObservableList<Document> lstDvd = FXCollections.observableArrayList();
+	private ObservableList<Document> lstPeriodique = FXCollections.observableArrayList();
+	
+	public Map<TypeDocument, ObservableList<Document>> mapDocument = new HashMap<>();
 	
 	
 	private static ListeDocuments instanceDoc ;      
@@ -123,7 +129,15 @@ public final class ListeDocuments implements Serializable {
 		    
 			FileOutputStream fichier = new FileOutputStream(strNomFichierSerialiser); 
 			ObjectOutputStream oos = new ObjectOutputStream(fichier);    
-			oos.writeObject(this.mapDocument);
+			
+			Map<TypeDocument, List<Document>> maptempo = new HashMap<TypeDocument,List<Document>>();
+			
+			//Passage d'observableList à des arrayList
+			maptempo.put(TypeDocument.Livre, new ArrayList<>(mapDocument.get(TypeDocument.Livre)));
+			maptempo.put(TypeDocument.Periodique, new ArrayList<>(mapDocument.get(TypeDocument.Periodique)));
+			maptempo.put(TypeDocument.Dvd, new ArrayList<>(mapDocument.get(TypeDocument.Dvd)));
+			
+			oos.writeObject(maptempo);
 			oos.close();
 			fichier.close();
 			System.out.println("sérialisation des documents terminée avec succès");
@@ -137,10 +151,24 @@ public final class ListeDocuments implements Serializable {
 		try {
 		 FileInputStream fichier = new FileInputStream(strNomFichierSerialiser); 
 		 ObjectInputStream ois = new ObjectInputStream(fichier);
+		 
+		 Map<TypeDocument, List<Document>> mapTempo = (HashMap<TypeDocument, List<Document>>) ois.readObject();
+		 
+		 //Passage d'arrayList à des onservableList
+		 mapDocument.get(TypeDocument.Livre).addAll(mapTempo.get(TypeDocument.Livre));
+		 this.lstLivre = mapDocument.get(TypeDocument.Livre);
+		 
+		 mapDocument.get(TypeDocument.Periodique).addAll(mapTempo.get(TypeDocument.Periodique));
+		 this.lstPeriodique = mapDocument.get(TypeDocument.Periodique);
+		 
+		 mapDocument.get(TypeDocument.Dvd).addAll(mapTempo.get(TypeDocument.Dvd));
+		 this.lstDvd = mapDocument.get(TypeDocument.Dvd);
+		 
+		 /*
 		 this.mapDocument = (HashMap<TypeDocument, List<Document>>) ois.readObject();
 		 this.lstLivre= (ArrayList<Document>) mapDocument.get(TypeDocument.Livre);
 		 this.lstDvd=(ArrayList<Document>) mapDocument.get(TypeDocument.Dvd);
-		 this.lstPeriodique=(ArrayList<Document>) mapDocument.get(TypeDocument.Periodique);
+		 this.lstPeriodique=(ArrayList<Document>) mapDocument.get(TypeDocument.Periodique);*/
 		 ois.close();
 		 fichier.close();
 		 System.out.println("désérialisation des documents terminée avec succès");

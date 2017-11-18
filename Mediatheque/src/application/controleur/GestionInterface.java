@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
 
 public class GestionInterface {
 	
@@ -66,6 +67,31 @@ public class GestionInterface {
 		donneeDoc.clear();
 		donneeDoc.addAll(FXCollections.observableArrayList(
 				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList())));
+	}
+	
+	public static void rechargeDonneAdherent(TableView<Personne> tableAdherent) {
+		
+		/*
+		donneeAdherent.clear();
+		donneeAdherent.addAll(FXCollections.observableArrayList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)));*/
+		
+		//tableAdherent.refresh();
+		//tableAdherent.requestFocus();
+		tableAdherent.sort();
+		//tableAdherent.set
+		
+	}
+	
+	public static void rechargeDonneePrepose(ObservableList<Personne> donneePrepose ) {
+		
+		donneePrepose.clear();
+		donneePrepose.addAll(FXCollections.observableArrayList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose)));
+		
+		System.out.println(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
+		/*
+		tablePrepose.refresh();
+		tablePrepose.setVisible(false);
+		tablePrepose.setVisible(true);*/
 	}
 	
 

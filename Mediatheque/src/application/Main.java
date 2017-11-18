@@ -39,9 +39,9 @@ public class Main extends Application {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 	
-		ListeDocuments lstDocs = ListeDocuments.getInstance();
+		//ListeDocuments lstDocs = ListeDocuments.getInstance();
 		
-		ListePersonnes listePersonnes = ListePersonnes.getInstance();
+		//ListePersonnes listePersonnes = ListePersonnes.getInstance();
 
 		launch(args);
 	}
