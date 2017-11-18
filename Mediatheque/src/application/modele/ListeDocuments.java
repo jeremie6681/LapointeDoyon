@@ -30,12 +30,6 @@ public final class ListeDocuments implements Serializable {
 	private final String strNomFichierLivre = "Donnee/Livres.txt";
 	private final String strNomFichierPeriodique = "Donnee/Periodiques.txt";
 	private final String strNomFichierSerialiser = "Donnee/lstDocuments.ser";
-
-	//public ArrayList<Document> lstDocument = new ArrayList<>();
-	/*
-	private ArrayList<Document> lstLivre = new ArrayList<>();
-	private ArrayList<Document> lstDvd = new ArrayList<>();
-	private ArrayList<Document> lstPeriodique = new ArrayList<>();*/
 	
 	private ObservableList<Document> lstLivre = FXCollections.observableArrayList();
 	private ObservableList<Document> lstDvd = FXCollections.observableArrayList();
@@ -164,11 +158,6 @@ public final class ListeDocuments implements Serializable {
 		 mapDocument.get(TypeDocument.Dvd).addAll(mapTempo.get(TypeDocument.Dvd));
 		 this.lstDvd = mapDocument.get(TypeDocument.Dvd);
 		 
-		 /*
-		 this.mapDocument = (HashMap<TypeDocument, List<Document>>) ois.readObject();
-		 this.lstLivre= (ArrayList<Document>) mapDocument.get(TypeDocument.Livre);
-		 this.lstDvd=(ArrayList<Document>) mapDocument.get(TypeDocument.Dvd);
-		 this.lstPeriodique=(ArrayList<Document>) mapDocument.get(TypeDocument.Periodique);*/
 		 ois.close();
 		 fichier.close();
 		 System.out.println("désérialisation des documents terminée avec succès");

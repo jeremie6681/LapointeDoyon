@@ -3,6 +3,9 @@ package application.vue;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.sun.swing.internal.plaf.metal.resources.metal;
+
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
 import application.controleur.GestionPersonnes;
@@ -123,6 +126,8 @@ public class InterfacePrincipale {
 		
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
+		
+		ivReinsialiseRecherche.setOnMouseClicked( m -> GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd));
 		
 		
 		
@@ -509,7 +514,7 @@ public class InterfacePrincipale {
 		Button btnModifierPrepose = new Button("Modifier");
 		Button btnSupprimerPrepose = new Button("Supprimer");
 		
-		btnAjouterPrepose.setOnAction(e -> {GestionInterface.rechargeDonneePrepose( donneePrepose); System.out.println("ok");});
+		btnAjouterPrepose.setOnAction(e -> { System.out.println("ok");});
 		
 		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Prepose) tablePrepose.getSelectionModel().getSelectedItem()); tablePrepose.refresh();});
 		

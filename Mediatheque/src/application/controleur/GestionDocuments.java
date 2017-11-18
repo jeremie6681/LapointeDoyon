@@ -56,7 +56,7 @@ public class GestionDocuments {
 		//Si la recherche n'est pas vide ou a plusieur mot
 		if(!strMotRecherche.isEmpty() && strMotRecherche.split(" ").length == 1) {
 			if (booRechercheMotClée) {
-				lstTable[0].getItems().removeIf(docu -> docu.getLstMots().contains(strMotRecherche.toLowerCase()));
+				lstTable[0].getItems().removeIf(docu -> !docu.getLstMots().contains(strMotRecherche.toLowerCase()));
 			}
 			//Recherche par auteur
 			else {
