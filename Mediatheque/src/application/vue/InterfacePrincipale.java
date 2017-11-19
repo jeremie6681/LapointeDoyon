@@ -62,7 +62,7 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 	
-	TypePersonne utilisateur = TypePersonne.Prepose;
+	TypePersonne utilisateur = TypePersonne.Admin;
 	private TableView<Document>[] lstTable; 
 	private TableView<Personne> tableAdherent;
 	//Liste Observable pour les tables dans les onglets
@@ -315,7 +315,7 @@ public class InterfacePrincipale {
 		
 		//gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
-		Adherent test = new Adherent("gjhgjh", "gjhfuy", "jhfe", "htyt");
+		//Adherent test = new Adherent("gjhgjh", "gjhfuy", "jhfe", "htyt");
 		btnAjouterAdherent.setOnAction(e->{secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());secondaryStage.showAndWait();
 		donneeAdherent.forEach(System.out::println);});
 		
@@ -425,7 +425,7 @@ public class InterfacePrincipale {
 		RadioButton rbAuteur = new RadioButton("Auteur");
 		RadioButton rbMotCle = new RadioButton("Mot clé");
 		Button btnRecherche = new Button("Recherche");
-		Button btnReinitialiseListe = new Button("Réinitialiser liste document");
+		//Button btnReinitialiseListe = new Button("Réinitialiser liste document");
 		
 		groupeRecherche.add(lblRecherche, 0, 0,2,1);
 		groupeRecherche.add(tbRecherche, 0, 1);
@@ -434,7 +434,7 @@ public class InterfacePrincipale {
 		groupeRecherche.add(btnRecherche, 0, 2);
 		
 		btnRecherche.setOnAction(btn-> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
-		btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd));
+		//btnReinitialiseListe.setOnAction(btn -> GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd));
 		
 		GridPane.setMargin(lblRecherche, new Insets(15,0,0,15));
 		GridPane.setHalignment(lblRecherche, HPos.CENTER);
@@ -498,10 +498,8 @@ public class InterfacePrincipale {
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
 		colonneMotdePasse.setCellValueFactory(new PropertyValueFactory<>("strMotPasse"));
 		
-		ObservableList<Personne> donneePrepose = FXCollections.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
-		
 		tablePrepose.getColumns().addAll(colonneNoPersonne,colonneMotdePasse,colonnePrenom,colonneNom,colonneAdresse,colonneTelephone);
-		tablePrepose.setItems(donneePrepose);
+		tablePrepose.setItems(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
 		tablePrepose.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
 		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne,tablePrepose);
@@ -514,7 +512,14 @@ public class InterfacePrincipale {
 		Button btnModifierPrepose = new Button("Modifier");
 		Button btnSupprimerPrepose = new Button("Supprimer");
 		
-		//btnAjouterPrepose.setOnAction(e -> { System.out.println("ok");});
+		Stage stageSecondaire = new Stage();
+		stageSecondaire.initModality(Modality.APPLICATION_MODAL);
+		stageSecondaire.sizeToScene();
+		
+		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur= new InterfaceNouvelUtilisateur(utilisateur,stageSecondaire);
+		final InterfaceNouvelUtilisateur intefaceModifUtilisateur= new InterfaceNouvelUtilisateur(null,stageSecondaire);
+		
+		btnAjouterPrepose.setOnAction(e -> {stageSecondaire.setScene(interfaceAjouterUtilisateur.getScene());stageSecondaire.showAndWait();});
 		
 		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Personne) tablePrepose.getSelectionModel().getSelectedItem());});
 		
