@@ -514,9 +514,9 @@ public class InterfacePrincipale {
 		Button btnModifierPrepose = new Button("Modifier");
 		Button btnSupprimerPrepose = new Button("Supprimer");
 		
-		btnAjouterPrepose.setOnAction(e -> { System.out.println("ok");});
+		//btnAjouterPrepose.setOnAction(e -> { System.out.println("ok");});
 		
-		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Prepose) tablePrepose.getSelectionModel().getSelectedItem()); tablePrepose.refresh();});
+		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Personne) tablePrepose.getSelectionModel().getSelectedItem());});
 		
 		lblTitreGestionAdmin.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		
