@@ -59,7 +59,7 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 
-	TypePersonne utilisateur = TypePersonne.Adherent;
+	TypePersonne utilisateur = TypePersonne.Prepose;
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 	// Liste Observable pour les tables dans les onglets
@@ -119,8 +119,8 @@ public class InterfacePrincipale {
 		ivDeconnection.setFitHeight(30);
 		ivDeconnection.setFitWidth(30);
 
-		ivReinsialiseRecherche.setFitHeight(30);
-		ivReinsialiseRecherche.setFitWidth(30);
+		ivReinsialiseRecherche.setFitHeight(40);
+		ivReinsialiseRecherche.setFitWidth(40);
 
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
