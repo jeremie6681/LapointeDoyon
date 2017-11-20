@@ -156,7 +156,6 @@ public class ListePersonnes implements Serializable{
 	public static ListePersonnes getInstance() {
 					//////////////////////////////////////////peut-etre updater les amendes(et les noix) lorque l'on passe ici  
 		  if (instanceLst == null) {
-			  System.out.println("pas d affaire la");
 			  instanceLst = new ListePersonnes();
 		  }
 		  return instanceLst;

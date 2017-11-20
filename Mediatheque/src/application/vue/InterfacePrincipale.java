@@ -1,13 +1,9 @@
 package application.vue;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.sun.swing.internal.plaf.metal.resources.metal;
-
 import application.controleur.GestionDocuments;
 import application.controleur.GestionInterface;
 import application.controleur.GestionPersonnes;
@@ -18,12 +14,10 @@ import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
-import application.modele.Prepose;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -167,12 +161,12 @@ public class InterfacePrincipale {
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0, 30, 0, 0));
 			panOption.setTop(lblTitre);
-
+			panOption.setCenter(panneauBoutonIcone);
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 
 			panneau.setLeft(panOption);
 			// a faire
-			// panOption.setCenter(Image);
+			 
 
 			// Ajouter consulter son dossier
 		}
@@ -280,7 +274,7 @@ public class InterfacePrincipale {
 		colonneDate.setCellValueFactory(new PropertyValueFactory<>("dateParution"));
 		colonneEtat.setCellValueFactory(new PropertyValueFactory<>("etatDoc"));
 		
-		//Inverse la date pour respecter le format Jour/Mois/Année
+		//Inverse la date pour respecter le format Jour/Mois/Ann
 		DateTimeFormatter dfInverseLocalDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		colonneDate.setCellFactory(colonne -> {
 			return new TableCell<Document, LocalDate>(){
