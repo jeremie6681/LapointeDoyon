@@ -3,8 +3,17 @@ package application.modele;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 
+/**
+ * @Description Contient les informations du document de type livre
+ * 
+ * @Extention Document
+ * 
+ * @Implemente Serializable
+ * 
+ * @author Lapointe & Doyon
+ * 
+ */
 public class Livre extends Document implements Serializable{
 	
 	private static int intNoDocs;//= ouRenduNoPersonnes();

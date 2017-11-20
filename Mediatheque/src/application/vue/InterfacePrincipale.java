@@ -322,11 +322,11 @@ public class InterfacePrincipale {
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		btnModifirerAdherent.setOnAction(e->{intefaceModifUtilisateur.modifierAdherent((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
 		secondaryStage.setScene(intefaceModifUtilisateur.getScene());
-		if ((Adherent) tableAdherent.getSelectionModel().getSelectedItem()!=null) {secondaryStage.showAndWait();tableAdherent.refresh();};});
+		if ((Adherent) tableAdherent.getSelectionModel().getSelectedItem()!=null) {secondaryStage.showAndWait();};});
 		
 		//tableAdherent.
 		Button btnSupprimerAdherent = new Button("Supprimer Adhérent");
-		btnSupprimerAdherent.setOnAction(e->{GestionPersonnes.supprimerPersonne((Adherent) tableAdherent.getSelectionModel().getSelectedItem());tableAdherent.refresh();});
+		btnSupprimerAdherent.setOnAction(e->{GestionPersonnes.supprimerPersonne((Adherent) tableAdherent.getSelectionModel().getSelectedItem());});
 		
 		VBox panneauSeconGesAdh = new VBox(10,btnAjouterAdherent,btnModifirerAdherent,btnSupprimerAdherent);
 		TitledPane panneauGestionAdh = new TitledPane("Gestion Adhérent", panneauSeconGesAdh);
@@ -520,8 +520,13 @@ public class InterfacePrincipale {
 		final InterfaceNouvelUtilisateur intefaceModifUtilisateur= new InterfaceNouvelUtilisateur(null,stageSecondaire);
 		
 		btnAjouterPrepose.setOnAction(e -> {stageSecondaire.setScene(interfaceAjouterUtilisateur.getScene());stageSecondaire.showAndWait();});
+		/*
+		btnModifirerAdherent.setOnAction(e->{intefaceModifUtilisateur.modifierAdherent((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
+		secondaryStage.setScene(intefaceModifUtilisateur.getScene());*/
 		
-		//btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Personne) tablePrepose.getSelectionModel().getSelectedItem());});
+		//btnModifierPrepose.setOnAction(e -> intefaceModifUtilisateur.mo);
+		
+		btnSupprimerPrepose.setOnAction(a -> {GestionPersonnes.supprimerPersonne((Personne) tablePrepose.getSelectionModel().getSelectedItem());});
 		
 		lblTitreGestionAdmin.setFont(Font.font("arial",FontWeight.BOLD ,15));
 		
