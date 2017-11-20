@@ -3,7 +3,6 @@ package application.vue;
 import java.time.LocalDate;
 
 import application.modele.Adherent;
-import application.modele.Personne;
 import application.modele.Pret;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,7 +50,11 @@ public class InterfaceListePret {
 		tablePret.setItems(donneePret);
 		tablePret.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,new CornerRadii(5),BorderWidths.DEFAULT)));
 		
-		
+		scene = new Scene(panneauListePret);
+	}
+	
+	public Scene getScene() {
+		return scene;
 	}
 
 }
