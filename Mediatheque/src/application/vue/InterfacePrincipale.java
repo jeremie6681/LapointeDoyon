@@ -38,6 +38,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -110,22 +111,28 @@ public class InterfacePrincipale {
 		}
 
 
-		ImageView ivDeconnection = new ImageView(new Image("image-test.png"));
+		ImageView ivDeconnection = new ImageView(new Image("Deconnexion.png"));
 
 		ImageView ivReinsialiseRecherche = new ImageView(new Image("Reinisialise-tempo.png"));
-		ImageView ivInformationLogiciel = new ImageView(new Image("image-test.png"));
+		ImageView ivInformationLogiciel = new ImageView(new Image("Question-tempo.png"));
+		
+		Tooltip.install(ivReinsialiseRecherche, new Tooltip("Réinisialise"));
+		Tooltip.install(ivInformationLogiciel, new Tooltip("À propos de ..."));
+		Tooltip.install(ivDeconnection, new Tooltip("Déconnection"));
 
-		ivDeconnection.setFitHeight(30);
-		ivDeconnection.setFitWidth(30);
+		ivDeconnection.setFitHeight(40);
+		ivDeconnection.setFitWidth(40);
 
 		ivReinsialiseRecherche.setFitHeight(40);
 		ivReinsialiseRecherche.setFitWidth(40);
 
-		ivInformationLogiciel.setFitHeight(30);
-		ivInformationLogiciel.setFitWidth(30);
+		ivInformationLogiciel.setFitHeight(40);
+		ivInformationLogiciel.setFitWidth(40);
 		
+		ivReinsialiseRecherche.setPickOnBounds(true);
 		ivDeconnection.setPickOnBounds(true);
-
+		ivInformationLogiciel.setPickOnBounds(true);
+		
 		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 
 		HBox panneauBoutonIcone = new HBox(60);
