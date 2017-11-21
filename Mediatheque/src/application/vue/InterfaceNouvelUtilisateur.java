@@ -1,6 +1,8 @@
 package application.vue;
 
 
+import javax.swing.text.MaskFormatter;
+
 import application.controleur.GestionPersonnes;
 import application.modele.Adherent;
 import application.modele.Prepose;
@@ -68,6 +70,7 @@ public class InterfaceNouvelUtilisateur {
 		tfPrenom = new TextField();
 		Label lblAdresse=new Label("Adresse :");
 		tfAdresse = new TextField();
+		
 		Label lblNoTel=new Label("Numéros de Téléphone :");
 		tfNoTel = new TextField();
 		Text txtInfos = new Text("Informations de la personne ");

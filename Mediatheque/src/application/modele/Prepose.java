@@ -13,7 +13,6 @@ public class Prepose extends Personne implements Serializable {
 	
 	public Prepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,  String strMotPasse, String strNoPersonne) {
 		super(strNoPersonne, strNom, strPrenom, strAdresse, strNoTelephone);
-		
 		this.strMotPasse=strMotPasse;
 	}
 
