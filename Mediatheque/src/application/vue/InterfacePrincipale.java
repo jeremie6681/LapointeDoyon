@@ -16,7 +16,6 @@ import application.modele.Personne;
 import application.modele.TypeDocument;
 import application.modele.TypePersonne;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -58,7 +57,7 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 
-	TypePersonne utilisateur = TypePersonne.Prepose;
+	TypePersonne utilisateur = TypePersonne.Adherent;
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 
@@ -150,13 +149,15 @@ public class InterfacePrincipale {
 			panneau.setRight(panneauGestionAdherent);
 			panneau.setMargin(panneauGestionAdherent, new Insets(0, 0, 0, 30));
 		} else if (utilisateur.equals(TypePersonne.Adherent)) {
+			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivReinsialiseRecherche, ivInformationLogiciel);
+			
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
 			BorderPane panOption = new BorderPane();
 			panOption.setMargin(groupeRecherche, new Insets(15, 0, 0, 0));
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0, 30, 0, 0));
 			panOption.setTop(lblTitre);
-			//panOption.setCenter(panneauBoutonIcone);
+			panOption.setCenter(panneauBoutonIcone);
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 
 			panneau.setLeft(panOption);
