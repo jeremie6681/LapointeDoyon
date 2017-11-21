@@ -33,6 +33,8 @@ public final class ListeDocuments implements Serializable {
 	private final String strNomFichierPeriodique = "Donnee/Periodiques.txt";
 	private final String strNomFichierSerialiser = "Donnee/lstDocuments.ser";
 	
+	
+	
 	private ObservableList<Document> lstLivre = FXCollections.observableArrayList();
 	private ObservableList<Document> lstDvd = FXCollections.observableArrayList();
 	private ObservableList<Document> lstPeriodique = FXCollections.observableArrayList();
@@ -168,6 +170,10 @@ public final class ListeDocuments implements Serializable {
 		 ///
 		 ///reche
 		 ///
+		 
+		 
+		 
+		 
 		 
 		}catch(IOException e) {
 			System.err.println("erreur avec la lecture des ficher de sérialisation des documents");

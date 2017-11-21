@@ -17,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
+			InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
@@ -26,7 +26,7 @@ public class Main extends Application {
 
 			//InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,pTest);
 
-			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,pTest);
+			//InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,pTest);
 
 
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
@@ -46,9 +46,11 @@ public class Main extends Application {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 	
-		//ListeDocuments lstDocs = ListeDocuments.getInstance();
+		ListeDocuments lstDocs = ListeDocuments.getInstance();
 		
-		//ListePersonnes listePersonnes = ListePersonnes.getInstance();
+		ListePersonnes listePersonnes = ListePersonnes.getInstance();
+		
+		//listePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach( f -> f);
 
 		launch(args);
 	}

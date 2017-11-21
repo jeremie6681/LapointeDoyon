@@ -2,6 +2,7 @@ package application.vue;
 
 import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
+import application.modele.TypePersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -60,9 +61,9 @@ public class InterfaceTypeConnection {
 		vb.getChildren().addAll(txtInstruction,hbBoutons);
 		scene = new Scene(vb);
 		primaryStage.setScene(scene);
-		InterfaceLoginAdherent inLogAd = new InterfaceLoginAdherent(primaryStage,scene);
+		InterfacePrincipale inPrinc = new InterfacePrincipale(primaryStage, TypePersonne.Adherent, null);
 		InterfaceLoginPrepose inLogPrep = new InterfaceLoginPrepose(primaryStage,scene);
-		btnAdherent.setOnAction(e->primaryStage.setScene(inLogAd.getScene()));
+		btnAdherent.setOnAction(e->primaryStage.setScene(inPrinc.getScene()));
 		btnPrepose.setOnAction(e->primaryStage.setScene(inLogPrep.getScene()));
 		
 		//Fait la sérialisation lorsque l'on quitte l'application
