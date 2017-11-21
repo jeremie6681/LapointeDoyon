@@ -50,6 +50,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -135,7 +136,7 @@ public class InterfacePrincipale {
 		
 		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 
-		HBox panneauBoutonIcone = new HBox(60);
+		HBox panneauBoutonIcone = new HBox(40);
 		panneauBoutonIcone.setPadding(new Insets(10));
 
 		// Affichage selon le type d'utilisateur
@@ -163,28 +164,36 @@ public class InterfacePrincipale {
 			panneau.setMargin(panneauGestionAdherent, new Insets(0, 0, 0, 30));
 		} else if (utilisateur.equals(TypePersonne.Adherent)) {
 			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivReinsialiseRecherche, ivInformationLogiciel);
+			ImageView ivAfficherDossier = new ImageView(new Image("afficherDossier-Tempo.png"));
+			ivAfficherDossier.setPickOnBounds(true);
+			ivAfficherDossier.setFitHeight(90);
+			ivAfficherDossier.setFitWidth(90);
+			
+			Tooltip.install(ivAfficherDossier, new Tooltip("Afficher son dossier"));
+			
+			
 			
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
+			VBox panneauGaucheAdherent = new VBox(15, ivAfficherDossier,panneauBoutonIcone);
 			BorderPane panOption = new BorderPane();
+			panneauGaucheAdherent.setMargin(ivAfficherDossier, new Insets(40,0,20,70));
 			panOption.setMargin(groupeRecherche, new Insets(15, 0, 0, 0));
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0, 30, 0, 0));
 			panOption.setTop(lblTitre);
-			panOption.setCenter(panneauBoutonIcone);
+			panOption.setCenter(panneauGaucheAdherent);
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 
 			panneau.setLeft(panOption);
-			// a faire
-			Button btnAfficherDossier = new Button("afficher son dossier");
+			
 			try{
 			Alert alertdossier = new Alert(AlertType.CONFIRMATION,((Adherent)personne).toString(), ButtonType.OK);
 			alertdossier.setHeaderText("Informations sur le dossier de "+personne.getStrPrenom()+" "+personne.getStrNom());
 			alertdossier.setTitle("Informations sur le dossier");
-			btnAfficherDossier.setOnAction(e->alertdossier.showAndWait());
+			ivAfficherDossier.setOnMouseClicked(e->alertdossier.showAndWait());
 			}catch (NullPointerException n){
 				System.err.println("personne pas passer en paremetre a la classe interface principale");
 			}
-			panOption.setCenter(btnAfficherDossier);
 		}
 		// Administarteur
 		else {
