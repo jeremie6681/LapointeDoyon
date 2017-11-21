@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
-import application.controleur.GestionInterface;
 import application.controleur.GestionPersonnes;
 import application.controleur.GestionPrets;
 import application.modele.Adherent;
@@ -122,7 +121,7 @@ public class InterfacePrincipale {
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
 
-		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionInterface.rechargeDonneeDoc(lstTable);GestionInterface.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
+		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 
 		HBox panneauBoutonIcone = new HBox(60);
 		panneauBoutonIcone.setPadding(new Insets(10));
@@ -301,7 +300,7 @@ public class InterfacePrincipale {
 		btnAjouterDocument.setOnAction(e -> {
 			secondaryStage.setScene(interfaceAjouterDoc.getScene());
 			secondaryStage.showAndWait();
-			GestionInterface.rechargeDonneeDoc(lstTable);
+			GestionDocuments.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnSupprimerDocument = new Button("Supprimer Document");
@@ -309,7 +308,7 @@ public class InterfacePrincipale {
 		btnSupprimerDocument.setOnAction(e -> {
 			GestionDocuments.supprimerDocuments(
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(lstTable);
+			GestionDocuments.rechargeDonneeDoc(lstTable);
 		});
 
 		VBox panneauSeconGesDoc = new VBox(10, btnAjouterDocument, btnSupprimerDocument);
@@ -350,21 +349,21 @@ public class InterfacePrincipale {
 		btnEmprunterDoc.setOnAction(e -> {
 			GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(lstTable);
+			GestionDocuments.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnRetournerDoc = new Button("Retourner un document");
 		btnRetournerDoc.setOnAction(e -> {
 			GestionPrets.retournerDocument(
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(lstTable);
+			GestionDocuments.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnPayerAmende = new Button("Payer une amende");
 		btnPayerAmende.setOnAction(e -> {
 			ListePersonnes.getInstance().miseAjourPrets();
 			GestionPrets.payerAmande((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(lstTable);
+			GestionDocuments.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnVisualisePret = new Button("Visualise les prêts d'un adhérent");

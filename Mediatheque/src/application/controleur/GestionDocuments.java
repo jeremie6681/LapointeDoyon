@@ -209,4 +209,16 @@ public class GestionDocuments {
 		}
 		return alerteDocument;
 	}
+	
+	//Réinitialise les données de l'onglet document
+	public static void rechargeDonneeDoc(TableView<Document>[] lstTable) {
+		lstTable[0].setItems(ListeDocuments.getInstance().mapDocument.values().stream()
+				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+			
+	}
+	
+	//Réinitialise les données de l'onglet livre
+	public static void rechargeDonneLivre(TableView<Document>[] lstTable) {
+		lstTable[1].setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
+	}
 }
