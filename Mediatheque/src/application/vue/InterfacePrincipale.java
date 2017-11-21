@@ -57,14 +57,16 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 
+
 	TypePersonne utilisateur = TypePersonne.Admin;
+
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type, Personne personne) {
-		// utilisateur = type;
+		//utilisateur = type;
 
 		Group root = new Group();
 
@@ -517,7 +519,7 @@ public class InterfacePrincipale {
 		colonneTelephone.setPrefWidth(120);
 		colonneMotdePasse.setPrefWidth(120);
 
-		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne"));
+		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne")); 
 		colonnePrenom.setCellValueFactory(new PropertyValueFactory<>("strPrenom"));
 		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
