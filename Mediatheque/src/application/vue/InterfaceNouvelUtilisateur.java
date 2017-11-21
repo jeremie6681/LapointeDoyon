@@ -3,6 +3,7 @@ package application.vue;
 
 import application.controleur.GestionPersonnes;
 import application.modele.Adherent;
+import application.modele.Prepose;
 import application.modele.TypePersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,8 +45,10 @@ public class InterfaceNouvelUtilisateur {
 	private TextField tfAdresse;
 	private TextField tfNoTel;
 	private Adherent adhAmodifier=null;
-	
-	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout,Stage stage){
+	private Prepose preAmodifier=null;
+	PasswordField pfConfirmerPwd;
+	PasswordField pfPwd;
+	public  InterfaceNouvelUtilisateur(TypePersonne typeAjout,Stage stage,Boolean booModifier){
 		vb= new VBox(10) ;
 		btnConfirmer = new Button("Confirmer");
 		Text txtInstruction= new Text("Création d'utilisateur");
@@ -53,9 +56,9 @@ public class InterfaceNouvelUtilisateur {
 		//pour la box de création de préposés
 		gpPrep= new GridPane();
 		Label lblPwd= new Label("Mot de passe :");
-		PasswordField pfPwd= new PasswordField();
+		pfPwd= new PasswordField();
 		Label lblConfirmerPwd= new Label("Confirmer Mot de passe :");
-		PasswordField pfConfirmerPwd= new PasswordField();
+	    pfConfirmerPwd= new PasswordField();
 		Text txtInstructionPrepose = new Text("Préposé");
 		//pour la box infos générals
 		GridPane gpInfos= new GridPane();
@@ -109,14 +112,22 @@ public class InterfaceNouvelUtilisateur {
 		//btnConfirmer
 		btnConfirmer.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20));
 		if(typeAjout==TypePersonne.Prepose) {
+			if(!booModifier){
 			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterAdherent(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),stage));
+			}
+			else{
+			btnConfirmer.setOnAction(e->GestionPersonnes.modifierAdherent(adhAmodifier,tfAdresse.getText(),tfNoTel.getText(),stage));
+			}
 		}
 		else if (typeAjout==TypePersonne.Admin){
+			if (!booModifier){
 			btnConfirmer.setOnAction(e->GestionPersonnes.ajouterPrepose(tfNom.getText(), tfPrenom.getText(), tfAdresse.getText(), tfNoTel.getText(),pfPwd.getText(),pfConfirmerPwd.getText(),stage));
+			}
+			else{
+			btnConfirmer.setOnAction(e->GestionPersonnes.modifierPrepose(preAmodifier, tfAdresse.getText(), tfNoTel.getText(),pfPwd.getText(),pfConfirmerPwd.getText(), stage));	
+			}
 		}
-		else if(typeAjout==null) {
-			btnConfirmer.setOnAction(e->GestionPersonnes.modifierAdherent(adhAmodifier,tfAdresse.getText(),tfNoTel.getText(),stage));
-		}
+
 		
 		//txtInstruction
 		txtInstruction.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 18));
@@ -153,15 +164,17 @@ public class InterfaceNouvelUtilisateur {
 			alertErreur.showAndWait();
 		}
 	}
-	public void modifierPrepose(Adherent adh) {
+	public void modifierPrepose(Prepose prepose) {
 		try {
-		tfNom.setText(adh.getStrNom());
-		tfPrenom.setText(adh.getStrPrenom());
-		tfNoTel.setText(adh.getStrNoTelephone());
-		tfAdresse.setText(adh.getStrAdresse());
+		tfNom.setText(prepose.getStrNom());
+		tfPrenom.setText(prepose.getStrPrenom());
+		tfNoTel.setText(prepose.getStrNoTelephone());
+		tfAdresse.setText(prepose.getStrAdresse());
 		tfNom.setDisable(true);
 		tfPrenom.setDisable(true);
-		adhAmodifier=adh;
+		pfPwd.setText(prepose.getStrMotPasse());
+		pfConfirmerPwd.setText(prepose.getStrMotPasse());
+		preAmodifier=prepose;
 		
 		}catch(NullPointerException n ) {
 			Alert alertErreur = new Alert(AlertType.WARNING,"vous devez choisir une personne");

@@ -8,6 +8,7 @@ import application.controleur.GestionDocuments;
 import application.controleur.GestionPersonnes;
 import application.controleur.GestionPrets;
 import application.modele.Adherent;
+import  application.modele.Prepose;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -310,9 +311,9 @@ public class InterfacePrincipale {
 		secondaryStage.sizeToScene();
 		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument(secondaryStage);
 		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				secondaryStage);
-		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(null,
-				secondaryStage);
+				secondaryStage,false);
+		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
+				secondaryStage,true);
 		// gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		// ajouter Document et mettre a jour l'affichage
@@ -561,9 +562,9 @@ public class InterfacePrincipale {
 		stageSecondaire.sizeToScene();
 
 		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				stageSecondaire);
-		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(null,
-				stageSecondaire);
+				stageSecondaire,false);
+		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
+				stageSecondaire,true);
 
 		btnAjouterPrepose.setOnAction(e -> {
 			stageSecondaire.setScene(interfaceAjouterUtilisateur.getScene());
@@ -576,7 +577,14 @@ public class InterfacePrincipale {
 		 * secondaryStage.setScene(intefaceModifUtilisateur.getScene());
 		 */
 
-		// btnModifierPrepose.setOnAction(e -> intefaceModifUtilisateur.mo);
+		 btnModifierPrepose.setOnAction(e -> {
+				intefaceModifUtilisateur.modifierPrepose((Prepose) tablePrepose.getSelectionModel().getSelectedItem());
+				stageSecondaire.setScene(intefaceModifUtilisateur.getScene());
+				if ((Prepose) tablePrepose.getSelectionModel().getSelectedItem() != null) {
+					stageSecondaire.showAndWait();
+				}
+				;
+			});
 
 		btnSupprimerPrepose.setOnAction(a -> {
 			GestionPersonnes.supprimerPersonne(tablePrepose.getSelectionModel().getSelectedItem());

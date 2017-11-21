@@ -202,7 +202,19 @@ public class GestionPersonnes {
 			alert.showAndWait();
 		}
 	}
-	public static void modifierPrepose(Prepose prep, String strAdresse, String strNoTelephone, Stage stage) {
-	
+	public static void modifierPrepose(Prepose prep, String strAdresse, String strNoTelephone,String strPwd,String strPwdConfirmer, Stage stage) {
+		Alert alerteModifierPersonne = ajouterDeBase(prep.getStrNom(), prep.getStrPrenom(), strAdresse, strNoTelephone);
+		if (strPwd == null || strPwd.trim().equals("") || strPwdConfirmer == null
+				|| strPwdConfirmer.trim().equals("")) {
+			alerteModifierPersonne = new Alert(AlertType.WARNING,"veuillez insrire le mot de passe ainsi que sa confirmation", ButtonType.OK);
+		}
+		if (alerteModifierPersonne == null) {
+			prep.setStrAdresse(strAdresse);
+			prep.setStrNoTelephone(strNoTelephone);
+			alerteModifierPersonne = new Alert(AlertType.CONFIRMATION,
+					prep.getStrPrenom() + " " + prep.getStrNom() + "a été modfié avec succes", ButtonType.OK);
+			stage.hide();
+		}
+		alerteModifierPersonne.showAndWait();
 	}
 }

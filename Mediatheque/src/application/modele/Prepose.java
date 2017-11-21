@@ -13,13 +13,12 @@ public class Prepose extends Personne implements Serializable {
 	
 	public Prepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone,  String strMotPasse, String strNoPersonne) {
 		super(strNoPersonne, strNom, strPrenom, strAdresse, strNoTelephone);
-		intNoEmploye++;
+		
 		this.strMotPasse=strMotPasse;
 	}
 
 	public Prepose(String strNom, String strPrenom, String strAdresse, String strNoTelephone, String strMotPasse) {
 		super(setNoPersonne(), strNom, strPrenom, strAdresse, strNoTelephone);
-		intNoEmploye++;
 		this.strMotPasse=strMotPasse;
 	}
 
@@ -46,16 +45,15 @@ public class Prepose extends Personne implements Serializable {
 
 	public static void ouRenduNoPersonnes() {
 	
-		int intNoPersonne=1;
 		if (intNoEmploye!=1) {
 		String strNo;
 		FXCollections.sort(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
 		strNo =ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).get(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).size()-1).getStrNoPersonne();
 		strNo= strNo.toUpperCase().replace(TypePersonne.Prepose.getStrIndicateurType().toUpperCase(),"");
-		intNoPersonne= Integer.parseInt(strNo)+1;
+		intNoEmploye= Integer.parseInt(strNo)+1;
 		}
-		System.out.println(intNoPersonne);
-		intNoEmploye=intNoPersonne;
+		System.out.println(intNoEmploye);
+		
 	}
 
 }
