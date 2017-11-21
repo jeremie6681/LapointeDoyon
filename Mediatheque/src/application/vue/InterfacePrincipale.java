@@ -170,16 +170,19 @@ public class InterfacePrincipale {
 		}
 		// Administarteur
 		else {
-			HBox panneauBasAdmin = new HBox(10);  
+			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivInformationLogiciel);
 			
 			GridPane panneauGestionDesPrepose = panneauAdministrateur().getValue();
+			HBox panneauBasAdmin = new HBox(10);
+			panneauBasAdmin.getChildren().addAll(panneauGestionDesPrepose,panneauBoutonIcone);
+			panneauBasAdmin.setMargin(panneauBoutonIcone, new Insets(0,0,0,300));
 
 			panneau.setCenter(panneauAdministrateur().getKey());
-			panneau.setBottom(panneauGestionDesPrepose);
+			panneau.setBottom(panneauBasAdmin);
 			panneau.setTop(lblTitre);
 			panneau.setAlignment(lblTitre, Pos.CENTER);
 
-			panneau.setMargin(panneauGestionDesPrepose, new Insets(25, 0, 0, 0));
+			panneau.setMargin(panneauBasAdmin, new Insets(25, 0, 0, 0));
 		}
 
 		panneau.setPadding(new Insets(20, 30, 30, 30));
