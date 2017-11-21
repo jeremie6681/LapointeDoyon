@@ -8,9 +8,12 @@ import java.util.Optional;
 import application.modele.DVD;
 import application.modele.Document;
 import application.modele.ListeDocuments;
+import application.modele.ListePersonnes;
 import application.modele.Livre;
 import application.modele.Periodique;
 import application.modele.TypeDocument;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -57,10 +60,21 @@ public class GestionDocuments {
 		if(!strMotRecherche.isEmpty() && strMotRecherche.split(" ").length == 1) {
 			if (booRechercheMotClée) {
 				lstTable[0].getItems().removeIf(docu -> !docu.getLstMots().contains(strMotRecherche.toLowerCase()));
+				
+				//FilteredList<Document> filtreDoc = new FilteredList<>(docu -> docu.getLstMots().contains(strMotRecherche.toLowerCase()));
+				
+				
 			}
 			//Recherche par auteur
 			else {
-				lstTable[1].getItems().removeIf(docu-> !((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
+				//lstTable[1].getItems().removeIf(docu-> !((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
+				FilteredList<Document> filtreTableLivre = new FilteredList<>(
+						ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre), docu -> ((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
+				
+				SortedList<Document> triDonne = new SortedList<>(filtreTableLivre);
+				
+				triDonne.comparatorProperty().bind(lstTable[1].comparatorProperty());
+				lstTable[1].setItems(triDonne);
 			}
 		}
 		else {
@@ -184,5 +198,5 @@ public class GestionDocuments {
 			alerteDocument = new Alert(AlertType.WARNING,"Veuillez spécifier un titre", ButtonType.OK);
 		}
 		return alerteDocument;
-	} 
+	}
 }

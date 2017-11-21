@@ -40,7 +40,7 @@ public class GestionInterface {
 				// TODO Auto-generated method stub
 				
 				while(arg0.next()) {
-					if(arg0.wasRemoved()) {
+					if(arg0.wasUpdated()) {
 						tabPane.getSelectionModel().select(1);
 					}
 				}
@@ -52,20 +52,31 @@ public class GestionInterface {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////Note penser a rajouter le vide zone de texte
 	//Réinitialise les données des onglets avec les listes de documents
+	/*
 	public static void rechargeDonneeDoc(ObservableList<Document> donneeDoc,ObservableList<Document> donneeLiv,
 			ObservableList<Document> donneePer,ObservableList<Document> donneeDvd) {
 		
 		donneeDvd.clear();
-		donneeDvd.addAll(FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd)));
+		donneeDvd.addAll(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
 		
 		donneePer.clear();
-		donneePer.addAll(FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique)));
+		donneePer.addAll(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
 		
 		donneeLiv.clear();
-		donneeLiv.addAll(FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre)));
+		donneeLiv.addAll(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 		
 		donneeDoc.clear();
-		donneeDoc.addAll(FXCollections.observableArrayList(
-				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList())));
+		donneeDoc.addAll(
+				ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toList()));
+	}*/
+	
+	public static void rechargeDonneeDoc(TableView<Document>[] lstTable) {
+		lstTable[0].setItems(ListeDocuments.getInstance().mapDocument.values().stream()
+				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+		
+	}
+	
+	public static void rechargeDonneLivre(TableView<Document>[] lstTable) {
+		lstTable[1].setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 	}
 }

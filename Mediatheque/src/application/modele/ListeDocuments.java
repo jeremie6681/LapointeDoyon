@@ -19,13 +19,15 @@ import java.util.Map;
 
 import application.controleur.GestionDocuments;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 
 public final class ListeDocuments implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7935983340493130610L;
 	private final String strNomFichierDVD = "Donnee/DVD.txt";
 	private final String strNomFichierLivre = "Donnee/Livres.txt";
 	private final String strNomFichierPeriodique = "Donnee/Periodiques.txt";
@@ -56,7 +58,7 @@ public final class ListeDocuments implements Serializable {
 		else {
 			lectureFichierOriginal();
 		}
-
+		
 		
 		mapDocument.get(TypeDocument.Livre).forEach(System.out :: println);
 

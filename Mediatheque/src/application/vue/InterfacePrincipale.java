@@ -125,8 +125,7 @@ public class InterfacePrincipale {
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
 
-		ivReinsialiseRecherche
-				.setOnMouseClicked(m -> GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd));
+		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionInterface.rechargeDonneeDoc(lstTable);GestionInterface.rechargeDonneLivre(lstTable); System.out.println("ok");});
 
 		HBox panneauBoutonIcone = new HBox(60);
 		panneauBoutonIcone.setPadding(new Insets(10));
@@ -161,7 +160,7 @@ public class InterfacePrincipale {
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0, 30, 0, 0));
 			panOption.setTop(lblTitre);
-			panOption.setCenter(panneauBoutonIcone);
+			//panOption.setCenter(panneauBoutonIcone);
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 
 			panneau.setLeft(panOption);
@@ -232,21 +231,23 @@ public class InterfacePrincipale {
 
 		colonneTableauCommune(tableDvd);
 		tableDvd.getColumns().addAll(colonneNbDisque, colonneRealisateur);
-
-		donneeDoc = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.values().stream()
-				.flatMap(List::stream).collect(Collectors.toList()));
+		/*
+		donneeDoc = ListeDocuments.getInstance().mapDocument.values().stream()
+				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList));
 		donneeLiv = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 		donneePer = FXCollections
 				.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
-		donneeDvd = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
+		donneeDvd = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));*/
 
 		// Si une recherche est faite, l'onglet conserner va être afficher
-		GestionInterface.ecouteurDonneeOnglet(donneeDoc, donneeLiv, tabPane);
+		//GestionInterface.ecouteurDonneeOnglet(donneeDoc, ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre), tabPane);
+		//GestionDocuments.ecouteurListDoc(tabPane);
 
-		tableDoc.setItems(donneeDoc);
-		tableLiv.setItems(donneeLiv);
-		tablePer.setItems(donneePer);
-		tableDvd.setItems(donneeDvd);
+		tableDoc.setItems(ListeDocuments.getInstance().mapDocument.values().stream()
+				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+		tableLiv.setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
+		tablePer.setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
+		tableDvd.setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
 
 		lstTable[0] = tableDoc;
 		lstTable[1] = tableLiv;
@@ -313,7 +314,7 @@ public class InterfacePrincipale {
 		btnAjouterDocument.setOnAction(e -> {
 			secondaryStage.setScene(interfaceAjouterDoc.getScene());
 			secondaryStage.showAndWait();
-			GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);
+			GestionInterface.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnSupprimerDocument = new Button("Supprimer Document");
@@ -321,7 +322,7 @@ public class InterfacePrincipale {
 		btnSupprimerDocument.setOnAction(e -> {
 			GestionDocuments.supprimerDocuments(
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);
+			GestionInterface.rechargeDonneeDoc(lstTable);
 		});
 
 		VBox panneauSeconGesDoc = new VBox(10, btnAjouterDocument, btnSupprimerDocument);
@@ -364,21 +365,21 @@ public class InterfacePrincipale {
 		btnEmprunterDoc.setOnAction(e -> {
 			GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);
+			GestionInterface.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnRetournerDoc = new Button("Retourner un document");
 		btnRetournerDoc.setOnAction(e -> {
 			GestionPrets.retournerDocument(
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);
+			GestionInterface.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnPayerAmende = new Button("Payer une amende");
 		btnPayerAmende.setOnAction(e -> {
 			ListePersonnes.getInstance().miseAjourPrets();
 			GestionPrets.payerAmande((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
-			GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer, donneeDvd);
+			GestionInterface.rechargeDonneeDoc(lstTable);
 		});
 
 		Button btnVisualisePret = new Button("Visualise les prêts d'un adhérent");
@@ -466,7 +467,6 @@ public class InterfacePrincipale {
 		RadioButton rbAuteur = new RadioButton("Auteur");
 		RadioButton rbMotCle = new RadioButton("Mot clé");
 		Button btnRecherche = new Button("Recherche");
-		// Button btnReinitialiseListe = new Button("Réinitialiser liste document");
 
 		groupeRecherche.add(lblRecherche, 0, 0, 2, 1);
 		groupeRecherche.add(tbRecherche, 0, 1);
@@ -476,9 +476,6 @@ public class InterfacePrincipale {
 
 		btnRecherche.setOnAction(
 				btn -> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
-		// btnReinitialiseListe.setOnAction(btn ->
-		// GestionInterface.rechargeDonneeDoc(donneeDoc, donneeLiv, donneePer,
-		// donneeDvd));
 
 		GridPane.setMargin(lblRecherche, new Insets(15, 0, 0, 15));
 		GridPane.setHalignment(lblRecherche, HPos.CENTER);
