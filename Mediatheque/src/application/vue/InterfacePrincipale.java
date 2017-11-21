@@ -57,14 +57,16 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 
-	TypePersonne utilisateur ;
+
+	TypePersonne utilisateur = TypePersonne.Admin;
+
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type, Personne personne) {
-		utilisateur = type;
+		//utilisateur = type;
 
 		Group root = new Group();
 
@@ -103,8 +105,6 @@ public class InterfacePrincipale {
 			tabPane.getTabs().add(ongletType);
 		}
 
-		// -----------------------------> Ajouter question et reinistialliser...
-		// déconnexion
 
 		ImageView ivDeconnection = new ImageView(new Image("image-test.png"));
 
@@ -119,6 +119,8 @@ public class InterfacePrincipale {
 
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
+		
+		ivDeconnection.setPickOnBounds(true);
 
 		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 
@@ -168,14 +170,19 @@ public class InterfacePrincipale {
 		}
 		// Administarteur
 		else {
+			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivInformationLogiciel);
+			
 			GridPane panneauGestionDesPrepose = panneauAdministrateur().getValue();
+			HBox panneauBasAdmin = new HBox(10);
+			panneauBasAdmin.getChildren().addAll(panneauGestionDesPrepose,panneauBoutonIcone);
+			panneauBasAdmin.setMargin(panneauBoutonIcone, new Insets(0,0,0,300));
 
 			panneau.setCenter(panneauAdministrateur().getKey());
-			panneau.setBottom(panneauGestionDesPrepose);
+			panneau.setBottom(panneauBasAdmin);
 			panneau.setTop(lblTitre);
 			panneau.setAlignment(lblTitre, Pos.CENTER);
 
-			panneau.setMargin(panneauGestionDesPrepose, new Insets(25, 0, 0, 0));
+			panneau.setMargin(panneauBasAdmin, new Insets(25, 0, 0, 0));
 		}
 
 		panneau.setPadding(new Insets(20, 30, 30, 30));
@@ -516,7 +523,7 @@ public class InterfacePrincipale {
 		colonneTelephone.setPrefWidth(120);
 		colonneMotdePasse.setPrefWidth(120);
 
-		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne"));
+		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne")); 
 		colonnePrenom.setCellValueFactory(new PropertyValueFactory<>("strPrenom"));
 		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
