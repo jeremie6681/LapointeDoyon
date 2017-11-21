@@ -38,14 +38,19 @@ public class Adherent extends Personne implements Serializable {
 	@Override
 	public String toString() {
 		String strRetour="";
-		strRetour +="Numéro d'adérent"+this.getStrNoPersonne();
+		strRetour +="***************************************\nNuméro d'adérent"+this.getStrNoPersonne();
 		strRetour +="Prénom: "+this.getStrPrenom();
 		strRetour +="\nNom: "+this.getStrNom();
 		strRetour +="\nAdresse: "+this.getStrAdresse();
 		strRetour +="\nNuméro de téléphone: "+this.getStrNoTelephone();
-		strRetour +="\n\nPrets\n\n";
+		strRetour +="\n\n=====Prets=====\n";
 		if(this.getLstPrets().size()==0) {
-			
+			strRetour+="aucun prets\n";
+		}
+		else{
+			for (Pret pret : this.getLstPrets()) {
+				strRetour += pret.toString();
+			}
 		}
 		
 		return strRetour;

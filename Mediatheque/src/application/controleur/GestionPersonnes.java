@@ -132,7 +132,7 @@ public class GestionPersonnes {
 			alerteAjouterPersonne = new Alert(AlertType.WARNING,
 					"veuillez spécifier une numéro de téléphone valide en Amérique du Nord", ButtonType.OK);
 		}
-
+		ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(e->System.out.println(e));
 		return alerteAjouterPersonne;
 	}
 

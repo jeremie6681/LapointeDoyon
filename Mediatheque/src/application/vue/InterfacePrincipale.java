@@ -183,8 +183,9 @@ public class InterfacePrincipale {
 
 		// Fait la sérialisation lorsque l'on quitte l'application
 		primaryStage.setOnCloseRequest(r -> {
-			ListePersonnes.getInstance().serialisation();
 			ListeDocuments.getInstance().serialisation();
+			ListePersonnes.getInstance().serialisation();
+			//ListeDocuments.getInstance().serialisation();
 		});
 
 		primaryStage.setTitle("Médiathèque");

@@ -79,16 +79,20 @@ public class GestionPrets {
 				for (Personne adh : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
 					try {
 					for (Pret p : adh.getLstPrets()) {
-						if (doc.equals(p.getDoc())) {
-							
+						System.out.println(adh.getStrNom());
+						System.out.println(p.getDoc());
+						System.out.println(doc);
+						if (doc.getStrCodeDocument().equals(p.getDoc().getStrCodeDocument())) {//
 							if (LocalDate.now().isAfter(p.getDateRetourPrevue())) {
 								p.setAmende(new Amende(p.getDateRetourPrevue(), LocalDate.now(), p.getDblmontantPenalite(),true));
 								p.setDateEffectiveRetour(LocalDate.now());
 								p.getDoc().setEtatDoc(Etat.DISPONIBLE);
+								System.out.println("retour haut");
 								}
 							else {
 								p.getDoc().setEtatDoc(Etat.DISPONIBLE);
-								adh.getLstPrets().remove(p);	
+								adh.getLstPrets().remove(p);
+								System.out.println("retour bas");
 							}
 						}else {}
 					}
@@ -119,39 +123,46 @@ public class GestionPrets {
 		} catch (NullPointerException n) {}
 		return dblAmende;
 	}
+
 	public static void payerAmande(Personne personne) {
 		Alert alerteAucuneAmende;
-		double dblAmende= calculerAmende(personne);
+		double dblAmende = calculerAmende(personne);
 		String s = String.format("%.2f", dblAmende);
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Amende");
 		alert.setHeaderText("Payer une amende");
-		alert.setContentText(personne.getStrNoPersonne()+" "+personne.getStrNom()+ "veut vas payer son amende de " + s +"$");
-		
 
-		if (dblAmende!=0){
-			
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				for (Pret pret : personne.getLstPrets()){
-				/*	try {
-					if(pret.getDoc().getEtatDoc()==Etat.DISPONIBLE) {		///paye les dettes pour documents retournés
-						personne.getLstPrets().remove(pret);
+		if (personne != null) {
+			alert.setContentText(personne.getStrNoPersonne() + " " + personne.getStrNom()
+					+ "veut vas payer son amende de " + s + "$");
+			if (dblAmende != 0) {
+
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					for (Pret pret : personne.getLstPrets()) {
+						/*
+						 * try { if(pret.getDoc().getEtatDoc()==Etat.DISPONIBLE) { ///paye les dettes
+						 * pour documents retournés personne.getLstPrets().remove(pret); } }
+						 * catch(NullPointerException n) { }
+						 */
+						if (pret.getAmende() != null && pret.getAmende().getBooRetour() == true) {
+							personne.getLstPrets().remove(pret);
+						}
 					}
-				}	
-				catch(NullPointerException n) {
-				}*/
-				if (pret.getAmende()!= null&&pret.getAmende().getBooRetour()==true) {
-					personne.getLstPrets().remove(pret);
-				}
+				} else {
 				}
 			} else {
-			}	
+				alerteAucuneAmende = new Alert(AlertType.INFORMATION,
+						personne.getStrPrenom() + " n'a aucune amende à rembourser", ButtonType.OK);
+				alerteAucuneAmende.showAndWait();
+			}
 		}
 		else {
-			alerteAucuneAmende = new Alert(AlertType.INFORMATION,personne.getStrPrenom()+" n'a aucune amende à rembourser",ButtonType.OK);
-			alerteAucuneAmende.showAndWait();
+		alerteAucuneAmende = new Alert(AlertType.WARNING,
+				"vous devez selectionner la personne qui veut payer ses amendes", ButtonType.OK);
+		alerteAucuneAmende.showAndWait();
 		}
 	}
+	
 
 }

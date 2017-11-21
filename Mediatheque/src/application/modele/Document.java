@@ -69,7 +69,7 @@ public abstract class Document implements Serializable,Comparable<Document>{
 	}
 
 
-	@Override
+	
 	public String toString() {
 		return "Document [strCodeDocument=" + strCodeDocument + ", strTitre=" + strTitre + ", dateParution="
 				+ dateParution + ", etatDoc=" + etatDoc + ", lstMots=" + lstMots + "]";
