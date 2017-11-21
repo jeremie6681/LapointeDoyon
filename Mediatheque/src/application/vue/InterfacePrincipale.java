@@ -120,7 +120,7 @@ public class InterfacePrincipale {
 		Tooltip.install(ivReinsialiseRecherche, new Tooltip("Réinisialise"));
 		Tooltip.install(ivInformationLogiciel, new Tooltip("À propos de ..."));
 		Tooltip.install(ivDeconnection, new Tooltip("Déconnection"));
-
+		
 		ivDeconnection.setFitHeight(40);
 		ivDeconnection.setFitWidth(40);
 
@@ -135,7 +135,14 @@ public class InterfacePrincipale {
 		ivInformationLogiciel.setPickOnBounds(true);
 		
 		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
-
+		ivInformationLogiciel.setOnMouseClicked(e->{
+		Alert alerteInfo =new Alert(AlertType.INFORMATION,"Projet 2 (Médiathèque) par Jérémie Lapointe et Philippe Doyon. Effectué dans le cadre du cours de programmation objet 2 (420-3P6) du collège Gérald-Godin en automne 2017\n\nSources : \tIcones de Jevgeni Striganov du Noun Project\n\t\tRegex pour numéros de téléphone : https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/",ButtonType.OK);
+		alerteInfo.getDialogPane().setPrefSize(800,250);;
+		alerteInfo.setHeaderText("À propos de ce projet");
+		alerteInfo.setTitle("À propos...");
+		alerteInfo.showAndWait();});
+		
+		ivDeconnection.setOnMouseClicked(e->{primaryStage.setScene(new InterfaceTypeConnection(primaryStage).getScene());});
 		HBox panneauBoutonIcone = new HBox(40);
 		panneauBoutonIcone.setPadding(new Insets(10));
 
