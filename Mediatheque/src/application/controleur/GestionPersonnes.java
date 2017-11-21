@@ -202,5 +202,7 @@ public class GestionPersonnes {
 			alert.showAndWait();
 		}
 	}
-
+	public static void modifierPrepose(Prepose prep, String strAdresse, String strNoTelephone, Stage stage) {
+	
+	}
 }

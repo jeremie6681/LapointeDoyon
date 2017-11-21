@@ -153,5 +153,20 @@ public class InterfaceNouvelUtilisateur {
 			alertErreur.showAndWait();
 		}
 	}
+	public void modifierPrepose(Adherent adh) {
+		try {
+		tfNom.setText(adh.getStrNom());
+		tfPrenom.setText(adh.getStrPrenom());
+		tfNoTel.setText(adh.getStrNoTelephone());
+		tfAdresse.setText(adh.getStrAdresse());
+		tfNom.setDisable(true);
+		tfPrenom.setDisable(true);
+		adhAmodifier=adh;
+		
+		}catch(NullPointerException n ) {
+			Alert alertErreur = new Alert(AlertType.WARNING,"vous devez choisir une personne");
+			alertErreur.showAndWait();
+		}
+	}
 
 }

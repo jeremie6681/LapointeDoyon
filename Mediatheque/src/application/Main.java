@@ -22,7 +22,7 @@ public class Main extends Application {
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			Adherent pTest = new Adherent("strnom","strPrenom","stradr","strnotel","adh08"); 
-			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Admin,pTest);
+			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,pTest);
 
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			primaryStage.setScene(ifLogin.getScene());
