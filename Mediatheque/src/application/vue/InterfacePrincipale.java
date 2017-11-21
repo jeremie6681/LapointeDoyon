@@ -62,9 +62,6 @@ public class InterfacePrincipale {
 	TypePersonne utilisateur = TypePersonne.Prepose;
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
-	// Liste Observable pour les tables dans les onglets
-	public ObservableList<Document> donneeDoc, donneeLiv, donneePer, donneeDvd;
-	public ObservableList<Personne> donneeAdherent;
 
 	@SuppressWarnings("static-access")
 
@@ -125,7 +122,7 @@ public class InterfacePrincipale {
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
 
-		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionInterface.rechargeDonneeDoc(lstTable);GestionInterface.rechargeDonneLivre(lstTable); System.out.println("ok");});
+		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionInterface.rechargeDonneeDoc(lstTable);GestionInterface.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 
 		HBox panneauBoutonIcone = new HBox(60);
 		panneauBoutonIcone.setPadding(new Insets(10));
@@ -231,17 +228,7 @@ public class InterfacePrincipale {
 
 		colonneTableauCommune(tableDvd);
 		tableDvd.getColumns().addAll(colonneNbDisque, colonneRealisateur);
-		/*
-		donneeDoc = ListeDocuments.getInstance().mapDocument.values().stream()
-				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList));
-		donneeLiv = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
-		donneePer = FXCollections
-				.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
-		donneeDvd = FXCollections.observableArrayList(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));*/
-
-		// Si une recherche est faite, l'onglet conserner va être afficher
-		//GestionInterface.ecouteurDonneeOnglet(donneeDoc, ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre), tabPane);
-		//GestionDocuments.ecouteurListDoc(tabPane);
+		
 
 		tableDoc.setItems(ListeDocuments.getInstance().mapDocument.values().stream()
 				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList)));
@@ -332,11 +319,9 @@ public class InterfacePrincipale {
 
 		// gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
-		// Adherent test = new Adherent("gjhgjh", "gjhfuy", "jhfe", "htyt");
 		btnAjouterAdherent.setOnAction(e -> {
 			secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());
 			secondaryStage.showAndWait();
-			donneeAdherent.forEach(System.out::println);
 		});
 
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
@@ -430,9 +415,6 @@ public class InterfacePrincipale {
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
 
-		donneeAdherent = FXCollections
-				.observableList(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
-
 		tableAdherent.getColumns().addAll(colonneNoPersonne, colonnePrenom, colonneNom, colonneAdresse,
 				colonneTelephone);
 		tableAdherent.setItems(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
@@ -475,7 +457,7 @@ public class InterfacePrincipale {
 		groupeRecherche.add(btnRecherche, 0, 2);
 
 		btnRecherche.setOnAction(
-				btn -> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable));
+				btn -> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable,tabPane));
 
 		GridPane.setMargin(lblRecherche, new Insets(15, 0, 0, 15));
 		GridPane.setHalignment(lblRecherche, HPos.CENTER);

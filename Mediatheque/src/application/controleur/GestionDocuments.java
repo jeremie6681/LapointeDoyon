@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import application.modele.DVD;
 import application.modele.Document;
 import application.modele.ListeDocuments;
@@ -12,12 +14,15 @@ import application.modele.ListePersonnes;
 import application.modele.Livre;
 import application.modele.Periodique;
 import application.modele.TypeDocument;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 
 public class GestionDocuments {
@@ -55,26 +60,31 @@ public class GestionDocuments {
 	
 	}
 	
-	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable){
+	public static void rechercherDocument(String strMotRecherche,boolean booRechercheMotClée, TableView<Document>[] lstTable, TabPane tabPane){
 		//Si la recherche n'est pas vide ou a plusieur mot
 		if(!strMotRecherche.isEmpty() && strMotRecherche.split(" ").length == 1) {
-			if (booRechercheMotClée) {
-				lstTable[0].getItems().removeIf(docu -> !docu.getLstMots().contains(strMotRecherche.toLowerCase()));
+			if (booRechercheMotClée) {								
+				FilteredList<Document> filtreDoc = new FilteredList<>(
+						ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList)),
+						docu -> docu.getLstMots().contains(strMotRecherche.toLowerCase()));
+				SortedList<Document> triDonneMotCle = new SortedList<>(filtreDoc);
 				
-				//FilteredList<Document> filtreDoc = new FilteredList<>(docu -> docu.getLstMots().contains(strMotRecherche.toLowerCase()));
+				triDonneMotCle.comparatorProperty().bind(lstTable[0].comparatorProperty());
+				lstTable[0].setItems(triDonneMotCle);
 				
-				
+				tabPane.getSelectionModel().select(0);
 			}
 			//Recherche par auteur
 			else {
-				//lstTable[1].getItems().removeIf(docu-> !((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
 				FilteredList<Document> filtreTableLivre = new FilteredList<>(
 						ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre), docu -> ((Livre)docu).getStrAuteur().toLowerCase().contains(strMotRecherche.toLowerCase()));
 				
-				SortedList<Document> triDonne = new SortedList<>(filtreTableLivre);
+				SortedList<Document> triDonneAuteur = new SortedList<>(filtreTableLivre);
 				
-				triDonne.comparatorProperty().bind(lstTable[1].comparatorProperty());
-				lstTable[1].setItems(triDonne);
+				triDonneAuteur.comparatorProperty().bind(lstTable[1].comparatorProperty());
+				lstTable[1].setItems(triDonneAuteur);
+				
+				tabPane.getSelectionModel().select(1);
 			}
 		}
 		else {
