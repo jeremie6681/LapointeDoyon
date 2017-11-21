@@ -1,5 +1,11 @@
 package application.modele;
 
+/**
+ * @Description Continent des information statics sur les différents type d'utilisateurs
+ * 
+ * @author Lapointe & Doyon
+ *
+ */
 public enum TypePersonne {
 	Admin("Administrateur","Adm"),Prepose("Prépose","Pre"),Adherent("Adhérent","Adh");
 	
