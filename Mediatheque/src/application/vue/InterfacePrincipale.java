@@ -168,7 +168,7 @@ public class InterfacePrincipale {
 		}
 		// Administarteur
 		else {
-			HBox panneauBasAdmin = new HBox(10); 
+			HBox panneauBasAdmin = new HBox(10);  
 			
 			GridPane panneauGestionDesPrepose = panneauAdministrateur().getValue();
 
