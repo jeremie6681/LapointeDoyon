@@ -22,7 +22,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -58,15 +61,15 @@ public class InterfacePrincipale {
 	private TabPane tabPane = new TabPane();
 
 
-	TypePersonne utilisateur = TypePersonne.Admin;
+	TypePersonne utilisateur ;//= TypePersonne.Admin;
 
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
-
+	private TableView<Personne> tablePrepose;
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type, Personne personne) {
-		//utilisateur = type;
+		utilisateur = type;
 
 		Group root = new Group();
 
@@ -164,9 +167,16 @@ public class InterfacePrincipale {
 
 			panneau.setLeft(panOption);
 			// a faire
-			 
-
-			// Ajouter consulter son dossier
+			Button btnAfficherDossier = new Button("afficher son dossier");
+			try{
+			Alert alertdossier = new Alert(AlertType.CONFIRMATION,((Adherent)personne).toString(), ButtonType.OK);
+			alertdossier.setHeaderText("Informations sur le dossier de "+personne.getStrPrenom()+" "+personne.getStrNom());
+			alertdossier.setTitle("Informations sur le dossier");
+			btnAfficherDossier.setOnAction(e->alertdossier.showAndWait());
+			}catch (NullPointerException n){
+				System.err.println("personne pas passer en paremetre a la classe interface principale");
+			}
+			panOption.setCenter(btnAfficherDossier);
 		}
 		// Administarteur
 		else {
@@ -507,8 +517,8 @@ public class InterfacePrincipale {
 		Label lblTitrelistePersonne = new Label("Préposé");
 		lblTitrelistePersonne.setFont(Font.font("arial", FontWeight.BOLD, 16));
 
-		TableView<Personne> tablePrepose = new TableView<Personne>();
-
+		//TableView<Personne> tablePrepose = new TableView<Personne>();
+		tablePrepose = new TableView<Personne>();
 		TableColumn<Personne, String> colonneNoPersonne = new TableColumn<Personne, String>("Identifiant");
 		TableColumn<Personne, String> colonnePrenom = new TableColumn<Personne, String>("Prénom");
 		TableColumn<Personne, String> colonneNom = new TableColumn<Personne, String>("Nom");
@@ -569,7 +579,8 @@ public class InterfacePrincipale {
 		// btnModifierPrepose.setOnAction(e -> intefaceModifUtilisateur.mo);
 
 		btnSupprimerPrepose.setOnAction(a -> {
-			GestionPersonnes.supprimerPersonne((Personne) tablePrepose.getSelectionModel().getSelectedItem());
+			GestionPersonnes.supprimerPersonne(tablePrepose.getSelectionModel().getSelectedItem());
+			System.err.println(tablePrepose.getSelectionModel().getSelectedItem());
 		});
 
 		lblTitreGestionAdmin.setFont(Font.font("arial", FontWeight.BOLD, 15));

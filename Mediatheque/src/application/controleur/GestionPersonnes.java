@@ -138,13 +138,13 @@ public class GestionPersonnes {
 
 	public static void supprimerPersonne(Personne personne) {
 		try {
-			System.out.println(personne.getLstPrets().size());
+			System.err.println(personne);
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmation");
 			alert.setHeaderText("Suppresion du dossier d'une personne");
 			alert.setContentText("Voulez vous vraiment Supprimer le dossier de " + personne.getStrPrenom() + " "
 					+ personne.getStrNom() + "?");
-			if (personne.getLstPrets().size() == 0) {
+			if (personne.getLstPrets().size() == 0||personne.getLstPrets()==null) {
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK) {
 					ListePersonnes.getInstance().mapPersonne.get(personne.getTypePersonne())

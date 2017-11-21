@@ -1,7 +1,9 @@
 package application;
 
+import application.modele.Adherent;
 import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
+import application.modele.Personne;
 import application.modele.TypePersonne;
 import application.vue.InterfaceAjouterDocument;
 import application.vue.InterfacePrincipale;
@@ -19,8 +21,8 @@ public class Main extends Application {
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
-
-			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,null);
+			Adherent pTest = new Adherent("strnom","strPrenom","stradr","strnotel","adh08"); 
+			InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Admin,pTest);
 
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 			primaryStage.setScene(ifLogin.getScene());

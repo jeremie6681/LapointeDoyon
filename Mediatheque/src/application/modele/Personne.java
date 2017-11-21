@@ -3,7 +3,7 @@ package application.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Personne implements Serializable,Comparable<Personne>{
+public abstract  class Personne implements Serializable,Comparable<Personne>{
 
 	private static final long serialVersionUID = 7597084348346483128L;
 	private String strNoPersonne;
