@@ -57,14 +57,14 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 
-	TypePersonne utilisateur = TypePersonne.Adherent;
+	TypePersonne utilisateur ;
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type, Personne personne) {
-		// utilisateur = type;
+		utilisateur = type;
 
 		Group root = new Group();
 
