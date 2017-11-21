@@ -57,7 +57,7 @@ public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
 
-	TypePersonne utilisateur = TypePersonne.Adherent;
+	TypePersonne utilisateur = TypePersonne.Admin;
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 
@@ -103,8 +103,6 @@ public class InterfacePrincipale {
 			tabPane.getTabs().add(ongletType);
 		}
 
-		// -----------------------------> Ajouter question et reinistialliser...
-		// déconnexion
 
 		ImageView ivDeconnection = new ImageView(new Image("image-test.png"));
 
@@ -119,6 +117,8 @@ public class InterfacePrincipale {
 
 		ivInformationLogiciel.setFitHeight(30);
 		ivInformationLogiciel.setFitWidth(30);
+		
+		ivDeconnection.setPickOnBounds(true);
 
 		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 
@@ -168,6 +168,8 @@ public class InterfacePrincipale {
 		}
 		// Administarteur
 		else {
+			HBox panneauBasAdmin = new HBox(10); 
+			
 			GridPane panneauGestionDesPrepose = panneauAdministrateur().getValue();
 
 			panneau.setCenter(panneauAdministrateur().getKey());
