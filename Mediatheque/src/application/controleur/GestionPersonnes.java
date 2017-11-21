@@ -77,7 +77,7 @@ public class GestionPersonnes {
 		Alert alerteAjouterPersonne = ajouterDeBase(strNom, strPrenom, strAdresse, strNoTelephone);
 
 		if (alerteAjouterPersonne == null) {
-			//Adherent.ouRenduNoPersonnes();
+			Adherent.ouRenduNoPersonnes();
 			Adherent adherent = new Adherent(strNom, strPrenom, strAdresse, strNoTelephone);
 			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).add(adherent);
 			alerteAjouterPersonne = new Alert(AlertType.CONFIRMATION, strPrenom + " " + strNom

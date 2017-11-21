@@ -1,7 +1,7 @@
 package application.modele;
 
 public enum TypeDocument {
-	Livre("Livre","LIV",3,14),Periodique("Périodique","Per",1,3),Dvd("DVD","DVD",2,7);
+	Livre("Livre","Liv",3,14),Periodique("Périodique","Per",1,3),Dvd("DVD","DVD",2,7);
 	
 	private String strNomType, strIndicateurType;
 	private int intNbEmprunte, intNbJoursEmprunt;

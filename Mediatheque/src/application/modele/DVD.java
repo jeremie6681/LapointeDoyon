@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 
+import javafx.collections.FXCollections;
+
 public class DVD extends Document implements Serializable{
 	
 	private static int intNoDocs;//= ouRenduNoPersonnes();
@@ -57,7 +59,7 @@ public class DVD extends Document implements Serializable{
 		int intNoDoc=1;
 		if (intNoDocs!=1) {
 		String strNo;
-		Collections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
+		FXCollections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
 		strNo =ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd).get((ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd)).size()-1).getStrCodeDocument();
 		strNo= strNo.toUpperCase().replace(TypeDocument.Dvd.getStrIndicateurType().toUpperCase(),"");
 		intNoDoc= Integer.parseInt(strNo)+1;

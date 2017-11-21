@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collections;
 
+import javafx.collections.FXCollections;
+
 public class Periodique extends Document implements Serializable {
 	
 	private static int intNoDocs;//ouRenduNoPersonnes();
@@ -15,6 +17,7 @@ public class Periodique extends Document implements Serializable {
 		super(strCodeDocument, strTitre, dateParution, etatDoc);
 		this.intNoVolume=intNoVolume;
 		this.intNoPeriodique=intNoPeriodique;
+		
 	}
 	public Periodique( String strTitre, LocalDate dateParution, int intNoVolume, int intNoPeriodique) {
 		super(setCodeDocument(), strTitre, dateParution, Etat.DISPONIBLE);
@@ -52,11 +55,10 @@ public class Periodique extends Document implements Serializable {
 		return strCodeDoc;
 	}
 	public static void ouRenduNo() {
-		
 		int intNoDoc=1;
 		if (intNoDocs!=1) {
 		String strNo;
-		Collections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
+		FXCollections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
 		strNo =ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique).get((ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique)).size()-1).getStrCodeDocument();
 		strNo= strNo.toUpperCase().replace(TypeDocument.Periodique.getStrIndicateurType().toUpperCase(),"");
 		intNoDoc= Integer.parseInt(strNo)+1;

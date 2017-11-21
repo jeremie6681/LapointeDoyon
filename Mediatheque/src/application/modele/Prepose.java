@@ -3,6 +3,8 @@ package application.modele;
 import java.io.Serializable;
 import java.util.Collections;
 
+import javafx.collections.FXCollections;
+
 public class Prepose extends Personne implements Serializable {
 
 	private static final long serialVersionUID = -7225017568166257641L;
@@ -47,7 +49,7 @@ public class Prepose extends Personne implements Serializable {
 		int intNoPersonne=1;
 		if (intNoEmploye!=1) {
 		String strNo;
-		Collections.sort(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
+		FXCollections.sort(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
 		strNo =ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).get(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).size()-1).getStrNoPersonne();
 		strNo= strNo.toUpperCase().replace(TypePersonne.Prepose.getStrIndicateurType().toUpperCase(),"");
 		intNoPersonne= Integer.parseInt(strNo)+1;

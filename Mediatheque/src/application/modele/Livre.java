@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collections;
 
+import javafx.collections.FXCollections;
+
 /**
  * @Description Contient les informations du document de type livre
  * 
@@ -58,7 +60,7 @@ public class Livre extends Document implements Serializable{
 		int intNoDoc=1;
 		if (intNoDocs!=1) {
 		String strNo;
-		Collections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
+		FXCollections.sort(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 		strNo =ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre).get((ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre)).size()-1).getStrCodeDocument();
 		strNo= strNo.toUpperCase().replace(TypeDocument.Livre.getStrIndicateurType().toUpperCase(),"");
 		intNoDoc= Integer.parseInt(strNo)+1;
