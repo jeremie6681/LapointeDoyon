@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.sun.glass.ui.TouchInputSupport;
+
 import application.controleur.GestionDocuments;
 import application.controleur.GestionPersonnes;
 import application.controleur.GestionPrets;
@@ -294,16 +297,34 @@ public class InterfacePrincipale {
 		TableColumn<Document, String> colonneTitre = new TableColumn<Document, String>("Titre");
 		TableColumn<Document, LocalDate> colonneDate = new TableColumn<Document, LocalDate>("Date parution");
 		TableColumn<Document, Etat> colonneEtat = new TableColumn<Document, Etat>("Disponibilité");
+		TableColumn<Document, Integer> colonneNbPret = new TableColumn<Document, Integer>("Nombre prêt");
 		
 		colonneIdentifiant.setPrefWidth(80);
 		colonneTitre.setPrefWidth(275);
 		colonneDate.setPrefWidth(100);
 		colonneEtat.setPrefWidth(100);
+		colonneNbPret.setPrefWidth(120);
 		
 		colonneIdentifiant.setCellValueFactory(new PropertyValueFactory<>("strCodeDocument"));
 		colonneTitre.setCellValueFactory(new PropertyValueFactory<>("strTitre"));
 		colonneDate.setCellValueFactory(new PropertyValueFactory<>("dateParution"));
 		colonneEtat.setCellValueFactory(new PropertyValueFactory<>("etatDoc"));
+		colonneNbPret.setCellValueFactory(new PropertyValueFactory<>("intNbrPrets"));
+		
+		colonneNbPret.setCellFactory(colonne -> {
+			TableCell<Document, Integer> tCell = new TableCell<Document,Integer>(){
+				protected void updateItem(Integer item, boolean empty) {
+		            super.updateItem(item, empty);
+
+		            if (item != null){
+                        setText(item.toString());
+                    }
+		        }
+				
+			};
+			tCell.setAlignment(Pos.CENTER);
+			return tCell;
+		});
 		
 		//Inverse la date pour respecter le format Jour/Mois/Ann
 		DateTimeFormatter dfInverseLocalDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -321,7 +342,7 @@ public class InterfacePrincipale {
 			};
 		});
 		
-		table.getColumns().addAll(colonneIdentifiant,colonneTitre,colonneDate,colonneEtat);
+		table.getColumns().addAll(colonneIdentifiant,colonneTitre,colonneDate,colonneEtat,colonneNbPret);
 	}
 
 	public Scene getScene() {

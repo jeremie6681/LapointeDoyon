@@ -1,7 +1,11 @@
 package application.vue;
 
 
-import javax.swing.text.MaskFormatter;
+import java.util.function.UnaryOperator;
+
+import com.sun.javafx.scene.control.skin.TextFieldSkin;
+
+//import javax.swing.text.MaskFormatter;
 
 import application.controleur.GestionPersonnes;
 import application.modele.Adherent;
@@ -18,7 +22,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -33,6 +41,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 
 public class InterfaceNouvelUtilisateur {
@@ -74,6 +83,47 @@ public class InterfaceNouvelUtilisateur {
 		Label lblNoTel=new Label("Numéros de Téléphone :");
 		tfNoTel = new TextField();
 		Text txtInfos = new Text("Informations de la personne ");
+		/*
+		TextFormatter<String> test = new TextFormatter<>(new StringConverter<>() {
+		});*/
+		tfNoTel.setPromptText("(\t)\t-\t");
+		//tfNoTel.setText("(_ _ _)_ _ _- _ _ _ _");
+		/*
+		tfNoTel.setOnKeyPressed(k -> {
+			System.out.println("test");
+			if (k.getCode().equals(KeyCode.A)) {
+			}
+		});
+		
+		tfNoTel.addEventFilter(KeyEvent.KEY_TYPED, m -> {
+			System.out.println("test");
+			if (m.getCode().equals(KeyCode.A)) {
+				m.consume();
+			}
+		});*/
+		/*
+		UnaryOperator<Change> filter = change -> {
+		    String text = change.getText();
+		    /*
+		    if (text.matches("^\\(\\d{1,3}\\)?$")) {
+		        return change;
+		    }*/
+		    /*
+		    switch(text.length()) {
+		    	case 1:
+		    		if(text.charAt(0)!= '(' && Character.isDigit(text.charAt(0))) {
+		    			
+		    		}
+		    		break;
+		    	
+		    }
+
+		    return null;
+		};
+		TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+		tfNoTel.setTextFormatter(textFormatter);*/
+		
+		
 		//btnRetour
 		btnRetour.setOnAction(e->stage.hide());
 		

@@ -91,6 +91,16 @@ public abstract class Document implements Serializable,Comparable<Document>{
 	public void incrementeIntNbrPrets() {
 		this.intNbrPrets ++;
 	}
+
+
+	public int getIntNbrPrets() {
+		return intNbrPrets;
+	}
+
+
+	public void setIntNbrPrets(int intNbrPrets) {
+		this.intNbrPrets = intNbrPrets;
+	}
 	
 	
 }
