@@ -4,8 +4,6 @@ import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Style;
 import application.modele.TypePersonne;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,13 +24,11 @@ public class InterfaceTypeConnection {
 	private Button btnAdherent;
 	private Button btnPrepose;
 	
-	//private Button btnNouvelUtilisateur;
-	
 	public InterfaceTypeConnection(Stage primaryStage) {
 		Text txtAccueil = new Text("Médiatheque LapointeDoyon");
 		Text txtPar= new Text("Par Jérémie Lapointe et Philippe Doyon");
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
-		Text txtInstruction = new Text("veuillez choisir Votre type de connection");
+		Text txtInstruction = new Text("Veuillez choisir votre type de connexion");
 		VBox vb = new VBox();
 		HBox hbBoutons= new HBox(20);
 		Image imgGG= new Image("CégepGéraldGodin_Logo.png");
@@ -43,7 +39,7 @@ public class InterfaceTypeConnection {
 		
 		txtAccueil.setFont(Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 32));
 		txtPar.setFont(Font.font("Arial",FontWeight.LIGHT,FontPosture.ITALIC, 12));
-		primaryStage.setTitle("Choix de connection");
+		primaryStage.setTitle("Choix de connexion");
 		//modifications text
 		txtInstruction.setFont(Font.font("Arial",FontWeight.NORMAL,FontPosture.REGULAR, 16));
 		
@@ -56,16 +52,14 @@ public class InterfaceTypeConnection {
 		hbBoutons.setPadding(new Insets(20));
 		
 		//modifications Bouton Adherent
-		btnAdherent= new Button("Connection Adherent");
+		btnAdherent= new Button("Connexion Adhérent");
 		btnAdherent.setFont(fntBoutons);
 		
 		//modifications Bouton préposé
-		btnPrepose= new Button("Connection Préposé/Administrateur");
+		btnPrepose= new Button("Connexion Préposé/Administrateur");
 		btnPrepose.setFont(fntBoutons);
 		
-		
 
-		
 		hbBoutons.getChildren().addAll(btnAdherent,btnPrepose);
 		vb.getChildren().addAll(txtAccueil,txtPar,ivAmende,txtInstruction,hbBoutons);
 		scene = new Scene(vb);
@@ -75,10 +69,7 @@ public class InterfaceTypeConnection {
 		btnAdherent.setOnAction(e->primaryStage.setScene(inPrinc.getScene()));
 		btnPrepose.setOnAction(e->primaryStage.setScene(inLogPrep.getScene()));
 		
-		//Fait la sérialisation lorsque l'on quitte l'application
-		primaryStage.setOnCloseRequest(r -> {ListePersonnes.getInstance().serialisation();ListeDocuments.getInstance().serialisation();});
 		primaryStage.getIcons().add(Style.imgAmende);
-		
 	}
 
 	public Scene getScene() {

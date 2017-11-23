@@ -16,6 +16,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import application.controleur.GestionPersonnes;
+
+//Interface lorsqu'un préposé veut s'identifier
 public class InterfaceLoginPrepose  {
 	
 	private Scene scene;
@@ -33,7 +35,7 @@ public class InterfaceLoginPrepose  {
 		tfUtilisateur = new TextField();
 		Label lblPwd= new Label("Mot de passe :");
 		pfPwd= new PasswordField();
-		Text txtInstruction = new Text("veuillez entrer vous informations de conection");
+		Text txtInstruction = new Text("Veuillez entrer vos informations de connexion");
 		TextFlow tflInstruction;
 		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
 		
@@ -48,11 +50,10 @@ public class InterfaceLoginPrepose  {
 		txtInstruction.setFont(Font.font("Arial",FontWeight.NORMAL,FontPosture.REGULAR, 16));
 		tflInstruction = new TextFlow(txtInstruction);
 		
-		//modifications hbUtilisateur
-		hbUtilisateur.setAlignment(Pos.CENTER_LEFT);
-		
-		//modification hbPwd
-		hbPwd.setAlignment(Pos.CENTER_LEFT);
+		//Aligement
+		HBox.setMargin(pfPwd, new Insets(0,0,0,20));
+		VBox.setMargin(tflInstruction, new Insets(0,0,20,0));
+		VBox.setMargin(btnConfirmer, new Insets(20,0,0,0));
 		
 		//modifications btnConfirmer
 		btnConfirmer.setFont(fntBoutons);
