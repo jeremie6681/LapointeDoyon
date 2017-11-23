@@ -18,10 +18,10 @@ public class Pret implements Serializable{
 	//private String strCodeDoc = doc.getStrTitre();
 	
 	public Pret(Document doc) {
-		TypeDocument typeEmprunte= null;
+		//TypeDocument typeEmprunte= null;
 		this.intNoPret = intCompteurNoPret;
 		intCompteurNoPret++;
-		this.datePret =LocalDate.now();//a enlever ....seulement pour simuler un retard
+		this.datePret =LocalDate.now();
 		
 		this.doc=doc;
 		doc.setEtatDoc(Etat.EMPRUNTE);
@@ -43,22 +43,20 @@ public class Pret implements Serializable{
 
 	public void gestionAmende(){
 		try {
-		if (amende==null){
-		if (ChronoUnit.DAYS.between(datePret,LocalDate.now())>doc.getTypeDocument().getIntNbJoursEmprunt()){
-			this.amende= new Amende(dateRetourPrevue, LocalDate.now(), dblMontantPenalite,false);
-			this.doc.setEtatDoc(Etat.RETARD);
-		}
-		}
-		else {
-			if(amende.getBooRetour()) {
+			if (amende == null) {
+				if (ChronoUnit.DAYS.between(datePret, LocalDate.now()) > doc.getTypeDocument().getIntNbJoursEmprunt()) {
+					this.amende = new Amende(dateRetourPrevue, LocalDate.now(), dblMontantPenalite, false);
+					this.doc.setEtatDoc(Etat.RETARD);
+				}
+			} else {
+				if (amende.getBooRetour()) {
+				} else {
+					this.amende = new Amende(dateRetourPrevue, LocalDate.now(), dblMontantPenalite, false);
+					this.doc.setEtatDoc(Etat.RETARD);
+				}
 			}
-			else {
-				this.amende= new Amende(dateRetourPrevue, LocalDate.now(), dblMontantPenalite,false);
-				this.doc.setEtatDoc(Etat.RETARD);
-			}
-		}
-		}catch(NullPointerException n) {
-			
+		} catch (NullPointerException n) {
+
 		}
 	}
 /*
@@ -116,12 +114,12 @@ public class Pret implements Serializable{
 		strRetour+="\nTitre: "+doc.getStrTitre();
 		strRetour+="\nDate d'emprunt: "+datePret.toString();
 		strRetour+="\nDate de retour Prévue: "+dateRetourPrevue.toString();
-		strRetour+="\nAmande?: ";
+		strRetour+="\nAmande sur ce document? : ";
 		if (amende==null) {
 			strRetour+="non\n\n";
 		}else {
-		strRetour+="oui"+ String.format("%.2f", amende.getDblMontant()) + "$";	
-		strRetour+="\nRetourné?: ";
+		strRetour+="oui :  "+ String.format("%.2f", amende.getDblMontant()) + "$";	
+		strRetour+="\nDocument retourné?: ";
 		if (amende.getBooRetour()) {
 			strRetour+="oui\n\n";
 		}else {

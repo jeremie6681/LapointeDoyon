@@ -61,6 +61,7 @@ public class Main extends Application {
 			    .map(Document::getStrCodeDocument)
 			    .anyMatch(idToCheck::equals);*/
 		
+		//lambda de jesus qui permet de s'assure de l'intégrité des références d'objet entre les documents et les prets
 		ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach( f -> f.getLstPrets().forEach(g -> g.setDoc(ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream)
 				.collect(Collectors.toCollection(FXCollections::observableArrayList)).stream().filter(fil -> fil.getStrCodeDocument().equals(g.getDoc().getStrCodeDocument())).findFirst().isPresent() == true ? 
 						ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList))

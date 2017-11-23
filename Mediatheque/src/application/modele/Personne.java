@@ -2,6 +2,7 @@ package application.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public abstract  class Personne implements Serializable,Comparable<Personne>{
 
@@ -11,8 +12,8 @@ public abstract  class Personne implements Serializable,Comparable<Personne>{
 	private String strPrenom;
 	private String strAdresse;
 	private String strNoTelephone;
-	private ArrayList<Pret> lstPrets=new ArrayList<Pret>();
-	
+	//private ArrayList<Pret> lstPrets=new ArrayList<Pret>();
+	private Vector<Pret> lstPrets= new Vector<>();
 	public Personne(String strNoPersonne, String strNom, String strPrenom, String strAdresse, String strNoTelephone) {
 		this.strNoPersonne = strNoPersonne;
 		this.strNom = strNom;
@@ -25,11 +26,11 @@ public abstract  class Personne implements Serializable,Comparable<Personne>{
 		return strNoPersonne;
 	}
 
-	public ArrayList<Pret> getLstPrets() {
+	public Vector<Pret> getLstPrets() {
 		return lstPrets;
 	}
 
-	public void setLstPrets(ArrayList<Pret> lstPrets) {
+	public void setLstPrets(Vector<Pret> lstPrets) {
 		this.lstPrets = lstPrets;
 	}
 

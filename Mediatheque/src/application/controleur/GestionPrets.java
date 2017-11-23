@@ -1,6 +1,7 @@
 package application.controleur;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import application.modele.Adherent;
@@ -88,11 +89,17 @@ public class GestionPrets {
 								p.setDateEffectiveRetour(LocalDate.now());
 								p.getDoc().setEtatDoc(Etat.DISPONIBLE);
 								System.out.println("retour haut");
+								Alert alerteRetour= new Alert(AlertType.INFORMATION,
+										"Le document " + doc.getStrTitre() + " à été retourné, mais une amende de est associée à au dossier de "+adh.getStrPrenom()+" "+adh.getStrNom(), ButtonType.OK);
+								alerteRetour.showAndWait();
 								}
 							else {
 								p.getDoc().setEtatDoc(Etat.DISPONIBLE);
 								adh.getLstPrets().remove(p);
 								System.out.println("retour bas");
+								Alert alerteRetour= new Alert(AlertType.INFORMATION,
+										"Le document " + doc.getStrTitre() + " à été retourné", ButtonType.OK);
+								alerteRetour.showAndWait();
 							}
 						}else {}
 					}
@@ -131,7 +138,7 @@ public class GestionPrets {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Amende");
 		alert.setHeaderText("Payer une amende");
-
+		ArrayList<Pret> ar=new ArrayList<>();
 		if (personne != null) {
 			alert.setContentText(personne.getStrNoPersonne() + " " + personne.getStrNom()
 					+ "veut vas payer son amende de " + s + "$");
@@ -146,9 +153,11 @@ public class GestionPrets {
 						 * catch(NullPointerException n) { }
 						 */
 						if (pret.getAmende() != null && pret.getAmende().getBooRetour() == true) {
-							personne.getLstPrets().remove(pret);
+							//personne.getLstPrets().remove(pret);
+							ar.add(pret);
 						}
 					}
+					ar.forEach(e-> personne.getLstPrets().remove(e));
 				} else {
 				}
 			} else {

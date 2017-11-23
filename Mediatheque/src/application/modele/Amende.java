@@ -16,7 +16,7 @@ public class Amende implements Serializable {
 	
 	public Amende(LocalDate dateRetourPrevu, LocalDate dateDeRetourEffective, Double dblMontantPenalite,boolean booRetourne) {
 		
-		Long lngNbJoursRetard=ChronoUnit.DAYS.between(dateDeRetourEffective,dateRetourPrevu);
+		Long lngNbJoursRetard=Math.abs(ChronoUnit.DAYS.between(dateDeRetourEffective,dateRetourPrevu));
 		this.dblMontant = (lngNbJoursRetard*dblMontantPenalite);
 		this.intNoAmende = intCompteurNoAmende;
 		this.booRetour= booRetourne;
