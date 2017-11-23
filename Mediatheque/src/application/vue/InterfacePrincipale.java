@@ -141,7 +141,8 @@ public class InterfacePrincipale {
 		
 		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
 		ivInformationLogiciel.setOnMouseClicked(e->{
-		Alert alerteInfo =new Alert(AlertType.INFORMATION,"Projet 2 (Médiathèque) par Jérémie Lapointe et Philippe Doyon. Effectué dans le cadre du cours de programmation objet 2 (420-3P6) du collège Gérald-Godin en automne 2017\n\nSources : \tIcones de Jevgeni Striganov du Noun Project\n\t\tRegex pour numéros de téléphone : https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/",ButtonType.OK);
+		Alert alerteInfo =new Alert(AlertType.INFORMATION,"Projet 2 (Médiathèque) par Jérémie Lapointe et Philippe Doyon. Effectué dans le cadre du cours de programmation objet 2 (420-3P6) du collège Gérald-Godin en automne 2017\n\nSources : \tIcones de Jevgeni Striganov du Noun Project\n\t\tRegex pour numéros de téléphone : https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/ "+
+		"\n\t\tLogo GG : https://fr.wikipedia.org/wiki/C%C3%A9gep_G%C3%A9rald-Godin#/media/File:C%C3%A9gepG%C3%A9raldGodin_Logo.png \n\t\tIcone de stages : https://www.jardindorante.fr/94-home_default/janvier-2015-amande.jpg",ButtonType.OK);
 		alerteInfo.getDialogPane().setPrefSize(800,250);;
 		alerteInfo.setHeaderText("À propos de ce projet");
 		alerteInfo.setTitle("À propos...");
@@ -182,6 +183,7 @@ public class InterfacePrincipale {
 			ivAfficherDossier.setFitWidth(90);
 			Stage secondaryStage = new Stage();
 			secondaryStage.initModality(Modality.APPLICATION_MODAL);
+			secondaryStage.getIcons().add(Style.imgAmende);
 			ivAfficherDossier.setOnMouseClicked(e->{secondaryStage.setScene(new InterfaceLoginAdherent(secondaryStage).getScene());secondaryStage.showAndWait();});
 			Tooltip.install(ivAfficherDossier, new Tooltip("Afficher son dossier"));
 			
@@ -363,6 +365,7 @@ public class InterfacePrincipale {
 				secondaryStage,false);
 		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
 				secondaryStage,true);
+		secondaryStage.getIcons().add(Style.imgAmende);
 		// gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		// ajouter Document et mettre a jour l'affichage
@@ -603,7 +606,7 @@ public class InterfacePrincipale {
 		Stage stageSecondaire = new Stage();
 		stageSecondaire.initModality(Modality.APPLICATION_MODAL);
 		stageSecondaire.sizeToScene();
-
+		stageSecondaire.getIcons().add(Style.imgAmende);
 		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
 				stageSecondaire,false);
 		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
