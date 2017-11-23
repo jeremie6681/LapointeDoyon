@@ -62,9 +62,9 @@ public class Main extends Application {
 			    .anyMatch(idToCheck::equals);*/
 		
 		ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach( f -> f.getLstPrets().forEach(g -> g.setDoc(ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream)
-				.collect(Collectors.toCollection(FXCollections::observableArrayList)).stream().filter(fil -> fil.getStrCodeDocument().equals(g.getDoc())).findFirst().isPresent() == true ? 
+				.collect(Collectors.toCollection(FXCollections::observableArrayList)).stream().filter(fil -> fil.getStrCodeDocument().equals(g.getDoc().getStrCodeDocument())).findFirst().isPresent() == true ? 
 						ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList))
-						.stream().filter(fil -> fil.getStrCodeDocument().equals(g.getDoc())).findFirst().get():g.getDoc())));
+						.stream().filter(fil -> fil.getStrCodeDocument().equals(g.getDoc().getStrCodeDocument())).findFirst().get():g.getDoc())));
 		
 		
 		
