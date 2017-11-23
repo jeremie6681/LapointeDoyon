@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import application.modele.DVD;
 import application.modele.Document;
+import application.modele.Etat;
 import application.modele.ListeDocuments;
 import application.modele.Livre;
 import application.modele.Periodique;
@@ -40,19 +41,22 @@ public class GestionDocuments {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmation ");
 			alert.setHeaderText("Supression d'un document");
-			alert.setContentText("Voulez-vous vraiment Suprimer le " + document.getTypeDocument().getStrNomType() + ": "
-					+ document.getStrTitre());
-
+			alert.setContentText("Voulez-vous vraiment Suprimer le " + document.getTypeDocument().getStrNomType() + ": "+ document.getStrTitre());
+			if(document.getEtatDoc().equals(Etat.DISPONIBLE)) {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
-				ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument())
-						.removeIf(d -> document.equals(d));
+				ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument()).removeIf(d -> document.equals(d));
 			} else {
 			}
+			}else {
+				Alert alertErreur = new Alert(AlertType.WARNING, "Le document doit être disponible pour être suprimé de la collection",ButtonType.OK);
+				alertErreur.showAndWait();
+			}
 		} catch (NullPointerException e) {
-			Alert alertErreur = new Alert(AlertType.WARNING, "vous devez selectionner un document");
+			Alert alertErreur = new Alert(AlertType.WARNING, "vous devez selectionner un document",ButtonType.OK);
 			alertErreur.showAndWait();
 		}
+		
 
 	}
 

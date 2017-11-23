@@ -13,7 +13,7 @@ public abstract class Document implements Serializable,Comparable<Document>{
 	private LocalDate dateParution;
 	private Etat etatDoc;
 	private ArrayList<String> lstMots = new ArrayList<String>();
-	
+	private  int intNbrPrets;
 	
 	public Document(String strCodeDocument,String strTitre, LocalDate dateParution, Etat etatDoc) {
 		super();
@@ -21,6 +21,7 @@ public abstract class Document implements Serializable,Comparable<Document>{
 		this.strTitre = strTitre;
 		this.dateParution = dateParution;
 		this.etatDoc = etatDoc;
+		this.intNbrPrets=0;
 	}
 
 
@@ -84,6 +85,11 @@ public abstract class Document implements Serializable,Comparable<Document>{
 	@Override
 	public int compareTo(Document d) {
 		return this.strCodeDocument.compareTo(d.strCodeDocument);
+	}
+
+
+	public void incrementeIntNbrPrets() {
+		this.intNbrPrets ++;
 	}
 	
 	

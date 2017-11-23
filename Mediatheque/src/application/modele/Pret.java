@@ -25,6 +25,7 @@ public class Pret implements Serializable{
 		
 		this.doc=doc;
 		doc.setEtatDoc(Etat.EMPRUNTE);
+		doc.incrementeIntNbrPrets();
 		dateRetourPrevue= LocalDate.now().plusDays((long)doc.getTypeDocument().getIntNbJoursEmprunt());
 	}
 

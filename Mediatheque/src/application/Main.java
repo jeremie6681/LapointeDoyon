@@ -8,6 +8,7 @@ import application.modele.Document;
 import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
+import application.modele.Prepose;
 import application.modele.TypePersonne;
 import application.vue.InterfaceAjouterDocument;
 import application.vue.InterfaceLoginPrepose;
@@ -27,9 +28,9 @@ public class Main extends Application {
 			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
-			Adherent pTest = new Adherent("strnom","strPrenom","stradr","strnotel","adh08"); 
-
-			//InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,pTest);
+		   // Adherent pTest = new Adherent("strnom","strPrenom","stradr","strnotel","adh08"); 
+		   // Prepose p = new Prepose("", "", "", "", "1","pre100");
+		//	InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Prepose,pTest);
 
 			//InterfacePrincipale ifLogin = new InterfacePrincipale(primaryStage,TypePersonne.Adherent,pTest);
 
