@@ -8,21 +8,14 @@ public class Pret implements Serializable{
 	
 	private static final long serialVersionUID = -7171557492998212016L;
 	final private static double dblMontantPenalite=0.50; 
-	private static int intCompteurNoPret=1;
-	private int intNoPret;          //used?
 	private LocalDate datePret;
 	private LocalDate dateRetourPrevue;
-	private LocalDate dateEffectiveRetour;  //inutile
+	private LocalDate dateEffectiveRetour;  
 	private Amende amende=null;
 	private Document doc;
-	//private String strCodeDoc = doc.getStrTitre();
 	
 	public Pret(Document doc) {
-		//TypeDocument typeEmprunte= null;
-		this.intNoPret = intCompteurNoPret;
-		intCompteurNoPret++;
 		this.datePret =LocalDate.now();
-		
 		this.doc=doc;
 		doc.setEtatDoc(Etat.EMPRUNTE);
 		doc.incrementeIntNbrPrets();
@@ -39,8 +32,41 @@ public class Pret implements Serializable{
 	public void setDoc(Document doc) {
 		this.doc=doc;
 	}
-	
 
+	public LocalDate getDatePret() {
+		return datePret;
+	}
+
+	public void setDatePret(LocalDate datePret) {
+		this.datePret = datePret;
+	}
+
+	public LocalDate getDateRetourPrevue() {
+		return dateRetourPrevue;
+	}
+	
+	public LocalDate getDateEffectiveRetour() {
+		return dateEffectiveRetour;
+	}
+
+	public void setDateRetourPrevue(LocalDate dateRetourPrevue) {
+		this.dateRetourPrevue = dateRetourPrevue;
+	}
+	
+	public void setAmende(Amende amende) {
+		this.amende= amende;
+	}
+	
+	public double getDblmontantPenalite() {
+		return dblMontantPenalite;
+	}
+	
+	public void setDateEffectiveRetour(LocalDate dateEffectiveRetour) {
+		this.dateEffectiveRetour = dateEffectiveRetour;
+	}
+	/*permet de vérifier si le pret doit générer une Amende.
+	 * si oui, cette amende est créer
+	 */
 	public void gestionAmende(){
 		try {
 			if (amende == null) {
@@ -58,54 +84,6 @@ public class Pret implements Serializable{
 		} catch (NullPointerException n) {
 
 		}
-	}
-/*
-	public String getStrCodeDoc() {
-		return strCodeDoc;
-	}
-*/
-	public int getIntNoPret() {
-		return intNoPret;
-	}
-
-	public void setIntNoPret(int intNoPret) {
-		this.intNoPret = intNoPret;
-	}
-
-	public LocalDate getDatePret() {
-		return datePret;
-	}
-
-	public void setDatePret(LocalDate datePret) {
-		this.datePret = datePret;
-	}
-
-	public LocalDate getDateRetourPrevue() {
-		return dateRetourPrevue;
-	}
-	public LocalDate getDateEffectiveRetour() {
-		return dateEffectiveRetour;
-	}
-
-	public void setDateRetourPrevue(LocalDate dateRetourPrevue) {
-		this.dateRetourPrevue = dateRetourPrevue;
-	}
-/*
-	public void setStrCodeDoc(String strCodeDoc) {
-		this.strCodeDoc = strCodeDoc;
-	}
-*/
-
-	public void setAmende(Amende amende) {
-		this.amende= amende;
-		
-	}
-	
-	public double getDblmontantPenalite() {
-		return dblMontantPenalite;
-	}
-	public void setDateEffectiveRetour(LocalDate dateEffectiveRetour) {
-		this.dateEffectiveRetour = dateEffectiveRetour;
 	}
 
 	@Override

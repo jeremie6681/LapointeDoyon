@@ -7,20 +7,24 @@ import java.util.Collections;
 import javafx.collections.FXCollections;
 
 public class Adherent extends Personne implements Serializable {
-	//private static int intNbrAdh;//=ouRenduNoPersonnes();
+	
 	private static final long serialVersionUID = 5978651855639753884L;
 	private static int intNbrAdh=1 ;
-
+	//constructeur utilisé pour la lecture de fichiers
 	public Adherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone, String strNoPersonne) {
 		super(strNoPersonne, strNom, strPrenom, strAdresse, strNoTelephone);
 		intNbrAdh++;
 	}
-	
+	//constructeur utilisé pour la création d'adhérents par formulaire
 	public Adherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone) {
 		super(setNoPersonne(), strNom, strPrenom, strAdresse, strNoTelephone);
-		//intNbrAdh++;
 	}
-	
+	/*
+	 * permet de transformer un Integer en numéro 
+	 * de personne pour les adhérents.
+	 * 
+	 * retoune: un string contenant un identificateur unique de l'adhérent
+	 */
 	private static String setNoPersonne() {
 		String strNoPersonne="";
 		if(intNbrAdh<10) {
@@ -57,10 +61,14 @@ public class Adherent extends Personne implements Serializable {
 		return strRetour;
 	}
 	
-	
-	
+	/*
+	 * Permet de touver le plus gros nombre composant un numéro 
+	 * d'adhérent afin de savoir quel numéro d'adhérent devrat 
+	 * être créer prochainement.
+	 * 
+	 * modifie:intNbrAdh 
+	 */
 	public static void  ouRenduNoPersonnes() {
-		
 		if (intNbrAdh!=1) {
 		String strNo;
 		FXCollections.sort(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
@@ -68,10 +76,5 @@ public class Adherent extends Personne implements Serializable {
 		strNo= strNo.toUpperCase().replace(TypePersonne.Adherent.getStrIndicateurType().toUpperCase(),"");
 		intNbrAdh= Integer.parseInt(strNo)+1;
 		}
-		System.out.println(intNbrAdh);
-		
 	}
-	
-	
-
 }
