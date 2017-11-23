@@ -2,6 +2,7 @@ package application.vue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import application.controleur.GestionDocuments;
@@ -372,6 +373,7 @@ public class InterfacePrincipale {
 			secondaryStage.setScene(intefaceModifUtilisateur.getScene());
 			if ((Adherent) tableAdherent.getSelectionModel().getSelectedItem() != null) {
 				secondaryStage.showAndWait();
+				tableAdherent.refresh();
 			}
 			;
 		});
@@ -392,14 +394,14 @@ public class InterfacePrincipale {
 		btnEmprunterDoc.setOnAction(e -> {
 			GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionDocuments.rechargeDonneeDoc(lstTable);
+			Arrays.asList(lstTable).forEach(f -> f.refresh());
 		});
 
 		Button btnRetournerDoc = new Button("Retourner un document");
 		btnRetournerDoc.setOnAction(e -> {
 			GestionPrets.retournerDocument(
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
-			GestionDocuments.rechargeDonneeDoc(lstTable);
+			Arrays.asList(lstTable).forEach(f -> f.refresh());
 		});
 
 		Button btnPayerAmende = new Button("Payer une amende");
@@ -605,6 +607,7 @@ public class InterfacePrincipale {
 				stageSecondaire.setScene(intefaceModifUtilisateur.getScene());
 				if ((Prepose) tablePrepose.getSelectionModel().getSelectedItem() != null) {
 					stageSecondaire.showAndWait();
+					tablePrepose.refresh();
 				}
 				;
 			});

@@ -229,4 +229,5 @@ public class GestionDocuments {
 	public static void rechargeDonneLivre(TableView<Document>[] lstTable) {
 		lstTable[1].setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 	}
+	
 }
