@@ -3,8 +3,6 @@ package application.controleur;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
-
-import application.modele.Adherent;
 import application.modele.Amende;
 import application.modele.Document;
 import application.modele.Etat;

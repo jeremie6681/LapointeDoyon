@@ -1,8 +1,6 @@
 package application.modele;
 
 import java.io.Serializable;
-import java.util.Collections;
-
 import javafx.collections.FXCollections;
 
 public class Prepose extends Personne implements Serializable {

@@ -3,8 +3,6 @@ package application.controleur;
 import java.util.Optional;
 
 import application.modele.Adherent;
-import application.modele.Document;
-import application.modele.ListeDocuments;
 import application.modele.ListePersonnes;
 import application.modele.Personne;
 import application.modele.Prepose;
@@ -14,7 +12,6 @@ import application.vue.InterfacePrincipale;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class GestionPersonnes {
