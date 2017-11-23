@@ -10,6 +10,7 @@ import application.controleur.GestionPersonnes;
 import application.controleur.GestionPrets;
 import application.modele.Adherent;
 import  application.modele.Prepose;
+import application.modele.Style;
 import application.modele.Document;
 import application.modele.Etat;
 import application.modele.ListeDocuments;
@@ -89,8 +90,7 @@ public class InterfacePrincipale {
 		// lblTitre.setTextFill(Color.WHITE);
 
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		tabPane.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		tabPane.setBorder(Style.styleBordure);
 
 		lstTable = tableau();
 
@@ -423,8 +423,7 @@ public class InterfacePrincipale {
 		// Panneau des options latérals
 		Accordion panneauOptionLateral = new Accordion(panneauGestionDoc, panneauGestionAdh, panneauGestionPret);
 		panneauOptionLateral.setExpandedPane(panneauGestionPret);
-		panneauOptionLateral.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		panneauOptionLateral.setBorder(Style.styleBordure);
 		panneauOptionLateral.setMinHeight(240);
 
 		return panneauOptionLateral;
@@ -433,8 +432,7 @@ public class InterfacePrincipale {
 	@SuppressWarnings("unchecked")
 	private VBox panneauGestionAdherent() {
 		VBox panneauListePersonne = new VBox(10);
-		panneauListePersonne.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		panneauListePersonne.setBorder(Style.styleBordure);
 
 		Label lblTitrelistePersonne = new Label("Adhérents");
 		lblTitrelistePersonne.setFont(Font.font("arial", FontWeight.BOLD, 16));
@@ -462,8 +460,7 @@ public class InterfacePrincipale {
 		tableAdherent.getColumns().addAll(colonneNoPersonne, colonnePrenom, colonneNom, colonneAdresse,
 				colonneTelephone);
 		tableAdherent.setItems(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent));
-		tableAdherent.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		tableAdherent.setBorder(Style.styleBordure);
 
 		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne, tableAdherent);
 		panneauListePersonne.setAlignment(Pos.CENTER);
@@ -478,8 +475,7 @@ public class InterfacePrincipale {
 	private Pair<GridPane, VBox> panneauCommunPreAdh(TableView<Document>[] lstTable) {
 		// Panneau recherche
 		GridPane groupeRecherche = new GridPane();
-		groupeRecherche.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		groupeRecherche.setBorder(Style.styleBordure);
 		groupeRecherche.setHgap(15);
 		groupeRecherche.setVgap(15);
 
@@ -520,8 +516,7 @@ public class InterfacePrincipale {
 
 		// Tableau Document
 		VBox panneauTableauDoc = new VBox(10);
-		panneauTableauDoc.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		panneauTableauDoc.setBorder(Style.styleBordure);
 
 		Label lblTitreListeDoc = new Label("Documents");
 		lblTitreListeDoc.setFont(Font.font("arial", FontWeight.BOLD, 15));
@@ -537,8 +532,7 @@ public class InterfacePrincipale {
 	private Pair<VBox, GridPane> panneauAdministrateur() {
 		// tableau préposer
 		VBox panneauListePersonne = new VBox(10);
-		panneauListePersonne.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		panneauListePersonne.setBorder(Style.styleBordure);
 
 		Label lblTitrelistePersonne = new Label("Préposé");
 		lblTitrelistePersonne.setFont(Font.font("arial", FontWeight.BOLD, 16));
@@ -569,8 +563,7 @@ public class InterfacePrincipale {
 		tablePrepose.getColumns().addAll(colonneNoPersonne, colonneMotdePasse, colonnePrenom, colonneNom,
 				colonneAdresse, colonneTelephone);
 		tablePrepose.setItems(ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose));
-		tablePrepose.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		tablePrepose.setBorder(Style.styleBordure);
 
 		panneauListePersonne.getChildren().addAll(lblTitrelistePersonne, tablePrepose);
 		panneauListePersonne.setAlignment(Pos.CENTER);
@@ -622,8 +615,7 @@ public class InterfacePrincipale {
 		GridPane panneauGestionDesPrepose = new GridPane();
 		panneauGestionDesPrepose.setHgap(15);
 		panneauGestionDesPrepose.setVgap(10);
-		panneauGestionDesPrepose.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+		panneauGestionDesPrepose.setBorder(Style.styleBordure);
 		panneauGestionDesPrepose.setPadding(new Insets(10));
 		panneauGestionDesPrepose.setMaxSize(250, 75);
 		panneauGestionDesPrepose.add(lblTitreGestionAdmin, 0, 0, 3, 1);
