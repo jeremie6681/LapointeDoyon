@@ -5,14 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.sun.glass.ui.TouchInputSupport;
-
 import application.controleur.GestionDocuments;
 import application.controleur.GestionPersonnes;
 import application.controleur.GestionPrets;
 import application.modele.Adherent;
-import  application.modele.Prepose;
+import application.modele.Prepose;
 import application.modele.Style;
 import application.modele.Document;
 import application.modele.Etat;
@@ -47,17 +44,10 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
@@ -67,31 +57,25 @@ import javafx.util.Pair;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-					
 
-	TypePersonne utilisateur ;//= TypePersonne.Admin;
+	private TypePersonne utilisateur;
 
 	private TableView<Document>[] lstTable;
 	private TableView<Personne> tableAdherent;
 	private TableView<Personne> tablePrepose;
-	@SuppressWarnings("static-access")
 
+	@SuppressWarnings("static-access")
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type, Personne personne) {
-		
 		utilisateur = type;
 
 		Group root = new Group();
-
 		BorderPane panneau = new BorderPane();
 
 		scene = new Scene(root);
-		// scene.setFill(Color.rgb(24, 25, 28));
 
 		Label lblTitre = new Label("Médiathèque");
 		lblTitre.setFont(Font.font("arial", FontWeight.BOLD, 35));
 		lblTitre.setPadding(new Insets(10, 0, 15, 0));
-
-		// lblTitre.setTextFill(Color.WHITE);
 
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		tabPane.setBorder(Style.styleBordure);
@@ -115,17 +99,16 @@ public class InterfacePrincipale {
 
 			tabPane.getTabs().add(ongletType);
 		}
-
-
+		
+		//Les icones
 		ImageView ivDeconnection = new ImageView(new Image("Deconnexion.png"));
-
 		ImageView ivReinsialiseRecherche = new ImageView(new Image("Reinisialise-tempo.png"));
 		ImageView ivInformationLogiciel = new ImageView(new Image("Question-tempo.png"));
-		
+
 		Tooltip.install(ivReinsialiseRecherche, new Tooltip("Réinisialise"));
 		Tooltip.install(ivInformationLogiciel, new Tooltip("À propos de ..."));
 		Tooltip.install(ivDeconnection, new Tooltip("Déconnection"));
-		
+
 		ivDeconnection.setFitHeight(40);
 		ivDeconnection.setFitWidth(40);
 
@@ -134,21 +117,36 @@ public class InterfacePrincipale {
 
 		ivInformationLogiciel.setFitHeight(40);
 		ivInformationLogiciel.setFitWidth(40);
-		
+
 		ivReinsialiseRecherche.setPickOnBounds(true);
 		ivDeconnection.setPickOnBounds(true);
 		ivInformationLogiciel.setPickOnBounds(true);
-		
-		ivReinsialiseRecherche.setOnMouseClicked(m -> {GestionDocuments.rechargeDonneeDoc(lstTable);GestionDocuments.rechargeDonneLivre(lstTable); tabPane.getSelectionModel().select(0);});
-		ivInformationLogiciel.setOnMouseClicked(e->{
-		Alert alerteInfo =new Alert(AlertType.INFORMATION,"Projet 2 (Médiathèque) par Jérémie Lapointe et Philippe Doyon. Effectué dans le cadre du cours de programmation objet 2 (420-3P6) du collège Gérald-Godin en automne 2017\n\nSources : \tIcones de Jevgeni Striganov du Noun Project\n\t\tRegex pour numéros de téléphone : https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/ "+
-		"\n\t\tLogo GG : https://fr.wikipedia.org/wiki/C%C3%A9gep_G%C3%A9rald-Godin#/media/File:C%C3%A9gepG%C3%A9raldGodin_Logo.png \n\t\tIcone de stages : https://www.jardindorante.fr/94-home_default/janvier-2015-amande.jpg",ButtonType.OK);
-		alerteInfo.getDialogPane().setPrefSize(800,250);;
-		alerteInfo.setHeaderText("À propos de ce projet");
-		alerteInfo.setTitle("À propos...");
-		alerteInfo.showAndWait();});
-		
-		ivDeconnection.setOnMouseClicked(e->{primaryStage.setScene(new InterfaceTypeConnection(primaryStage).getScene());});
+
+		ivReinsialiseRecherche.setOnMouseClicked(m -> {
+			GestionDocuments.rechargeDonneeDoc(lstTable);
+			GestionDocuments.rechargeDonneLivre(lstTable);
+			tabPane.getSelectionModel().select(0);
+		});
+		ivInformationLogiciel.setOnMouseClicked(e -> {
+			Alert alerteInfo = new Alert(AlertType.INFORMATION,
+					"Projet 2 (Médiathèque) par Jérémie Lapointe et Philippe Doyon. Effectué dans le cadre du cours de programmation objet 2 (420-3P6)"
+					+ " du collège Gérald-Godin en automne 2017\n\nSources : \tIcones de Jevgeni Striganov du Noun Project\n\t\tRegex pour numéros de "
+					+ "téléphone : https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/ "
+							+ "\n\t\tLogo GG : https://fr.wikipedia.org/wiki/C%C3%A9gep_G%C3%A9rald-Godin#/media/File:C%C3%A9gepG%C3%A9raldGodin_Logo.png "
+							+ "\n\t\tIcone de stages : https://www.jardindorante.fr/94-home_default/janvier-2015-amande.jpg",
+					ButtonType.OK);
+			alerteInfo.getDialogPane().setPrefSize(800, 250);
+			;
+			alerteInfo.setHeaderText("À propos de ce projet");
+			alerteInfo.setTitle("À propos...");
+			alerteInfo.showAndWait();
+		});
+
+		ivDeconnection.setOnMouseClicked(e -> {
+			primaryStage.setScene(new InterfaceTypeConnection(primaryStage).getScene());
+			ListeDocuments.getInstance().serialisation();
+			ListePersonnes.getInstance().serialisation();
+		});
 		HBox panneauBoutonIcone = new HBox(40);
 		panneauBoutonIcone.setPadding(new Insets(10));
 
@@ -172,27 +170,33 @@ public class InterfacePrincipale {
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 
 			// panneau liste adherent
-			VBox panneauGestionAdherent = panneauGestionAdherent();
+			VBox panneauGestionAdherent = panneauTableAdherent();
 			panneau.setRight(panneauGestionAdherent);
 			panneau.setMargin(panneauGestionAdherent, new Insets(0, 0, 0, 30));
 		} else if (utilisateur.equals(TypePersonne.Adherent)) {
-			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivReinsialiseRecherche, ivInformationLogiciel);
-			ImageView ivAfficherDossier = new ImageView(new Image("afficherDossier-Tempo.png"));
-			ivAfficherDossier.setPickOnBounds(true);
-			ivAfficherDossier.setFitHeight(90);
-			ivAfficherDossier.setFitWidth(90);
 			Stage secondaryStage = new Stage();
 			secondaryStage.initModality(Modality.APPLICATION_MODAL);
 			secondaryStage.getIcons().add(Style.imgAmende);
-			ivAfficherDossier.setOnMouseClicked(e->{secondaryStage.setScene(new InterfaceLoginAdherent(secondaryStage).getScene());secondaryStage.showAndWait();});
+			
+			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivReinsialiseRecherche, ivInformationLogiciel);
+			
+			ImageView ivAfficherDossier = new ImageView(new Image("afficherDossier-Tempo.png"));
 			Tooltip.install(ivAfficherDossier, new Tooltip("Afficher son dossier"));
 			
+			ivAfficherDossier.setPickOnBounds(true);
+			ivAfficherDossier.setFitHeight(90);
+			ivAfficherDossier.setFitWidth(90);
 			
-			
+			ivAfficherDossier.setOnMouseClicked(e -> {
+				secondaryStage.setScene(new InterfaceLoginAdherent(secondaryStage).getScene());
+				secondaryStage.showAndWait();
+			});
+
 			GridPane groupeRecherche = panneauCommunPreAdh(lstTable).getKey();
-			VBox panneauGaucheAdherent = new VBox(15, ivAfficherDossier,panneauBoutonIcone);
+			VBox panneauGaucheAdherent = new VBox(15, ivAfficherDossier, panneauBoutonIcone);
 			BorderPane panOption = new BorderPane();
-			panneauGaucheAdherent.setMargin(ivAfficherDossier, new Insets(40,0,20,70));
+			
+			panneauGaucheAdherent.setMargin(ivAfficherDossier, new Insets(40, 0, 20, 70));
 			panOption.setMargin(groupeRecherche, new Insets(15, 0, 0, 0));
 			panOption.setBottom(groupeRecherche);
 			panOption.setPadding(new Insets(0, 30, 0, 0));
@@ -201,30 +205,30 @@ public class InterfacePrincipale {
 			panneau.setCenter(panneauCommunPreAdh(lstTable).getValue());
 
 			panneau.setLeft(panOption);
-			
-			try{
-			Alert alertdossier = new Alert(AlertType.CONFIRMATION,((Adherent)personne).toString(), ButtonType.OK);
-			alertdossier.setHeaderText("Informations sur le dossier de "+personne.getStrPrenom()+" "+personne.getStrNom());
-			alertdossier.setTitle("Informations sur le dossier");
-			ivAfficherDossier.setOnMouseClicked(e->alertdossier.showAndWait());
-			}catch (NullPointerException n){
-				System.err.println("personne pas passer en paremetre a la classe interface principale");
+
+			try {
+				Alert alertdossier = new Alert(AlertType.CONFIRMATION, ((Adherent) personne).toString(), ButtonType.OK);
+				alertdossier.setHeaderText(
+						"Informations sur le dossier de " + personne.getStrPrenom() + " " + personne.getStrNom());
+				alertdossier.setTitle("Informations sur le dossier");
+				ivAfficherDossier.setOnMouseClicked(e -> alertdossier.showAndWait());
+			} catch (NullPointerException n) {
+				//System.err.println("personne pas passer en paremetre a la classe interface principale");
 			}
 		}
 		// Administarteur
 		else {
 			panneauBoutonIcone.getChildren().addAll(ivDeconnection, ivInformationLogiciel);
-			
+
 			GridPane panneauGestionDesPrepose = panneauAdministrateur().getValue();
 			HBox panneauBasAdmin = new HBox(10);
-			panneauBasAdmin.getChildren().addAll(panneauGestionDesPrepose,panneauBoutonIcone);
-			panneauBasAdmin.setMargin(panneauBoutonIcone, new Insets(0,0,0,300));
+			panneauBasAdmin.getChildren().addAll(panneauGestionDesPrepose, panneauBoutonIcone);
+			panneauBasAdmin.setMargin(panneauBoutonIcone, new Insets(0, 0, 0, 300));
 
 			panneau.setCenter(panneauAdministrateur().getKey());
 			panneau.setBottom(panneauBasAdmin);
 			panneau.setTop(lblTitre);
 			panneau.setAlignment(lblTitre, Pos.CENTER);
-
 			panneau.setMargin(panneauBasAdmin, new Insets(25, 0, 0, 0));
 		}
 
@@ -238,7 +242,6 @@ public class InterfacePrincipale {
 		});
 
 		primaryStage.setTitle("Médiathèque");
-	
 	}
 
 	@SuppressWarnings("unchecked")
@@ -246,7 +249,7 @@ public class InterfacePrincipale {
 		TableView<Document>[] lstTable = new TableView[4];
 
 		// Tableau Document
-		TableView<Document> tableDoc = new TableView<Document>(); /// jai gosser avec cela
+		TableView<Document> tableDoc = new TableView<Document>();
 		TableView<Document> tableLiv = new TableView<Document>();
 		TableView<Document> tablePer = new TableView<Document>();
 		TableView<Document> tableDvd = new TableView<Document>();
@@ -279,10 +282,9 @@ public class InterfacePrincipale {
 
 		colonneTableauCommune(tableDvd);
 		tableDvd.getColumns().addAll(colonneNbDisque, colonneRealisateur);
-		
 
-		tableDoc.setItems(ListeDocuments.getInstance().mapDocument.values().stream()
-				.flatMap(List::stream).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+		tableDoc.setItems(ListeDocuments.getInstance().mapDocument.values().stream().flatMap(List::stream)
+				.collect(Collectors.toCollection(FXCollections::observableArrayList)));
 		tableLiv.setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 		tablePer.setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Periodique));
 		tableDvd.setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Dvd));
@@ -298,74 +300,62 @@ public class InterfacePrincipale {
 	// Colonne commune pour les tableau des documents
 	@SuppressWarnings("unchecked")
 	private void colonneTableauCommune(TableView<Document> table) {
-		
+
 		TableColumn<Document, String> colonneIdentifiant = new TableColumn<Document, String>("Identifiant");
 		TableColumn<Document, String> colonneTitre = new TableColumn<Document, String>("Titre");
 		TableColumn<Document, LocalDate> colonneDate = new TableColumn<Document, LocalDate>("Date parution");
 		TableColumn<Document, Etat> colonneEtat = new TableColumn<Document, Etat>("Disponibilité");
 		TableColumn<Document, Integer> colonneNbPret = new TableColumn<Document, Integer>("Nombre prêt");
-		
+
 		colonneIdentifiant.setPrefWidth(80);
 		colonneTitre.setPrefWidth(275);
 		colonneDate.setPrefWidth(100);
 		colonneEtat.setPrefWidth(100);
-		colonneNbPret.setPrefWidth(120);
-		
+		colonneNbPret.setPrefWidth(100);
+
 		colonneIdentifiant.setCellValueFactory(new PropertyValueFactory<>("strCodeDocument"));
 		colonneTitre.setCellValueFactory(new PropertyValueFactory<>("strTitre"));
 		colonneDate.setCellValueFactory(new PropertyValueFactory<>("dateParution"));
 		colonneEtat.setCellValueFactory(new PropertyValueFactory<>("etatDoc"));
 		colonneNbPret.setCellValueFactory(new PropertyValueFactory<>("intNbrPrets"));
-		
-		colonneNbPret.setCellFactory(colonne -> {
-			TableCell<Document, Integer> tCell = new TableCell<Document,Integer>(){
-				protected void updateItem(Integer item, boolean empty) {
-		            super.updateItem(item, empty);
 
-		            if (item != null){
-                        setText(item.toString());
-                    }
-		        }
-				
-			};
-			tCell.setAlignment(Pos.CENTER);
-			return tCell;
-		});
-		
-		//Inverse la date pour respecter le format Jour/Mois/Ann
+		// Inverse la date pour respecter le format Jour/Mois/Ann
 		DateTimeFormatter dfInverseLocalDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		colonneDate.setCellFactory(colonne -> {
-			return new TableCell<Document, LocalDate>(){
+			return new TableCell<Document, LocalDate>() {
 				protected void updateItem(LocalDate item, boolean empty) {
-		            super.updateItem(item, empty);
+					super.updateItem(item, empty);
 
-		            if (item == null || empty) {
-		                setText(null);
-		            } else {
-		                setText(dfInverseLocalDate.format(item));
-		            }
-		        }
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(dfInverseLocalDate.format(item));
+					}
+				}
 			};
 		});
-		
-		table.getColumns().addAll(colonneIdentifiant,colonneTitre,colonneDate,colonneEtat,colonneNbPret);
+
+		table.getColumns().addAll(colonneIdentifiant, colonneTitre, colonneDate, colonneEtat, colonneNbPret);
 	}
 
 	public Scene getScene() {
 		return scene;
 	}
-
+	
+	//Toutes les actions possible par le préposé sauf la recherche
 	private Accordion optionPreposer() {
 		Font policeMenu = Font.font("arial", FontWeight.BOLD, 13);
 		Stage secondaryStage = new Stage();
 		secondaryStage.initModality(Modality.APPLICATION_MODAL);
 		secondaryStage.sizeToScene();
+		secondaryStage.getIcons().add(Style.imgAmende);
+		
 		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument(secondaryStage);
 		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				secondaryStage,false);
+				secondaryStage, false);
 		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				secondaryStage,true);
-		secondaryStage.getIcons().add(Style.imgAmende);
+				secondaryStage, true);
+		
 		// gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		// ajouter Document et mettre a jour l'affichage
@@ -422,6 +412,7 @@ public class InterfacePrincipale {
 		btnEmprunterDoc.setOnAction(e -> {
 			GestionPrets.emprunterDocument((Adherent) tableAdherent.getSelectionModel().getSelectedItem(),
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
+			//Recharge les données des tableViews
 			Arrays.asList(lstTable).forEach(f -> f.refresh());
 		});
 
@@ -429,6 +420,7 @@ public class InterfacePrincipale {
 		btnRetournerDoc.setOnAction(e -> {
 			GestionPrets.retournerDocument(
 					lstTable[tabPane.getSelectionModel().getSelectedIndex()].getSelectionModel().getSelectedItem());
+			//Recharge les données des tableViews
 			Arrays.asList(lstTable).forEach(f -> f.refresh());
 		});
 
@@ -458,7 +450,7 @@ public class InterfacePrincipale {
 	}
 
 	@SuppressWarnings("unchecked")
-	private VBox panneauGestionAdherent() {
+	private VBox panneauTableAdherent() {
 		VBox panneauListePersonne = new VBox(10);
 		panneauListePersonne.setBorder(Style.styleBordure);
 
@@ -499,7 +491,7 @@ public class InterfacePrincipale {
 		return panneauListePersonne;
 	}
 
-	// Les panneau commun au préposer et a l'adherent
+	// Les panneau commun au préposé et a l'adherent
 	private Pair<GridPane, VBox> panneauCommunPreAdh(TableView<Document>[] lstTable) {
 		// Panneau recherche
 		GridPane groupeRecherche = new GridPane();
@@ -524,8 +516,8 @@ public class InterfacePrincipale {
 		groupeRecherche.add(rbMotCle, 1, 2);
 		groupeRecherche.add(btnRecherche, 0, 2);
 
-		btnRecherche.setOnAction(
-				btn -> GestionDocuments.rechercherDocument(tbRecherche.getText(), rbMotCle.isSelected(), lstTable,tabPane));
+		btnRecherche.setOnAction(btn -> GestionDocuments.rechercherDocument(tbRecherche.getText(),
+				rbMotCle.isSelected(), lstTable, tabPane));
 
 		GridPane.setMargin(lblRecherche, new Insets(15, 0, 0, 15));
 		GridPane.setHalignment(lblRecherche, HPos.CENTER);
@@ -555,7 +547,8 @@ public class InterfacePrincipale {
 
 		return new Pair<GridPane, VBox>(groupeRecherche, panneauTableauDoc);
 	}
-
+	
+	//La table et les actions possible pour l'administrateur
 	@SuppressWarnings("unchecked")
 	private Pair<VBox, GridPane> panneauAdministrateur() {
 		// tableau préposer
@@ -565,7 +558,6 @@ public class InterfacePrincipale {
 		Label lblTitrelistePersonne = new Label("Préposé");
 		lblTitrelistePersonne.setFont(Font.font("arial", FontWeight.BOLD, 16));
 
-		//TableView<Personne> tablePrepose = new TableView<Personne>();
 		tablePrepose = new TableView<Personne>();
 		TableColumn<Personne, String> colonneNoPersonne = new TableColumn<Personne, String>("Identifiant");
 		TableColumn<Personne, String> colonnePrenom = new TableColumn<Personne, String>("Prénom");
@@ -581,7 +573,7 @@ public class InterfacePrincipale {
 		colonneTelephone.setPrefWidth(120);
 		colonneMotdePasse.setPrefWidth(120);
 
-		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne")); 
+		colonneNoPersonne.setCellValueFactory(new PropertyValueFactory<>("strNoPersonne"));
 		colonnePrenom.setCellValueFactory(new PropertyValueFactory<>("strPrenom"));
 		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
@@ -608,34 +600,27 @@ public class InterfacePrincipale {
 		stageSecondaire.sizeToScene();
 		stageSecondaire.getIcons().add(Style.imgAmende);
 		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				stageSecondaire,false);
+				stageSecondaire, false);
 		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				stageSecondaire,true);
+				stageSecondaire, true);
 
 		btnAjouterPrepose.setOnAction(e -> {
 			stageSecondaire.setScene(interfaceAjouterUtilisateur.getScene());
 			stageSecondaire.showAndWait();
 		});
-		/*
-		 * btnModifirerAdherent.setOnAction(e->{intefaceModifUtilisateur.
-		 * modifierAdherent((Adherent)
-		 * tableAdherent.getSelectionModel().getSelectedItem());
-		 * secondaryStage.setScene(intefaceModifUtilisateur.getScene());
-		 */
 
-		 btnModifierPrepose.setOnAction(e -> {
-				intefaceModifUtilisateur.modifierPrepose((Prepose) tablePrepose.getSelectionModel().getSelectedItem());
-				stageSecondaire.setScene(intefaceModifUtilisateur.getScene());
-				if ((Prepose) tablePrepose.getSelectionModel().getSelectedItem() != null) {
-					stageSecondaire.showAndWait();
-					tablePrepose.refresh();
-				}
-				;
-			});
+		btnModifierPrepose.setOnAction(e -> {
+			intefaceModifUtilisateur.modifierPrepose((Prepose) tablePrepose.getSelectionModel().getSelectedItem());
+			stageSecondaire.setScene(intefaceModifUtilisateur.getScene());
+			if ((Prepose) tablePrepose.getSelectionModel().getSelectedItem() != null) {
+				stageSecondaire.showAndWait();
+				tablePrepose.refresh();
+			}
+			;
+		});
 
 		btnSupprimerPrepose.setOnAction(a -> {
 			GestionPersonnes.supprimerPersonne(tablePrepose.getSelectionModel().getSelectedItem());
-			System.err.println(tablePrepose.getSelectionModel().getSelectedItem());
 		});
 
 		lblTitreGestionAdmin.setFont(Font.font("arial", FontWeight.BOLD, 15));
