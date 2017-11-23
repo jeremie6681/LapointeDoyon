@@ -19,23 +19,57 @@ import javafx.stage.Stage;
 
 public class GestionPersonnes {
 
-	public static void connection(String strNomConnection, Stage primaryStage) {
-		boolean booConnecter = false;
-		Alert alerteConnection = new Alert(AlertType.WARNING, "votre identifiant n'est pas valide", ButtonType.OK);
-		InterfacePrincipale interfacePrincipale;
-		if (strNomConnection != null && strNomConnection.trim() != "") {
-			for (Personne personne : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
-				if (personne.getStrNoPersonne().equalsIgnoreCase(strNomConnection.trim())) {
-					interfacePrincipale = new InterfacePrincipale(primaryStage, TypePersonne.Adherent, personne);
-					primaryStage.setScene(interfacePrincipale.getScene());
-					booConnecter = true;
+	public static void connectionAdh(String strNoTell, Stage stage) {
+		Personne personneTrouve=null;
+		if (strNoTell!=null &&strNoTell!="") {
+			for (Personne adh : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
+				if(strNoTell.equals(adh.getStrNoTelephone())) {
+					personneTrouve=adh;
 				}
 			}
+			
+		}else {
+			Alert alerteChaineVide = new Alert(AlertType.WARNING,"veuillez insrire un numéros de téléphone", ButtonType.OK);
+			alerteChaineVide.showAndWait();
 		}
-		if (!booConnecter) {
-			alerteConnection.showAndWait();
+		
+		if(personneTrouve==null) {
+			Alert alerteNonTrouve = new Alert(AlertType.WARNING,"Le numéros de téléphone entre ne correspond à aucun dossier", ButtonType.OK);
+			alerteNonTrouve.showAndWait();
+		}
+		else {
+			Alert alerteDossier = new Alert(AlertType.INFORMATION,((Adherent)personneTrouve).toString(), ButtonType.OK);
+			alerteDossier.showAndWait();
+			stage.hide();
 		}
 	}
+	public static void connectionAdh(String strNom,String strPrenom, Stage stage) {
+		Personne personneTrouve=null;
+		if (strNom!=null &&strNom!=""&&strPrenom!=null &&strPrenom!="") {
+			for (Personne adh : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
+				if(strNom.equalsIgnoreCase(adh.getStrNom())) {
+					if(strPrenom.equalsIgnoreCase(adh.getStrPrenom())) {
+						personneTrouve=adh;
+					}
+				}
+			}
+			
+		}else {
+			Alert alerteChaineVide = new Alert(AlertType.WARNING,"Veuillez insrire votre nom ET prénom", ButtonType.OK);
+			alerteChaineVide.showAndWait();
+		}
+		
+		if(personneTrouve==null) {
+			Alert alerteNonTrouve = new Alert(AlertType.WARNING,"Votre nom ne correspond à aucun dossier", ButtonType.OK);
+			alerteNonTrouve.showAndWait();
+		}
+		else {
+			Alert alerteDossier = new Alert(AlertType.INFORMATION,((Adherent)personneTrouve).toString(), ButtonType.OK);
+			alerteDossier.showAndWait();
+			stage.hide();
+		}
+	}
+	
 
 	public static void connection(String strNomConnection, String strMotPasse, Stage primaryStage) {
 		boolean booConnecter = false;
@@ -51,6 +85,7 @@ public class GestionPersonnes {
 				if (strMotPasse.trim().equals(temp.getStrMotPasse())) {
 					interfacePrincipale = new InterfacePrincipale(primaryStage, TypePersonne.Admin, temp);
 					booConnecter = true;
+					
 
 				}
 			} else {
@@ -60,6 +95,7 @@ public class GestionPersonnes {
 						if (strMotPasse.trim().equals(temp.getStrMotPasse())) {
 							interfacePrincipale = new InterfacePrincipale(primaryStage, TypePersonne.Prepose, temp);
 							booConnecter = true;
+							
 						}
 					}
 				}
@@ -69,6 +105,9 @@ public class GestionPersonnes {
 			alerteConnection.showAndWait();
 		} else {
 			primaryStage.setScene(interfacePrincipale.getScene());
+			//pour que la fenetre ne soit pas a l'exterieur de l'ecrand
+			primaryStage.setX(25);
+			primaryStage.setY(25);
 		}
 	}
 

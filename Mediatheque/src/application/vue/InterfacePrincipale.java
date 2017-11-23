@@ -67,7 +67,7 @@ import javafx.util.Pair;
 public class InterfacePrincipale {
 	private Scene scene;
 	private TabPane tabPane = new TabPane();
-
+					
 
 	TypePersonne utilisateur ;//= TypePersonne.Admin;
 
@@ -77,6 +77,7 @@ public class InterfacePrincipale {
 	@SuppressWarnings("static-access")
 
 	public InterfacePrincipale(Stage primaryStage, TypePersonne type, Personne personne) {
+		
 		utilisateur = type;
 
 		Group root = new Group();
@@ -179,7 +180,9 @@ public class InterfacePrincipale {
 			ivAfficherDossier.setPickOnBounds(true);
 			ivAfficherDossier.setFitHeight(90);
 			ivAfficherDossier.setFitWidth(90);
-			
+			Stage secondaryStage = new Stage();
+			secondaryStage.initModality(Modality.APPLICATION_MODAL);
+			ivAfficherDossier.setOnMouseClicked(e->{secondaryStage.setScene(new InterfaceLoginAdherent(secondaryStage).getScene());secondaryStage.showAndWait();});
 			Tooltip.install(ivAfficherDossier, new Tooltip("Afficher son dossier"));
 			
 			
@@ -230,10 +233,10 @@ public class InterfacePrincipale {
 		primaryStage.setOnCloseRequest(r -> {
 			ListeDocuments.getInstance().serialisation();
 			ListePersonnes.getInstance().serialisation();
-			//ListeDocuments.getInstance().serialisation();
 		});
 
 		primaryStage.setTitle("Médiathèque");
+	
 	}
 
 	@SuppressWarnings("unchecked")
@@ -293,6 +296,7 @@ public class InterfacePrincipale {
 	// Colonne commune pour les tableau des documents
 	@SuppressWarnings("unchecked")
 	private void colonneTableauCommune(TableView<Document> table) {
+		
 		TableColumn<Document, String> colonneIdentifiant = new TableColumn<Document, String>("Identifiant");
 		TableColumn<Document, String> colonneTitre = new TableColumn<Document, String>("Titre");
 		TableColumn<Document, LocalDate> colonneDate = new TableColumn<Document, LocalDate>("Date parution");

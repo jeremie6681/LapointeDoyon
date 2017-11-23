@@ -49,6 +49,7 @@ public class InterfaceAjouterDocument {
 	private TextField tfTitre;
 	private Spinner<Integer> spinner;
 	private Stage stage ;
+	
 	public  InterfaceAjouterDocument(Stage stage){
 		this.stage=stage;
 		vb= new VBox(10) ;

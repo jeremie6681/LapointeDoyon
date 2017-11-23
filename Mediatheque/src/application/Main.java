@@ -11,6 +11,7 @@ import application.modele.Personne;
 import application.modele.Prepose;
 import application.modele.TypePersonne;
 import application.vue.InterfaceAjouterDocument;
+import application.vue.InterfaceLoginAdherent;
 import application.vue.InterfaceLoginPrepose;
 import application.vue.InterfacePrincipale;
 import application.vue.InterfaceTypeConnection;
@@ -25,7 +26,7 @@ public class Main extends Application {
 		try {
 			InterfaceTypeConnection ifLogin = new InterfaceTypeConnection(primaryStage);
 			//InterfaceLoginPrepose ifLogin = new InterfaceLoginPrepose();
-			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent();
+			//InterfaceLoginAdherent ifLogin = new InterfaceLoginAdherent(primaryStage);
 			//InterfaceNouvelUtilisateur ifLogin= new InterfaceNouvelUtilisateur();
 			//InterfaceAjouterDocument ifLogin = new InterfaceAjouterDocument();
 		   // Adherent pTest = new Adherent("strnom","strPrenom","stradr","strnotel","adh08"); 
