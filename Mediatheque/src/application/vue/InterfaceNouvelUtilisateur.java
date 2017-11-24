@@ -37,11 +37,13 @@ public class InterfaceNouvelUtilisateur {
 	private Prepose preAmodifier = null;
 	private PasswordField pfConfirmerPwd;
 	private PasswordField pfPwd;
-
+	private Text txtInstruction;
+	private Stage stage;
 	public InterfaceNouvelUtilisateur(TypePersonne typeAjout, Stage stage, Boolean booModifier) {
+		this.stage=stage;
 		vb = new VBox(10);
 		btnConfirmer = new Button("Confirmer");
-		Text txtInstruction = new Text("Création d'utilisateur");
+		txtInstruction = new Text("Création d'utilisateur");
 		Button btnRetour = new Button("retour");
 		// pour la box de création de préposés
 		gpPrep = new GridPane();
@@ -107,17 +109,29 @@ public class InterfaceNouvelUtilisateur {
 			if (!booModifier) {
 				btnConfirmer.setOnAction(e -> GestionPersonnes.ajouterAdherent(tfNom.getText(), tfPrenom.getText(),
 						tfAdresse.getText(), tfNoTel.getText(), stage));
+				
+				stage.setTitle("Ajout d'adhérent");
+				txtInstruction.setText("Ajout d'adhérent");
 			} else {
 				btnConfirmer.setOnAction(e -> GestionPersonnes.modifierAdherent(adhAmodifier, tfAdresse.getText(),
 						tfNoTel.getText(), stage));
+				
+				stage.setTitle("Modification de dossier");
+				txtInstruction.setText("Modification de dossier");
 			}
 		} else if (typeAjout == TypePersonne.Admin) {
 			if (!booModifier) {
 				btnConfirmer.setOnAction(e -> GestionPersonnes.ajouterPrepose(tfNom.getText(), tfPrenom.getText(),
 						tfAdresse.getText(), tfNoTel.getText(), pfPwd.getText(), pfConfirmerPwd.getText(), stage));
+				
+				stage.setTitle("Ajout de Préposé");
+				txtInstruction.setText("Ajout de Préposé");
 			} else {
 				btnConfirmer.setOnAction(e -> GestionPersonnes.modifierPrepose(preAmodifier, tfAdresse.getText(),
 						tfNoTel.getText(), pfPwd.getText(), pfConfirmerPwd.getText(), stage));
+				
+				stage.setTitle("Modification de dossier");
+				txtInstruction.setText("Modification de dossier");
 			}
 		}
 
@@ -151,6 +165,8 @@ public class InterfaceNouvelUtilisateur {
 			tfNom.setDisable(true);
 			tfPrenom.setDisable(true);
 			adhAmodifier = adh;
+			stage.setTitle("Modification de dossier");
+			txtInstruction.setText("Modification de dossier");
 
 		} catch (NullPointerException n) {
 			Alert alertErreur = new Alert(AlertType.WARNING, "vous devez choisir une personne");
@@ -169,6 +185,8 @@ public class InterfaceNouvelUtilisateur {
 			pfPwd.setText(prepose.getStrMotPasse());
 			pfConfirmerPwd.setText(prepose.getStrMotPasse());
 			preAmodifier = prepose;
+			stage.setTitle("Modification de dossier");
+			txtInstruction.setText("Modification de dossier");
 
 		} catch (NullPointerException n) {
 			Alert alertErreur = new Alert(AlertType.WARNING, "vous devez choisir une personne");
