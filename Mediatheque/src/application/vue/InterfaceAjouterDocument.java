@@ -178,6 +178,7 @@ public class InterfaceAjouterDocument {
 		vb.getChildren().addAll(txtInstruction, vbRadioButtons, gpInfos, gpDVD, btnConfirmer, btnRetour);
 
 		scene = new Scene(vb);
+		stage.setTitle("Ajout de document");
 	}
 
 	public Scene getScene() {
