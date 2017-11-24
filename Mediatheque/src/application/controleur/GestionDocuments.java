@@ -36,28 +36,30 @@ public class GestionDocuments {
 			"nous", "vous", "ils", "par", "avec", "sous", "dans", "pour", "sans", "est", "que", "qui", "quand", "eux",
 			"tous", "tout", "toute", "toutes", "ceux", "celle", "et", "sur", "ont" };
 
+	// Supprime un document non emprunter
 	public static void supprimerDocuments(Document document) {
 		try {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmation ");
 			alert.setHeaderText("Supression d'un document");
-			alert.setContentText("Voulez-vous vraiment Suprimer le " + document.getTypeDocument().getStrNomType() + ": "+ document.getStrTitre());
-			if(document.getEtatDoc().equals(Etat.DISPONIBLE)) {
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument()).removeIf(d -> document.equals(d));
+			alert.setContentText("Voulez-vous vraiment Suprimer le " + document.getTypeDocument().getStrNomType() + ": "
+					+ document.getStrTitre());
+			if (document.getEtatDoc().equals(Etat.DISPONIBLE)) {
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					ListeDocuments.getInstance().mapDocument.get(document.getTypeDocument())
+							.removeIf(d -> document.equals(d));
+				} else {
+				}
 			} else {
-			}
-			}else {
-				Alert alertErreur = new Alert(AlertType.WARNING, "Le document doit être disponible pour être suprimé de la collection",ButtonType.OK);
+				Alert alertErreur = new Alert(AlertType.WARNING,
+						"Le document doit être disponible pour être suprimé de la collection", ButtonType.OK);
 				alertErreur.showAndWait();
 			}
 		} catch (NullPointerException e) {
-			Alert alertErreur = new Alert(AlertType.WARNING, "vous devez selectionner un document",ButtonType.OK);
+			Alert alertErreur = new Alert(AlertType.WARNING, "vous devez selectionner un document", ButtonType.OK);
 			alertErreur.showAndWait();
 		}
-		
-
 	}
 
 	// Recherche par auteur ou mot clé et crée un filtre sur l'observableList pour
@@ -209,6 +211,7 @@ public class GestionDocuments {
 		return booAjoutReussi;
 	}
 
+	// Valide les informations du document
 	private static Alert validerDocuments(LocalDate dateParution, String strTitre) {
 		Alert alerteDocument = null;
 		if (dateParution == null) {
@@ -233,5 +236,5 @@ public class GestionDocuments {
 	public static void rechargeDonneLivre(TableView<Document>[] lstTable) {
 		lstTable[1].setItems(ListeDocuments.getInstance().mapDocument.get(TypeDocument.Livre));
 	}
-	
+
 }

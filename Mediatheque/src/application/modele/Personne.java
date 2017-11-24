@@ -1,10 +1,9 @@
 package application.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Vector;
 
-public abstract  class Personne implements Serializable,Comparable<Personne>{
+public abstract class Personne implements Serializable, Comparable<Personne> {
 
 	private static final long serialVersionUID = 7597084348346483128L;
 	private String strNoPersonne;
@@ -12,8 +11,8 @@ public abstract  class Personne implements Serializable,Comparable<Personne>{
 	private String strPrenom;
 	private String strAdresse;
 	private String strNoTelephone;
-	//private ArrayList<Pret> lstPrets=new ArrayList<Pret>();
-	private Vector<Pret> lstPrets= new Vector<>();
+	private Vector<Pret> lstPrets = new Vector<>();
+
 	public Personne(String strNoPersonne, String strNom, String strPrenom, String strAdresse, String strNoTelephone) {
 		this.strNoPersonne = strNoPersonne;
 		this.strNom = strNom;
@@ -75,6 +74,8 @@ public abstract  class Personne implements Serializable,Comparable<Personne>{
 		return "Personne [strNoPersonne=" + strNoPersonne + ", strNom=" + strNom + ", strPrenom=" + strPrenom
 				+ ", strAdresse=" + strAdresse + ", strNoTelephone=" + strNoTelephone + "]";
 	}
+	
+	//Détermine le type d'utilisateur, est défini dans les sous-classes
 	abstract public TypePersonne getTypePersonne();
 
 	@Override
@@ -82,5 +83,4 @@ public abstract  class Personne implements Serializable,Comparable<Personne>{
 		return this.strNoPersonne.compareTo(p.strNoPersonne);
 	}
 
-	
 }

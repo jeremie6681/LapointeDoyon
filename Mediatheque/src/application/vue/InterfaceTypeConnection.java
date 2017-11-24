@@ -1,7 +1,5 @@
 package application.vue;
 
-import application.modele.ListeDocuments;
-import application.modele.ListePersonnes;
 import application.modele.Style;
 import application.modele.TypePersonne;
 import javafx.geometry.Insets;
@@ -27,7 +25,6 @@ public class InterfaceTypeConnection {
 	public InterfaceTypeConnection(Stage primaryStage) {
 		Text txtAccueil = new Text("Médiatheque LapointeDoyon");
 		Text txtPar= new Text("Par Jérémie Lapointe et Philippe Doyon");
-		Font  fntBoutons = Font.font("Arial",FontWeight.BOLD,FontPosture.REGULAR, 20);
 		Text txtInstruction = new Text("Veuillez choisir votre type de connexion");
 		VBox vb = new VBox();
 		HBox hbBoutons= new HBox(20);
@@ -53,11 +50,11 @@ public class InterfaceTypeConnection {
 		
 		//modifications Bouton Adherent
 		btnAdherent= new Button("Connexion Adhérent");
-		btnAdherent.setFont(fntBoutons);
+		btnAdherent.setFont(Style.fntBoutons);
 		
 		//modifications Bouton préposé
 		btnPrepose= new Button("Connexion Préposé/Administrateur");
-		btnPrepose.setFont(fntBoutons);
+		btnPrepose.setFont(Style.fntBoutons);
 		
 
 		hbBoutons.getChildren().addAll(btnAdherent,btnPrepose);

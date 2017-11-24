@@ -2,9 +2,6 @@ package application.modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Date;
-
 import javafx.collections.FXCollections;
 
 public class DVD extends Document implements Serializable{

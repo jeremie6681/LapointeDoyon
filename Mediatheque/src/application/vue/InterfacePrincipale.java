@@ -639,7 +639,5 @@ public class InterfacePrincipale {
 		GridPane.setHalignment(lblTitreGestionAdmin, HPos.CENTER);
 
 		return new Pair<VBox, GridPane>(panneauListePersonne, panneauGestionDesPrepose);
-
 	}
-
 }
