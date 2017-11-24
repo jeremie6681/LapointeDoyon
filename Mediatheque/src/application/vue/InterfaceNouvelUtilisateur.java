@@ -1,13 +1,10 @@
 package application.vue;
 
-import java.util.function.UnaryOperator;
 import application.controleur.GestionPersonnes;
 import application.modele.Adherent;
 import application.modele.Prepose;
 import application.modele.Style;
 import application.modele.TypePersonne;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,10 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextFormatter.Change;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -28,7 +21,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 public class InterfaceNouvelUtilisateur {
 
@@ -43,8 +35,8 @@ public class InterfaceNouvelUtilisateur {
 	private TextField tfNoTel;
 	private Adherent adhAmodifier = null;
 	private Prepose preAmodifier = null;
-	PasswordField pfConfirmerPwd;
-	PasswordField pfPwd;
+	private PasswordField pfConfirmerPwd;
+	private PasswordField pfPwd;
 
 	public InterfaceNouvelUtilisateur(TypePersonne typeAjout, Stage stage, Boolean booModifier) {
 		vb = new VBox(10);
@@ -70,34 +62,8 @@ public class InterfaceNouvelUtilisateur {
 		Label lblNoTel = new Label("Numéros de Téléphone :");
 		tfNoTel = new TextField();
 		Text txtInfos = new Text("Informations de la personne ");
-		/*
-		 * TextFormatter<String> test = new TextFormatter<>(new StringConverter<>() {
-		 * });
-		 */
+
 		tfNoTel.setPromptText("(\t)\t-\t");
-		// tfNoTel.setText("(_ _ _)_ _ _- _ _ _ _");
-		/*
-		 * tfNoTel.setOnKeyPressed(k -> { System.out.println("test"); if
-		 * (k.getCode().equals(KeyCode.A)) { } });
-		 * 
-		 * tfNoTel.addEventFilter(KeyEvent.KEY_TYPED, m -> { System.out.println("test");
-		 * if (m.getCode().equals(KeyCode.A)) { m.consume(); } });
-		 */
-		/*
-		 * UnaryOperator<Change> filter = change -> { String text = change.getText(); /*
-		 * if (text.matches("^\\(\\d{1,3}\\)?$")) { return change; }
-		 */
-		/*
-		 * switch(text.length()) { case 1: if(text.charAt(0)!= '(' &&
-		 * Character.isDigit(text.charAt(0))) {
-		 * 
-		 * } break;
-		 * 
-		 * }
-		 * 
-		 * return null; }; TextFormatter<String> textFormatter = new
-		 * TextFormatter<>(filter); tfNoTel.setTextFormatter(textFormatter);
-		 */
 
 		// btnRetour
 		btnRetour.setOnAction(e -> stage.hide());

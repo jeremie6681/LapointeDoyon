@@ -350,16 +350,11 @@ public class InterfacePrincipale {
 		secondaryStage.sizeToScene();
 		secondaryStage.getIcons().add(Style.imgAmende);
 		
-		final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument(secondaryStage);
-		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				secondaryStage, false);
-		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				secondaryStage, true);
-		
 		// gestion document
 		Button btnAjouterDocument = new Button("Ajouter Document");
 		// ajouter Document et mettre a jour l'affichage
 		btnAjouterDocument.setOnAction(e -> {
+			final InterfaceAjouterDocument interfaceAjouterDoc = new InterfaceAjouterDocument(secondaryStage);
 			secondaryStage.setScene(interfaceAjouterDoc.getScene());
 			secondaryStage.showAndWait();
 			GestionDocuments.rechargeDonneeDoc(lstTable);
@@ -381,15 +376,22 @@ public class InterfacePrincipale {
 		// gestion adhérent
 		Button btnAjouterAdherent = new Button("Ajouter Adhérent");
 		btnAjouterAdherent.setOnAction(e -> {
+			final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
+					secondaryStage, false);
 			secondaryStage.setScene(interfaceAjouterUtilisateur.getScene());
 			secondaryStage.showAndWait();
 		});
 
 		Button btnModifirerAdherent = new Button("Modifier Adhérent");
 		btnModifirerAdherent.setOnAction(e -> {
+			final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
+					secondaryStage, true);
 			intefaceModifUtilisateur.modifierAdherent((Adherent) tableAdherent.getSelectionModel().getSelectedItem());
 			secondaryStage.setScene(intefaceModifUtilisateur.getScene());
+			
+			//S'il y a un adhérent de sélectionner
 			if ((Adherent) tableAdherent.getSelectionModel().getSelectedItem() != null) {
+				
 				secondaryStage.showAndWait();
 				tableAdherent.refresh();
 			}
@@ -599,19 +601,21 @@ public class InterfacePrincipale {
 		stageSecondaire.initModality(Modality.APPLICATION_MODAL);
 		stageSecondaire.sizeToScene();
 		stageSecondaire.getIcons().add(Style.imgAmende);
-		final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				stageSecondaire, false);
-		final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
-				stageSecondaire, true);
 
 		btnAjouterPrepose.setOnAction(e -> {
+			final InterfaceNouvelUtilisateur interfaceAjouterUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
+					stageSecondaire, false);
 			stageSecondaire.setScene(interfaceAjouterUtilisateur.getScene());
 			stageSecondaire.showAndWait();
 		});
 
 		btnModifierPrepose.setOnAction(e -> {
+			final InterfaceNouvelUtilisateur intefaceModifUtilisateur = new InterfaceNouvelUtilisateur(utilisateur,
+					stageSecondaire, true);
 			intefaceModifUtilisateur.modifierPrepose((Prepose) tablePrepose.getSelectionModel().getSelectedItem());
 			stageSecondaire.setScene(intefaceModifUtilisateur.getScene());
+			
+			//s'il y a bien une personne de sélectionner
 			if ((Prepose) tablePrepose.getSelectionModel().getSelectedItem() != null) {
 				stageSecondaire.showAndWait();
 				tablePrepose.refresh();

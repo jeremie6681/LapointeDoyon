@@ -196,13 +196,13 @@ public class GestionPersonnes {
 		} else if (!strNoTelephone.trim().matches("^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$")) {// https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/
 			alerteAjouterPersonne = new Alert(AlertType.WARNING,"veuillez spécifier une numéro de téléphone valide en Amérique du Nord", ButtonType.OK);
 		}
-		ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(e->System.out.println(e));
+		//ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(e->System.out.println(e));
 		return alerteAjouterPersonne;
 	}
 
 	public static void supprimerPersonne(Personne personne) {
 		try {
-			System.err.println(personne);
+			//System.err.println(personne);
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmation");
 			alert.setHeaderText("Suppresion du dossier d'une personne");
