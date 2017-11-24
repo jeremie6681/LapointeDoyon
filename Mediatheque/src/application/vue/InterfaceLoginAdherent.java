@@ -41,15 +41,15 @@ public class InterfaceLoginAdherent {
 		vb.setPadding(new Insets(20));
 		vb.setAlignment(Pos.CENTER);
 		// text pour instructions
-		Text txtInstruction = new Text("veuillez entrer vos informations de connection");
+		Text txtInstruction = new Text("Veuillez entrer vos informations de connexion");
 		txtInstruction.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
 		TextFlow tflInstruction = new TextFlow(txtInstruction);
 
 		// vbox pour choix de connection
 		VBox vbRb = new VBox(10);
 		ToggleGroup tg = new ToggleGroup();
-		rbNom = new RadioButton("Connection avec nom et prénom");
-		rbTel = new RadioButton("Connection avec le numéro de téléphone");
+		rbNom = new RadioButton("Connexion avec nom et prénom");
+		rbTel = new RadioButton("Connexion avec le numéro de téléphone");
 		rbNom.setToggleGroup(tg);
 		rbTel.setToggleGroup(tg);
 		rbNom.setOnAction(gestionRadioButtons);
@@ -59,7 +59,7 @@ public class InterfaceLoginAdherent {
 
 		// gpNom
 		gpNom = new GridPane();
-		Text txNom = new Text("Connection par Nom & Prénom");
+		Text txNom = new Text("Connexion par Nom & Prénom");
 		Label lblNom = new Label("Nom :");
 		tfNom = new TextField();
 		Label lblPrenom = new Label("Prénom:");
@@ -77,7 +77,7 @@ public class InterfaceLoginAdherent {
 
 		// gpTell
 		gpTell = new GridPane();
-		Text txTell = new Text("Connection par No. de téléphone");
+		Text txTell = new Text("Connexion par No. de téléphone");
 		Label lblNotell = new Label("Numéro de téléphone :");
 		tfNoTell = new TextField();
 

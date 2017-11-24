@@ -65,8 +65,6 @@ public class InterfaceNouvelUtilisateur {
 		tfNoTel = new TextField();
 		Text txtInfos = new Text("Informations de la personne ");
 
-		tfNoTel.setPromptText("(\t)\t-\t");
-
 		// btnRetour
 		btnRetour.setOnAction(e -> stage.hide());
 
