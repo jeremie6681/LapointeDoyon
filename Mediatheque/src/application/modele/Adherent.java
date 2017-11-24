@@ -7,12 +7,11 @@ import javafx.collections.FXCollections;
 public class Adherent extends Personne implements Serializable {
 
 	private static final long serialVersionUID = 5978651855639753884L;
-	private static int intNbrAdh = 1;
+	private static int intNbrAdh ;
 
 	// constructeur utilisé pour la lecture de fichiers
 	public Adherent(String strNom, String strPrenom, String strAdresse, String strNoTelephone, String strNoPersonne) {
 		super(strNoPersonne, strNom, strPrenom, strAdresse, strNoTelephone);
-		intNbrAdh++;
 	}
 
 	// constructeur utilisé pour la création d'adhérents par formulaire
