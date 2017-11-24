@@ -311,7 +311,8 @@ public class GestionPersonnes {
 
 		alerteModifierPersonne.showAndWait();
 	}
-
+	
+	//Prends les 9 chiffres du numéro de téléphones pour le mettre selon le format usuel
 	public static String strFormatTelephone(String strTelephone) {
 		return "(" + strTelephone.substring(0, 3) + ") " + strTelephone.substring(3, 6) + "-"
 				+ strTelephone.substring(6);
