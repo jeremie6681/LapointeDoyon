@@ -24,7 +24,6 @@ public class GestionPersonnes {
 		Personne personneTrouve = null;
 		if (strNoTell != null && strNoTell != "") {
 			for (Personne adh : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
-				System.out.println(adh.getStrNoTelephone());
 				if (strNoTellEnChiffre(strNoTell).equals(adh.getStrNoTelephone())) {
 					personneTrouve = adh;
 				}
@@ -319,7 +318,13 @@ public class GestionPersonnes {
 		return "(" + strTelephone.substring(0, 3) + ") " + strTelephone.substring(3, 6) + "-"
 				+ strTelephone.substring(6);
 	}
-
+	
+	
+	/*
+	 * transforme un no de téléphone de n'importe
+	 *  quel format en un format standardisé 
+	 * retourne :un une string du format ##########
+	 */
 	public static String strNoTellEnChiffre(String strTel) {
 
 		String strTelMod = "";
@@ -338,8 +343,6 @@ public class GestionPersonnes {
 
 			}
 		}
-		System.out.println(strTelMod);
-
 		return strTelMod;
 	}
 }
