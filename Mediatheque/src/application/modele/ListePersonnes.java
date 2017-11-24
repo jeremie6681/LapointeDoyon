@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import application.controleur.GestionPersonnes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -125,17 +127,17 @@ public class ListePersonnes implements Serializable {
 				// approprié
 				switch (tabLigne[0].substring(0, 3)) {
 				case "Adm":
-					Prepose objAdministrateur = new Prepose(tabLigne[1], tabLigne[2], tabLigne[3], tabLigne[4],
+					Prepose objAdministrateur = new Prepose(tabLigne[1], tabLigne[2], tabLigne[3], GestionPersonnes.strNoTellEnChiffre(tabLigne[4]),
 							tabLigne[5], tabLigne[0]);
 					lstAdmin.add(objAdministrateur);
 					break;
 				case "Pre":
-					Prepose objPreposer = new Prepose(tabLigne[1], tabLigne[2], tabLigne[3], tabLigne[4], tabLigne[5],
+					Prepose objPreposer = new Prepose(tabLigne[1], tabLigne[2], tabLigne[3], GestionPersonnes.strNoTellEnChiffre(tabLigne[4]), tabLigne[5],
 							tabLigne[0]);
 					lstPrepose.add(objPreposer);
 					break;
 				case "Adh":
-					Adherent objAdherent = new Adherent(tabLigne[1], tabLigne[2], tabLigne[3], tabLigne[4],
+					Adherent objAdherent = new Adherent(tabLigne[1], tabLigne[2], tabLigne[3], GestionPersonnes.strNoTellEnChiffre(tabLigne[4]),
 							tabLigne[0]);
 					lstAdherent.add(objAdherent);
 					;

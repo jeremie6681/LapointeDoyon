@@ -24,7 +24,8 @@ public class GestionPersonnes {
 		Personne personneTrouve = null;
 		if (strNoTell != null && strNoTell != "") {
 			for (Personne adh : ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent)) {
-				if (strNoTell.equals(adh.getStrNoTelephone())) {
+				System.out.println(adh.getStrNoTelephone());
+				if (strNoTellEnChiffre(strNoTell).equals(adh.getStrNoTelephone())) {
 					personneTrouve = adh;
 				}
 			}
@@ -138,7 +139,7 @@ public class GestionPersonnes {
 
 		if (alerteAjouterPersonne == null) {
 			Adherent.ouRenduNoPersonnes();
-			Adherent adherent = new Adherent(strNom, strPrenom, strAdresse, strNoTelephone);
+			Adherent adherent = new Adherent(strNom, strPrenom, strAdresse, strNoTellEnChiffre(strNoTelephone));
 			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).add(adherent);
 
 			alerteAjouterPersonne = new Alert(AlertType.CONFIRMATION, strPrenom + " " + strNom
@@ -174,7 +175,7 @@ public class GestionPersonnes {
 
 		if (alerteAjouterPersonne == null) {
 			Prepose.ouRenduNoPersonnes();
-			Prepose prepose = new Prepose(strNom, strPrenom, strAdresse, strNoTelephone, strPwd);
+			Prepose prepose = new Prepose(strNom, strPrenom, strAdresse, strNoTellEnChiffre(strNoTelephone), strPwd);
 			ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Prepose).add(prepose);
 			alerteAjouterPersonne = new Alert(AlertType.CONFIRMATION, strPrenom + " " + strNom
 					+ "a été créer avec succes. Son Identifiant est : " + prepose.getStrNoPersonne(), ButtonType.OK);
@@ -203,7 +204,7 @@ public class GestionPersonnes {
 		} else if (strNoTelephone == null || strNoTelephone.trim().equals("")) {
 			alerteAjouterPersonne = new Alert(AlertType.WARNING, "veuillez spécifier une numéro de téléphone",
 					ButtonType.OK);
-		} else if (!strNoTelephone.trim().matches("^([0-9]{10})$")) {
+		} else if (!strNoTelephone.trim().matches("^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$")) {
 			alerteAjouterPersonne = new Alert(AlertType.WARNING,
 					"veuillez spécifier une numéro de téléphone valide en Amérique du Nord: 10 chiffre", ButtonType.OK);
 		}
@@ -246,7 +247,7 @@ public class GestionPersonnes {
 		Alert alerteModifierPersonne = ajouterDeBase(adh.getStrNom(), adh.getStrPrenom(), strAdresse, strNoTelephone);
 		if (alerteModifierPersonne == null) {
 			adh.setStrAdresse(strAdresse);
-			adh.setStrNoTelephone(strNoTelephone);
+			adh.setStrNoTelephone(strNoTellEnChiffre(strNoTelephone));
 			alerteModifierPersonne = new Alert(AlertType.CONFIRMATION,
 					adh.getStrPrenom() + " " + adh.getStrNom() + "a été modfié avec succes", ButtonType.OK);
 			stage.hide();
@@ -302,7 +303,7 @@ public class GestionPersonnes {
 		}
 		if (alerteModifierPersonne == null) {
 			prep.setStrAdresse(strAdresse);
-			prep.setStrNoTelephone(strNoTelephone);
+			prep.setStrNoTelephone(strNoTellEnChiffre(strNoTelephone));
 			prep.setStrMotPasse(strPwd);
 			alerteModifierPersonne = new Alert(AlertType.CONFIRMATION,
 					prep.getStrPrenom() + " " + prep.getStrNom() + "a été modfié avec succès", ButtonType.OK);
@@ -311,10 +312,34 @@ public class GestionPersonnes {
 
 		alerteModifierPersonne.showAndWait();
 	}
-	
-	//Prends les 9 chiffres du numéro de téléphones pour le mettre selon le format usuel
+
+	// Prends les 9 chiffres du numéro de téléphones pour le mettre selon le format
+	// usuel
 	public static String strFormatTelephone(String strTelephone) {
 		return "(" + strTelephone.substring(0, 3) + ") " + strTelephone.substring(3, 6) + "-"
 				+ strTelephone.substring(6);
+	}
+
+	public static String strNoTellEnChiffre(String strTel) {
+
+		String strTelMod = "";
+		Character c = null;
+
+		for (int x = 0; x < 16; x++) {
+			try {
+				c = strTel.charAt(x);
+				if (c.toString().matches("\\d{1}")) {
+					strTelMod += c.toString();
+					if (strTelMod.length() >= 10) {
+						x = 20;
+					}
+				}
+			} catch (Exception e) {
+
+			}
+		}
+		System.out.println(strTelMod);
+
+		return strTelMod;
 	}
 }
