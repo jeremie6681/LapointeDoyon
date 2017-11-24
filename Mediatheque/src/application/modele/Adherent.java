@@ -2,6 +2,7 @@ package application.modele;
 
 import java.io.Serializable;
 
+import application.controleur.GestionPersonnes;
 import javafx.collections.FXCollections;
 
 public class Adherent extends Personne implements Serializable {
@@ -46,7 +47,7 @@ public class Adherent extends Personne implements Serializable {
 		strRetour += "\nPrénom: " + this.getStrPrenom();
 		strRetour += "\nNom: " + this.getStrNom();
 		strRetour += "\nAdresse: " + this.getStrAdresse();
-		strRetour += "\nNuméro de téléphone: " + this.getStrNoTelephone();
+		strRetour += "\nNuméro de téléphone: " + GestionPersonnes.strFormatTelephone(this.getStrNoTelephone());
 		strRetour += "\n\n=====Prets=====\n";
 		if (this.getLstPrets().size() == 0) {
 			strRetour += "aucun prets\n";

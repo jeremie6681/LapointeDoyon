@@ -193,10 +193,9 @@ public class GestionPersonnes {
 		} else if (strNoTelephone == null || strNoTelephone.trim().equals("")) {
 			alerteAjouterPersonne = new Alert(AlertType.WARNING, "veuillez spécifier une numéro de téléphone",
 					ButtonType.OK);
-		} else if (!strNoTelephone.trim().matches("^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$")) {// https://howtodoinjava.com/regex/java-regex-validate-and-format-north-american-phone-numbers/
+		} else if (!strNoTelephone.trim().matches("^([0-9]{10})$")) {
 			alerteAjouterPersonne = new Alert(AlertType.WARNING,"veuillez spécifier une numéro de téléphone valide en Amérique du Nord", ButtonType.OK);
 		}
-		//ListePersonnes.getInstance().mapPersonne.get(TypePersonne.Adherent).forEach(e->System.out.println(e));
 		return alerteAjouterPersonne;
 	}
 
@@ -285,5 +284,9 @@ public class GestionPersonnes {
 		}
 		
 		alerteModifierPersonne.showAndWait();
+	}
+	
+	public static String strFormatTelephone(String strTelephone) {
+		return "(" + strTelephone.substring(0, 3) + ") " + strTelephone.substring(3,6) + "-" + strTelephone.substring(6);
 	}
 }

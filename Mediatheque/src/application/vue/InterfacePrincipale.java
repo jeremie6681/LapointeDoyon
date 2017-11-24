@@ -478,6 +478,20 @@ public class InterfacePrincipale {
 		colonneNom.setCellValueFactory(new PropertyValueFactory<>("strNom"));
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
+		
+		colonneTelephone.setCellFactory(c -> {
+			return new TableCell<Personne, String>() {
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(GestionPersonnes.strFormatTelephone(item));
+					}
+				}
+			};
+		});
 
 		tableAdherent.getColumns().addAll(colonneNoPersonne, colonnePrenom, colonneNom, colonneAdresse,
 				colonneTelephone);
@@ -581,6 +595,21 @@ public class InterfacePrincipale {
 		colonneAdresse.setCellValueFactory(new PropertyValueFactory<>("strAdresse"));
 		colonneTelephone.setCellValueFactory(new PropertyValueFactory<>("strNoTelephone"));
 		colonneMotdePasse.setCellValueFactory(new PropertyValueFactory<>("strMotPasse"));
+		
+		colonneTelephone.setCellFactory(c -> {
+			return new TableCell<Personne, String>() {
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(GestionPersonnes.strFormatTelephone(item));
+					}
+				}
+			};
+		});
+		
 
 		tablePrepose.getColumns().addAll(colonneNoPersonne, colonneMotdePasse, colonnePrenom, colonneNom,
 				colonneAdresse, colonneTelephone);

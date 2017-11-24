@@ -110,6 +110,7 @@ public class InterfaceLoginAdherent {
 		return scene;
 	}
 
+	//Pour le choix de connexion entre Numéro de téléphone ou (nom et prénom)
 	EventHandler<ActionEvent> gestionRadioButtons = new EventHandler<ActionEvent>() {
 		public void handle(ActionEvent event) {
 			if (rbTel.isSelected()) {
