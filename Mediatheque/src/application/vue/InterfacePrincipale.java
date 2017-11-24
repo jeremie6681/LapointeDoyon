@@ -614,7 +614,7 @@ public class InterfacePrincipale {
 					stageSecondaire, true);
 			intefaceModifUtilisateur.modifierPrepose((Prepose) tablePrepose.getSelectionModel().getSelectedItem());
 			stageSecondaire.setScene(intefaceModifUtilisateur.getScene());
-			
+			stageSecondaire.setTitle("Modifiaction du dossier d'un préposé");
 			//s'il y a bien une personne de sélectionner
 			if ((Prepose) tablePrepose.getSelectionModel().getSelectedItem() != null) {
 				stageSecondaire.showAndWait();

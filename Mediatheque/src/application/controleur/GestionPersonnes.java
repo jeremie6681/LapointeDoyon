@@ -274,12 +274,16 @@ public class GestionPersonnes {
 		if (strPwd == null || strPwd.trim().equals("") || strPwdConfirmer == null|| strPwdConfirmer.trim().equals("")) {
 			alerteModifierPersonne = new Alert(AlertType.WARNING,"veuillez insrire le mot de passe ainsi que sa confirmation", ButtonType.OK);
 		}
+		if(strPwd!=strPwdConfirmer) {
+			alerteModifierPersonne = new Alert(AlertType.WARNING,"Le mot de passe ainsi que sa confirmation doivent êtres identiques", ButtonType.OK);
+		}
 		if (alerteModifierPersonne == null) {
 			prep.setStrAdresse(strAdresse);
 			prep.setStrNoTelephone(strNoTelephone);
 			alerteModifierPersonne = new Alert(AlertType.CONFIRMATION,prep.getStrPrenom() + " " + prep.getStrNom() + "a été modfié avec succès", ButtonType.OK);
 			stage.hide();
 		}
+		
 		alerteModifierPersonne.showAndWait();
 	}
 }
