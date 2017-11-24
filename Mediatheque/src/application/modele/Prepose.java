@@ -39,6 +39,9 @@ public class Prepose extends Personne implements Serializable {
 	public String getStrMotPasse() {
 		return strMotPasse;
 	}
+	public void setStrMotPasse(String strMotPasse) {
+		this.strMotPasse=strMotPasse;
+	}
 
 	@Override
 	public TypePersonne getTypePersonne() {
